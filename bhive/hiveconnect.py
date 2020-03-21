@@ -30,7 +30,7 @@ class HiveConnect(object):
             from bhive import Hive
             from bhive.hiveconnect import HiveConnect
             from bhive.comment import Comment
-            sc2 = HiveConnect(client_id="bhive.app")
+            sc2 = HiveConnect(client_id="beem.app")
             hive = Hive(hiveconnect=sc2)
             hive.wallet.unlock("supersecret-passphrase")
             post = Comment("author/permlink", hive_instance=hive)

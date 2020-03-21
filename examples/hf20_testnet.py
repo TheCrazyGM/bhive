@@ -27,7 +27,7 @@ if __name__ == "__main__":
     hv = Hive(node="https://api.hive.blog")
     hv.wallet.unlock(pwd="pwd123")
 
-    account = Account("bhivebot", hive_instance=hv)
+    account = Account("beembot", hive_instance=hv)
     print(account.get_voting_power())
 
     account.transfer("thecrazygm", 0.001, "HBD", "test")

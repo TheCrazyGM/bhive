@@ -34,7 +34,7 @@ if __name__ == "__main__":
 
     hv = Hive(offline=True)
 
-    op = operations.Transfer({'from': 'bhivebot',
+    op = operations.Transfer({'from': 'beembot',
                               'to': 'thecrazygm',
                               'amount': "0.001 HBD",
                               'memo': ""})

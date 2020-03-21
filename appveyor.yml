@@ -73,7 +73,7 @@ after_test:
 - cmd: copy /Y C:\OpenSSL-v111-Win64\bin\libssl-1_1-x64.dll dist\bhivepy
 - cmd: copy /Y C:\OpenSSL-Win64\bin\ssleay32.dll dist\bhivepy
 - cmd: copy /Y C:\OpenSSL-Win64\bin\libeay32.dll dist\bhivepy
-# - cmd: 7z a -�mxbhiveempy.zip %APPVEYOR_BUILD_FOLDER%\disbhiveempy
+# - cmd: 7z a -�mxbhivempy.zip %APPVEYOR_BUILD_FOLDER%\disbhivempy
 #- ps: 7z a -m0=LZMA2 -mx9 $env:BUILD .\dist\bhivepy
 - ps: 7z a $env:BUILD .\dist\bhivepy
 - ps: 7z a $env:BUILD2 .\dist\bhivepy.exe

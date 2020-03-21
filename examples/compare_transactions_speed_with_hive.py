@@ -35,7 +35,7 @@ from hivebase import operations as hiveOperations
 from timeit import default_timer as timer
 
 
-class BeemTest(object):
+class BhiveTest(object):
 
     def setup(self):
         self.prefix = u"HIVE"
@@ -86,7 +86,7 @@ class HiveTest(object):
 
 if __name__ == "__main__":
     hive_test = HiveTest()
-    bhive_test = BeemTest()
+    bhive_test = BhiveTest()
     hive_test.setup()
     bhive_test.setup()
     hive_times = []
@@ -100,7 +100,7 @@ if __name__ == "__main__":
             "amount": "111.110 HIVE",
             "memo": "Fooo"
         })
-        opBeem = operations.Transfer(**{
+        opBhive = operations.Transfer(**{
             "from": "foo",
             "to": "baar",
             "amount": Amount("111.110 HIVE", hive_instance=Hive(offline=True)),
@@ -110,7 +110,7 @@ if __name__ == "__main__":
         t_s, t_v = hive_test.doit(ops=opHive)
         hive_times.append([t_s, t_v])
 
-        t_s, t_v = bhive_test.doit(ops=opBeem)
+        t_s, t_v = bhive_test.doit(ops=opBhive)
         bhive_times.append([t_s, t_v])
 
     hive_dt = [0, 0]

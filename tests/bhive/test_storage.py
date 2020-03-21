@@ -61,6 +61,6 @@ class Testcases(unittest.TestCase):
 
     def test_set_default_account(self):
         hv = self.hv
-        hv.set_default_account("bhivebot")
+        hv.set_default_account("beembot")
 
-        self.assertEqual(hv.config["default_account"], "bhivebot")
+        self.assertEqual(hv.config["default_account"], "beembot")

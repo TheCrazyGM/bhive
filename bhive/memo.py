@@ -5,10 +5,10 @@ from __future__ import print_function
 from __future__ import unicode_literals
 from builtins import str
 from builtins import object
-from bhivee.instance import shared_hive_instance
+from bhive.instance import shared_hive_instance
 import random
-from bhiveebase import memo as BtsMemo
-from bhiveegraphenebase.account import PrivateKey, PublicKey
+from bhivebase import memo as BtsMemo
+from bhivegraphenebase.account import PrivateKey, PublicKey
 from .account import Account
 from .exceptions import MissingKeyError
 
@@ -28,7 +28,7 @@ class Memo(object):
 
         .. code-block:: python
 
-            from bhivee.memo import Memo
+            from bhive.memo import Memo
             m = Memo("hiveeu", "wallet.xeroc")
             m.hive.wallet.unlock("secret")
             enc = (m.encrypt("foobar"))
@@ -41,7 +41,7 @@ class Memo(object):
 
         .. code-block:: python
 
-            from bhivee.memo import Memo
+            from bhive.memo import Memo
             m = Memo()
             m.hive.wallet.unlock("secret")
             print(m.decrypt(op_data["memo"]))
@@ -93,13 +93,13 @@ class Memo(object):
 
         Encrypting a memo
 
-        The high level memo class makes use of the bhivee wallet to obtain keys
+        The high level memo class makes use of the bhive wallet to obtain keys
         for the corresponding accounts.
 
         .. code-block:: python
 
-            from bhivee.memo import Memo
-            from bhivee.account import Account
+            from bhive.memo import Memo
+            from bhive.account import Account
 
             memoObj = Memo(
                 from_account=Account(from_account),
@@ -112,8 +112,8 @@ class Memo(object):
         .. code-block:: python
 
             from getpass import getpass
-            from bhivee.block import Block
-            from bhivee.memo import Memo
+            from bhive.block import Block
+            from bhive.memo import Memo
 
             # Obtain a transfer from the blockchain
             block = Block(23755086)                   # block

@@ -7,7 +7,7 @@ from __future__ import unicode_literals
 
 class WalletExists(Exception):
     """ A wallet has already been created and requires a password to be
-        unlocked by means of :func:`bhivee.wallet.Wallet.unlock`.
+        unlocked by means of :func:`bhive.wallet.Wallet.unlock`.
     """
     pass
 
@@ -97,7 +97,7 @@ class BlockDoesNotExistsException(Exception):
 
 
 class NoWalletException(Exception):
-    """ No Wallet could be found, please use :func:`bhivee.wallet.Wallet.create` to
+    """ No Wallet could be found, please use :func:`bhive.wallet.Wallet.create` to
         create a new wallet
     """
     pass

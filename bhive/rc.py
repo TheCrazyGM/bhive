@@ -6,16 +6,16 @@ from __future__ import unicode_literals
 import logging
 import json
 from .instance import shared_hive_instance
-from bhivee.constants import state_object_size_info, resource_execution_time, EXEC_FOLLOW_CUSTOM_OP_SCALE
+from bhive.constants import state_object_size_info, resource_execution_time, EXEC_FOLLOW_CUSTOM_OP_SCALE
 import hashlib
 from binascii import hexlify, unhexlify
 import os
 from pprint import pprint
-from bhivee.amount import Amount
-from bhiveebase import operations
-from bhiveebase.objects import Operation
-from bhiveebase.signedtransactions import Signed_Transaction
-from bhiveegraphenebase.py23 import py23_bytes, bytes_types
+from bhive.amount import Amount
+from bhivebase import operations
+from bhivebase.objects import Operation
+from bhivebase.signedtransactions import Signed_Transaction
+from bhivegraphenebase.py23 import py23_bytes, bytes_types
 
 
 class RC(object):
@@ -61,7 +61,7 @@ class RC(object):
 
         .. code-block:: python
 
-            from bhivee.rc import RC
+            from bhive.rc import RC
             comment_dict = {
                             "permlink": "test", "author": "thecrazygm",
                             "body": "test", "parent_permlink": "",
@@ -95,7 +95,7 @@ class RC(object):
 
         .. code-block:: python
 
-            from bhivee.rc import RC
+            from bhive.rc import RC
             vote_dict = {
                          "voter": "foobara", "author": "foobarc",
                          "permlink": "foobard", "weight": 1000
@@ -123,8 +123,8 @@ class RC(object):
 
         .. code-block:: python
 
-            from bhivee.rc import RC
-            from bhivee.amount import Amount
+            from bhive.rc import RC
+            from bhive.amount import Amount
             transfer_dict = {
                              "from": "foo", "to": "baar",
                              "amount": Amount("111.110 HIVE"),
@@ -153,7 +153,7 @@ class RC(object):
 
         .. code-block:: python
 
-            from bhivee.rc import RC
+            from bhive.rc import RC
             from collections import OrderedDict
             custom_json_dict = {
                                  "json": [
