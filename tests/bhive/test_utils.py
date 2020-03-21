@@ -120,15 +120,15 @@ class Testcases(unittest.TestCase):
         t = "holger80"
         b = derive_beneficiaries(t)
         self.assertEqual(b, [{"account": "holger80", "weight": 10000}])
-        t = "holger80:30,beembot:40"
+        t = "holger80:30,bhive.app:40"
         b = derive_beneficiaries(t)
-        self.assertEqual(b, [{"account": "beembot", "weight": 4000}, {"account": "holger80", "weight": 3000}])
-        t = "holger80:30,beembot"
+        self.assertEqual(b, [{"account": "bhive.app", "weight": 4000}, {"account": "holger80", "weight": 3000}])
+        t = "holger80:30,bhive.app"
         b = derive_beneficiaries(t)
-        self.assertEqual(b, [{"account": "beembot", "weight": 7000}, {"account": "holger80", "weight": 3000}])
-        t = ["holger80:30", "beembot"]
+        self.assertEqual(b, [{"account": "bhive.app", "weight": 7000}, {"account": "holger80", "weight": 3000}])
+        t = ["holger80:30", "bhive.app"]
         b = derive_beneficiaries(t)
-        self.assertEqual(b, [{"account": "beembot", "weight": 7000}, {"account": "holger80", "weight": 3000}])
+        self.assertEqual(b, [{"account": "bhive.app", "weight": 7000}, {"account": "holger80", "weight": 3000}])
 
     def test_derive_tags(self):
         t = "test1,test2"

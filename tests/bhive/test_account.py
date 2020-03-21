@@ -39,20 +39,20 @@ class Testcases(unittest.TestCase):
             keys={"active": wif},
             num_retries=10
         )
-        cls.account = Account("beembot", hive_instance=cls.bts)
+        cls.account = Account("bhive.app", hive_instance=cls.bts)
         set_shared_hive_instance(cls.bts)
 
     def test_account(self):
         hv = self.bts
         account = self.account
-        Account("beembot", hive_instance=hv)
+        Account("bhive.app", hive_instance=hv)
         with self.assertRaises(
             exceptions.AccountDoesNotExistsException
         ):
             Account("DoesNotExistsXXX", hive_instance=hv)
         # asset = Asset("1.3.0")
         # symbol = asset["symbol"]
-        self.assertEqual(account.name, "beembot")
+        self.assertEqual(account.name, "bhive.app")
         self.assertEqual(account["name"], account.name)
         self.assertIsInstance(account.get_balance("available", "HBD"), Amount)
         account.print_info()
@@ -67,7 +67,7 @@ class Testcases(unittest.TestCase):
         self.assertIn("id", account)
         account.cached = False
         # self.assertEqual(account["id"], "1.2.1")
-        self.assertEqual(str(account), "<Account beembot>")
+        self.assertEqual(str(account), "<Account bhive.app>")
         self.assertIsInstance(Account(account), Account)
 
     def test_history(self):
@@ -174,7 +174,7 @@ class Testcases(unittest.TestCase):
 
     def test_history2(self):
         hv = self.bts
-        account = Account("beembot", hive_instance=hv)
+        account = Account("bhive.app", hive_instance=hv)
         h_list = []
         max_index = account.virtual_op_count()
         for h in account.history(start=max_index - 4, stop=max_index, use_block_num=False, batch_size=2, raw_output=False):
@@ -206,7 +206,7 @@ class Testcases(unittest.TestCase):
 
     def test_history_reverse2(self):
         hv = self.bts
-        account = Account("beembot", hive_instance=hv)
+        account = Account("bhive.app", hive_instance=hv)
         h_list = []
         max_index = account.virtual_op_count()
         for h in account.history_reverse(start=max_index, stop=max_index - 4, use_block_num=False, batch_size=2, raw_output=False):
@@ -312,7 +312,7 @@ class Testcases(unittest.TestCase):
         )
         op = tx["operations"][0][1]
         self.assertIn(
-            "beembot",
+            "bhive.app",
             op["account"])
 
     def test_delegate_vesting_shares(self):
@@ -325,7 +325,7 @@ class Testcases(unittest.TestCase):
         )
         op = tx["operations"][0][1]
         self.assertIn(
-            "beembot",
+            "bhive.app",
             op["delegator"])
 
     def test_claim_reward_balance(self):
@@ -338,7 +338,7 @@ class Testcases(unittest.TestCase):
         )
         op = tx["operations"][0][1]
         self.assertIn(
-            "beembot",
+            "bhive.app",
             op["account"])
 
     def test_cancel_transfer_from_savings(self):
@@ -351,7 +351,7 @@ class Testcases(unittest.TestCase):
         )
         op = tx["operations"][0][1]
         self.assertIn(
-            "beembot",
+            "bhive.app",
             op["from"])
 
     def test_transfer_from_savings(self):
@@ -364,7 +364,7 @@ class Testcases(unittest.TestCase):
         )
         op = tx["operations"][0][1]
         self.assertIn(
-            "beembot",
+            "bhive.app",
             op["from"])
 
     def test_transfer_to_savings(self):
@@ -377,7 +377,7 @@ class Testcases(unittest.TestCase):
         )
         op = tx["operations"][0][1]
         self.assertIn(
-            "beembot",
+            "bhive.app",
             op["from"])
 
     def test_convert(self):
@@ -390,7 +390,7 @@ class Testcases(unittest.TestCase):
         )
         op = tx["operations"][0][1]
         self.assertIn(
-            "beembot",
+            "bhive.app",
             op["owner"])
 
     def test_transfer_to_vesting(self):
@@ -403,11 +403,11 @@ class Testcases(unittest.TestCase):
         )
         op = tx["operations"][0][1]
         self.assertIn(
-            "beembot",
+            "bhive.app",
             op["from"])
 
     def test_json_export(self):
-        account = Account("beembot", hive_instance=self.bts)
+        account = Account("bhive.app", hive_instance=self.bts)
         if account.hive.rpc.get_use_appbase():
             content = self.bts.rpc.find_accounts({'accounts': [account["name"]]}, api="database")["accounts"][0]
         else:

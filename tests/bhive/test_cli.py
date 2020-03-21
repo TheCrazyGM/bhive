@@ -64,12 +64,12 @@ class Testcases(unittest.TestCase):
 
     def test_balance(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['balance', 'beembot', 'bhivepy'])
+        result = runner.invoke(cli, ['balance', 'bhive.app', 'bhivepy'])
         self.assertEqual(result.exit_code, 0)
 
     def test_interest(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['-ds', 'interest', 'beembot', 'bhivepy'])
+        result = runner.invoke(cli, ['-ds', 'interest', 'bhive.app', 'bhivepy'])
         self.assertEqual(result.exit_code, 0)
 
     def test_config(self):
@@ -114,7 +114,7 @@ class Testcases(unittest.TestCase):
         runner = CliRunner()
         result = runner.invoke(cli, ['info'])
         self.assertEqual(result.exit_code, 0)
-        result = runner.invoke(cli, ['info', 'beembot'])
+        result = runner.invoke(cli, ['info', 'bhive.app'])
         self.assertEqual(result.exit_code, 0)
         result = runner.invoke(cli, ['info', '100'])
         self.assertEqual(result.exit_code, 0)
@@ -166,12 +166,12 @@ class Testcases(unittest.TestCase):
 
     def test_transfer(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['-ds', 'transfer', 'beembot', '1', 'HBD', 'test'], input="test\n")
+        result = runner.invoke(cli, ['-ds', 'transfer', 'bhive.app', '1', 'HBD', 'test'], input="test\n")
         self.assertEqual(result.exit_code, 0)
 
     def test_powerdownroute(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['-ds', 'powerdownroute', 'beembot'], input="test\n")
+        result = runner.invoke(cli, ['-ds', 'powerdownroute', 'bhive.app'], input="test\n")
         self.assertEqual(result.exit_code, 0)
 
     def test_convert(self):
@@ -198,22 +198,22 @@ class Testcases(unittest.TestCase):
 
     def test_permissions(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['permissions', 'beembot'])
+        result = runner.invoke(cli, ['permissions', 'bhive.app'])
         self.assertEqual(result.exit_code, 0)
 
     def test_follower(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['follower', 'beembot'])
+        result = runner.invoke(cli, ['follower', 'bhive.app'])
         self.assertEqual(result.exit_code, 0)
 
     def test_following(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['following', 'beembot'])
+        result = runner.invoke(cli, ['following', 'bhive.app'])
         self.assertEqual(result.exit_code, 0)
 
     def test_muter(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['muter', 'beembot'])
+        result = runner.invoke(cli, ['muter', 'bhive.app'])
         self.assertEqual(result.exit_code, 0)
 
     def test_muting(self):
@@ -223,7 +223,7 @@ class Testcases(unittest.TestCase):
 
     def test_allow_disallow(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['-ds', 'allow', '--account', 'beembot', '--permission', 'posting', 'bhivepy'], input="test\n")
+        result = runner.invoke(cli, ['-ds', 'allow', '--account', 'bhive.app', '--permission', 'posting', 'bhivepy'], input="test\n")
         self.assertEqual(result.exit_code, 0)
         result = runner.invoke(cli, ['-ds', 'disallow', '--account', 'holger80', '--permission', 'posting', 'rewarding'], input="test\n")
         self.assertEqual(result.exit_code, 0)
