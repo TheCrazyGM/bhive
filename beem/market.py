@@ -8,15 +8,15 @@ import random
 import pytz
 import logging
 from datetime import datetime, timedelta
-from bhive.instance import shared_hive_instance
+from beem.instance import shared_hive_instance
 from .utils import (
     formatTimeFromNow, formatTimeString, assets_from_string, parse_time, addTzInfo)
 from .asset import Asset
 from .amount import Amount
 from .price import Price, Order, FilledOrder
 from .account import Account
-from bhivebase import operations
-from bhivegraphenebase.py23 import integer_types, string_types, text_type
+from beembase import operations
+from beemgraphenebase.py23 import integer_types, string_types, text_type
 REQUEST_MODULE = None
 if not REQUEST_MODULE:
     try:
@@ -43,7 +43,7 @@ class Market(dict):
         This class tries to identify **two** assets as provided in the
         parameters in one of the following forms:
 
-        * ``base`` and ``quote`` are valid assets (according to :class:`bhive.asset.Asset`)
+        * ``base`` and ``quote`` are valid assets (according to :class:`beem.asset.Asset`)
         * ``base:quote`` separated with ``:``
         * ``base/quote`` separated with ``/``
         * ``base-quote`` separated with ``-``
@@ -52,8 +52,8 @@ class Market(dict):
                   presented first (e.g. ``HIVE:HBD`` with ``HIVE`` being the
                   quote), while the ``base`` only refers to a secondary asset
                   for a trade. This means, if you call
-                  :func:`bhive.market.Market.sell` or
-                  :func:`bhive.market.Market.buy`, you will sell/buy **only
+                  :func:`beem.market.Market.sell` or
+                  :func:`beem.market.Market.buy`, you will sell/buy **only
                   quote** and obtain/pay **only base**.
 
     """
@@ -67,9 +67,9 @@ class Market(dict):
         """
         Init Market
 
-            :param bhive.hive.Hive hive_instance: Hive instance
-            :param bhive.asset.Asset base: Base asset
-            :param bhive.asset.Asset quote: Quote asset
+            :param beem.hive.Hive hive_instance: Hive instance
+            :param beem.asset.Asset base: Base asset
+            :param beem.asset.Asset quote: Quote asset
         """
         self.hive = hive_instance or shared_hive_instance()
 
@@ -248,7 +248,7 @@ class Market(dict):
                     }
 
             .. note:: Each bid is an instance of
-                class:`bhive.price.Order` and thus carries the keys
+                class:`beem.price.Order` and thus carries the keys
                 ``base``, ``quote`` and ``price``. From those you can
                 obtain the actual amounts for sale
 
@@ -306,7 +306,7 @@ class Market(dict):
                     ]
 
             .. note:: Each bid is an instance of
-                :class:`bhive.price.Order` and thus carries the keys
+                :class:`beem.price.Order` and thus carries the keys
                 ``base``, ``quote`` and ``price``. From those you can
                 obtain the actual amounts for sale
 
