@@ -5,7 +5,7 @@ import getpass
 app = Flask(__name__)
 
 
-c = HiveConnect(client_id="beem.app", scope="login,vote,custom_json", get_refresh_token=False)
+c = HiveConnect(client_id="bhive.app", scope="login,vote,custom_json", get_refresh_token=False)
 # replace test with our wallet password
 wallet_password = getpass.getpass('Wallet-Password:')
 c.hive.wallet.unlock(wallet_password)

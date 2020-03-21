@@ -1037,7 +1037,7 @@ class Account(BlockchainObject):
             .. code-block:: python
 
                 >>> from bhive.account import Account
-                >>> account = Account("beem.app")
+                >>> account = Account("bhive.app")
                 >>> account.get_balance("rewards", "HBD")
                 0.000 HBD
 
@@ -1195,7 +1195,7 @@ class Account(BlockchainObject):
             .. code-block:: python
 
                 >>> from bhive.account import Account
-                >>> account = Account("beem.app")
+                >>> account = Account("bhive.app")
                 >>> account.get_owner_history()
                 []
 
@@ -1222,7 +1222,7 @@ class Account(BlockchainObject):
             .. code-block:: python
 
                 >>> from bhive.account import Account
-                >>> account = Account("beem.app")
+                >>> account = Account("bhive.app")
                 >>> account.get_conversion_requests()
                 []
 
@@ -1250,7 +1250,7 @@ class Account(BlockchainObject):
             .. code-block:: python
 
                 >>> from bhive.account import Account
-                >>> account = Account("beem.app")
+                >>> account = Account("bhive.app")
                 >>> account.get_vesting_delegations()
                 []
 
@@ -1280,7 +1280,7 @@ class Account(BlockchainObject):
             .. code-block:: python
 
                 >>> from bhive.account import Account
-                >>> account = Account("beem.app")
+                >>> account = Account("bhive.app")
                 >>> account.get_withdraw_routes()
                 []
 
@@ -1308,7 +1308,7 @@ class Account(BlockchainObject):
             .. code-block:: python
 
                 >>> from bhive.account import Account
-                >>> account = Account("beem.app")
+                >>> account = Account("bhive.app")
                 >>> account.get_savings_withdrawals()
                 []
 
@@ -1337,7 +1337,7 @@ class Account(BlockchainObject):
             .. code-block:: python
 
                 >>> from bhive.account import Account
-                >>> account = Account("beem.app")
+                >>> account = Account("bhive.app")
                 >>> account.get_recovery_request()
                 []
 
@@ -1365,7 +1365,7 @@ class Account(BlockchainObject):
             .. code-block:: python
 
                 >>> from bhive.account import Account
-                >>> account = Account("beem.app")
+                >>> account = Account("bhive.app")
                 >>> account.get_escrow(1234)
                 []
 
@@ -1427,7 +1427,7 @@ class Account(BlockchainObject):
                 >>> from bhive.account import Account
                 >>> from bhive import Hive
                 >>> hv = Hive()
-                >>> account = Account("beem.app", hive_instance=hv)
+                >>> account = Account("bhive.app", hive_instance=hv)
                 >>> account.get_tags_used_by_author()
                 []
 
@@ -1456,7 +1456,7 @@ class Account(BlockchainObject):
             .. code-block:: python
 
                 >>> from bhive.account import Account
-                >>> account = Account("beem.app")
+                >>> account = Account("bhive.app")
                 >>> account.get_expiring_vesting_delegations()
                 []
 
@@ -1485,7 +1485,7 @@ class Account(BlockchainObject):
                 >>> from bhive.account import Account
                 >>> from bhive import Hive
                 >>> hv = Hive()
-                >>> account = Account("beem.app", hive_instance=hv)
+                >>> account = Account("bhive.app", hive_instance=hv)
                 >>> account.get_account_votes()
                 []
 
