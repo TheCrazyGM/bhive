@@ -556,7 +556,7 @@ class Hive(object):
         global_properties = self.get_dynamic_global_properties(use_stored_data=use_stored_data)
 
         return (
-            float(Amount(global_properties['total_vesting_fund_hive'], hive_instance=self)) /
+            float(Amount(global_properties['total_vesting_fund_steem'], hive_instance=self)) /
             (float(Amount(global_properties['total_vesting_shares'], hive_instance=self)) / 1e6)
         )
 
