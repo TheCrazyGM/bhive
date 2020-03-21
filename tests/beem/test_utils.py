@@ -4,7 +4,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 import unittest
 from datetime import datetime, date, timedelta
-from beem.utils import (
+from bhive.utils import (
     formatTimedelta,
     assets_from_string,
     resolve_authorperm,

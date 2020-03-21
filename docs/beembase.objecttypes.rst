@@ -1,7 +1,7 @@
-beembase\.objecttypes
+bhivebase\.objecttypes
 =====================
 
-.. automodule:: beembase.objecttypes
+.. automodule:: bhivebase.objecttypes
     :members:
     :undoc-members:
     :show-inheritance:

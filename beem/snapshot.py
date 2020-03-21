@@ -12,12 +12,12 @@ import math
 import random
 import logging
 from bisect import bisect_left
-from beem.utils import formatTimeString, formatTimedelta, remove_from_dict, reputation_to_score, addTzInfo, parse_time
-from beem.amount import Amount
-from beem.account import Account
-from beem.vote import Vote
-from beem.instance import shared_hive_instance
-from beem.constants import HIVE_VOTE_REGENERATION_SECONDS, HIVE_1_PERCENT, HIVE_100_PERCENT
+from bhive.utils import formatTimeString, formatTimedelta, remove_from_dict, reputation_to_score, addTzInfo, parse_time
+from bhive.amount import Amount
+from bhive.account import Account
+from bhive.vote import Vote
+from bhive.instance import shared_hive_instance
+from bhive.constants import HIVE_VOTE_REGENERATION_SECONDS, HIVE_1_PERCENT, HIVE_100_PERCENT
 
 log = logging.getLogger(__name__)
 
@@ -44,8 +44,8 @@ class AccountSnapshot(list):
         self.delegated_vests_in = [{}]
         self.delegated_vests_out = [{}]
         self.timestamps = [addTzInfo(datetime(1970, 1, 1, 0, 0, 0, 0))]
-        import beembase.operationids
-        self.ops_statistics = beembase.operationids.operations.copy()
+        import bhivebase.operationids
+        self.ops_statistics = bhivebase.operationids.operations.copy()
         for key in self.ops_statistics:
             self.ops_statistics[key] = 0
         self.reward_timestamps = []

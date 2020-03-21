@@ -18,14 +18,14 @@ import logging
 from datetime import datetime, timedelta
 from .utils import formatTimeString, addTzInfo
 from .block import Block, BlockHeader
-from beemapi.node import Nodes
-from beemapi.hivenoderpc import HiveNodeRPC
+from bhiveapi.node import Nodes
+from bhiveapi.hivenoderpc import HiveNodeRPC
 from .exceptions import BatchedCallsNotSupported, BlockDoesNotExistsException, BlockWaitTimeExceeded, OfflineHasNoRPCException
-from beemapi.exceptions import NumRetriesReached
-from beemgraphenebase.py23 import py23_bytes
-from beem.instance import shared_hive_instance
+from bhiveapi.exceptions import NumRetriesReached
+from bhivegraphenebase.py23 import py23_bytes
+from bhive.instance import shared_hive_instance
 from .amount import Amount
-import beem as hv
+import bhive as hv
 log = logging.getLogger(__name__)
 if sys.version_info < (3, 0):
     from Queue import Queue
@@ -188,7 +188,7 @@ class Blockchain(object):
 
         .. testsetup::
 
-            from beem.blockchain import Blockchain
+            from bhive.blockchain import Blockchain
             chain = Blockchain()
 
         Read current block and blockchain info
@@ -313,7 +313,7 @@ class Blockchain(object):
 
             .. code-block:: python
         
-                >>> from beem.blockchain import Blockchain
+                >>> from bhive.blockchain import Blockchain
                 >>> from datetime import datetime
                 >>> blockchain = Blockchain()
                 >>> block_num = blockchain.get_estimated_block_num(datetime(2019, 6, 18, 5 ,8, 27))
@@ -399,7 +399,7 @@ class Blockchain(object):
             :param bool only_virtual_ops: Only yield virtual operations (default: False)
 
             .. note:: If you want instant confirmation, you need to instantiate
-                      class:`beem.blockchain.Blockchain` with
+                      class:`bhive.blockchain.Blockchain` with
                       ``mode="head"``, otherwise, the call will wait until
                       confirmed in an irreversible block.
 
@@ -639,8 +639,8 @@ class Blockchain(object):
 
         """
         if add_to_ops_stat is None:
-            import beembase.operationids
-            ops_stat = beembase.operationids.operations.copy()
+            import bhivebase.operationids
+            ops_stat = bhivebase.operationids.operations.copy()
             for key in ops_stat:
                 ops_stat[key] = 0
         else:
@@ -682,7 +682,7 @@ class Blockchain(object):
             on the actual operation.
 
             .. note:: If you want instant confirmation, you need to instantiate
-                      class:`beem.blockchain.Blockchain` with
+                      class:`bhive.blockchain.Blockchain` with
                       ``mode="head"``, otherwise, the call will wait until
                       confirmed in an irreversible block.
 
@@ -787,7 +787,7 @@ class Blockchain(object):
             :param int limit: (optional) number of blocks to wait for the transaction (default: 10)
 
             .. note:: If you want instant confirmation, you need to instantiate
-                      class:`beem.blockchain.Blockchain` with
+                      class:`bhive.blockchain.Blockchain` with
                       ``mode="head"``, otherwise, the call will wait until
                       confirmed in an irreversible block.
 
@@ -913,7 +913,7 @@ class Blockchain(object):
 
         .. code-block:: python
 
-            >>> from beem.blockchain import Blockchain
+            >>> from bhive.blockchain import Blockchain
             >>> blockchain = Blockchain()
             >>> ret = blockchain.get_similar_account_names("test", limit=5)
             >>> len(ret) == 5
@@ -939,7 +939,7 @@ class Blockchain(object):
 
         .. code-block:: python
 
-            >>> from beem.blockchain import Blockchain
+            >>> from bhive.blockchain import Blockchain
             >>> blockchain = Blockchain()
             >>> ret = blockchain.find_rc_accounts(["test"])
             >>> len(ret) == 1
@@ -977,7 +977,7 @@ class Blockchain(object):
 
         .. code-block:: python
 
-            >>> from beem.blockchain import Blockchain
+            >>> from bhive.blockchain import Blockchain
             >>> blockchain = Blockchain()
             >>> ret = blockchain.list_change_recovery_account_requests(limit=1)
 
@@ -1002,7 +1002,7 @@ class Blockchain(object):
 
         .. code-block:: python
 
-            >>> from beem.blockchain import Blockchain
+            >>> from bhive.blockchain import Blockchain
             >>> blockchain = Blockchain()
             >>> ret = blockchain.find_change_recovery_account_requests('bott')
 

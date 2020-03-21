@@ -11,21 +11,21 @@ from pprint import pprint
 from binascii import hexlify
 from collections import OrderedDict
 
-from beembase import (
+from bhivebase import (
     transactions,
     memo,
     operations,
     objects
 )
-from beembase.objects import Operation
-from beembase.signedtransactions import Signed_Transaction
-from beemgraphenebase.account import PrivateKey
-from beemgraphenebase import account
-from beembase.operationids import getOperationNameForId
-from beemgraphenebase.py23 import py23_bytes, bytes_types
-from beem.amount import Amount
-from beem.asset import Asset
-from beem.hive import Hive
+from bhivebase.objects import Operation
+from bhivebase.signedtransactions import Signed_Transaction
+from bhivegraphenebase.account import PrivateKey
+from bhivegraphenebase import account
+from bhivebase.operationids import getOperationNameForId
+from bhivegraphenebase.py23 import py23_bytes, bytes_types
+from bhive.amount import Amount
+from bhive.asset import Asset
+from bhive.hive import Hive
 import time
 
 from hive import Hive as hiveHive
@@ -86,11 +86,11 @@ class HiveTest(object):
 
 if __name__ == "__main__":
     hive_test = HiveTest()
-    beem_test = BeemTest()
+    bhive_test = BeemTest()
     hive_test.setup()
-    beem_test.setup()
+    bhive_test.setup()
     hive_times = []
-    beem_times = []
+    bhive_times = []
     loops = 50
     for i in range(0, loops):
         print(i)
@@ -110,19 +110,19 @@ if __name__ == "__main__":
         t_s, t_v = hive_test.doit(ops=opHive)
         hive_times.append([t_s, t_v])
 
-        t_s, t_v = beem_test.doit(ops=opBeem)
-        beem_times.append([t_s, t_v])
+        t_s, t_v = bhive_test.doit(ops=opBeem)
+        bhive_times.append([t_s, t_v])
 
     hive_dt = [0, 0]
-    beem_dt = [0, 0]
+    bhive_dt = [0, 0]
     for i in range(0, loops):
         hive_dt[0] += hive_times[i][0]
         hive_dt[1] += hive_times[i][1]
-        beem_dt[0] += beem_times[i][0]
-        beem_dt[1] += beem_times[i][1]
-    print("hive vs beem:\n")
+        bhive_dt[0] += bhive_times[i][0]
+        bhive_dt[1] += bhive_times[i][1]
+    print("hive vs bhive:\n")
     print("hive: sign: %.2f s, verification %.2f s" % (hive_dt[0] / loops, hive_dt[1] / loops))
-    print("beem:  sign: %.2f s, verification %.2f s" % (beem_dt[0] / loops, beem_dt[1] / loops))
+    print("bhive:  sign: %.2f s, verification %.2f s" % (bhive_dt[0] / loops, bhive_dt[1] / loops))
     print("------------------------------------")
-    print("beem is %.2f %% (sign) and %.2f %% (verify) faster than hive" %
-          (hive_dt[0] / beem_dt[0] * 100, hive_dt[1] / beem_dt[1] * 100))
+    print("bhive is %.2f %% (sign) and %.2f %% (verify) faster than hive" %
+          (hive_dt[0] / bhive_dt[0] * 100, hive_dt[1] / bhive_dt[1] * 100))

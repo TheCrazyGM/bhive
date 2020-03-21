@@ -9,14 +9,14 @@ import mock
 import click
 from click.testing import CliRunner
 from pprint import pprint
-from beem import Hive, exceptions
-from beem.account import Account
-from beem.amount import Amount
-from beemgraphenebase.account import PrivateKey
-from beem.cli import cli, balance
-from beem.instance import set_shared_hive_instance, shared_hive_instance
-from beembase.operationids import getOperationNameForId
-from beem.nodelist import NodeList
+from bhive import Hive, exceptions
+from bhive.account import Account
+from bhive.amount import Amount
+from bhivegraphenebase.account import PrivateKey
+from bhive.cli import cli, balance
+from bhive.instance import set_shared_hive_instance, shared_hive_instance
+from bhivebase.operationids import getOperationNameForId
+from bhive.nodelist import NodeList
 
 wif = "5Jt2wTfhUt5GkZHV1HYVfkEaJ6XnY8D2iA4qjtK9nnGXAhThM3w"
 posting_key = "5Jh1Gtu2j4Yi16TfhoDmg8Qj3ULcgRi7A49JXdfUUTVPkaFaRKz"
@@ -38,7 +38,7 @@ class Testcases(unittest.TestCase):
         result = runner.invoke(cli, ['-o', 'set', 'default_vote_weight', '100'])
         if result.exit_code != 0:
             raise AssertionError(str(result))
-        result = runner.invoke(cli, ['-o', 'set', 'default_account', 'beem'])
+        result = runner.invoke(cli, ['-o', 'set', 'default_account', 'bhive'])
         if result.exit_code != 0:
             raise AssertionError(str(result))
         result = runner.invoke(cli, ['-o', 'set', 'nodes', str(cls.node_list)])
@@ -64,12 +64,12 @@ class Testcases(unittest.TestCase):
 
     def test_balance(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['balance', 'beembot', 'beempy'])
+        result = runner.invoke(cli, ['balance', 'beembot', 'bhivepy'])
         self.assertEqual(result.exit_code, 0)
 
     def test_interest(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['-ds', 'interest', 'beembot', 'beempy'])
+        result = runner.invoke(cli, ['-ds', 'interest', 'beembot', 'bhivepy'])
         self.assertEqual(result.exit_code, 0)
 
     def test_config(self):
@@ -218,12 +218,12 @@ class Testcases(unittest.TestCase):
 
     def test_muting(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['muting', 'beem'])
+        result = runner.invoke(cli, ['muting', 'bhive'])
         self.assertEqual(result.exit_code, 0)
 
     def test_allow_disallow(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['-ds', 'allow', '--account', 'beembot', '--permission', 'posting', 'beempy'], input="test\n")
+        result = runner.invoke(cli, ['-ds', 'allow', '--account', 'beembot', '--permission', 'posting', 'bhivepy'], input="test\n")
         self.assertEqual(result.exit_code, 0)
         result = runner.invoke(cli, ['-ds', 'disallow', '--account', 'holger80', '--permission', 'posting', 'rewarding'], input="test\n")
         self.assertEqual(result.exit_code, 0)
@@ -242,26 +242,26 @@ class Testcases(unittest.TestCase):
 
     def test_approvewitness(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['-ds', 'approvewitness', '-a', 'beempy', 'holger80'], input="test\n")
+        result = runner.invoke(cli, ['-ds', 'approvewitness', '-a', 'bhivepy', 'holger80'], input="test\n")
         self.assertEqual(result.exit_code, 0)
 
     def test_disapprovewitness(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['-ds', 'disapprovewitness',  '-a', 'beempy', 'holger80'], input="test\n")
+        result = runner.invoke(cli, ['-ds', 'disapprovewitness',  '-a', 'bhivepy', 'holger80'], input="test\n")
         self.assertEqual(result.exit_code, 0)
 
     def test_newaccount(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['-ds', 'newaccount', 'beem3'], input="test\ntest\ntest\n")
+        result = runner.invoke(cli, ['-ds', 'newaccount', 'bhive3'], input="test\ntest\ntest\n")
         self.assertEqual(result.exit_code, 0)
-        result = runner.invoke(cli, ['-ds', 'newaccount', 'beem3'], input="test\ntest\ntest\n")
+        result = runner.invoke(cli, ['-ds', 'newaccount', 'bhive3'], input="test\ntest\ntest\n")
         self.assertEqual(result.exit_code, 0)
 
     @unittest.skip
     def test_importaccount(self):
         runner = CliRunner()
         runner.invoke(cli, ['-o', 'set', 'nodes', str(self.node_list)])
-        result = runner.invoke(cli, ['importaccount', '--roles', '["owner", "active", "posting", "memo"]', 'beem2'], input="test\numybjvCafrt8LdoCjEimQiQ4\n")
+        result = runner.invoke(cli, ['importaccount', '--roles', '["owner", "active", "posting", "memo"]', 'bhive2'], input="test\numybjvCafrt8LdoCjEimQiQ4\n")
         self.assertEqual(result.exit_code, 0)
         result = runner.invoke(cli, ['delkey', '--confirm', 'STX7mLs2hns87f7kbf3o2HBqNoEaXiTeeU89eVF6iUCrMQJFzBsPo'], input="test\n")
         self.assertEqual(result.exit_code, 0)
@@ -320,21 +320,21 @@ class Testcases(unittest.TestCase):
 
     def test_follow_unfollow(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['-dso', 'follow', 'beempy'], input="test\n")
+        result = runner.invoke(cli, ['-dso', 'follow', 'bhivepy'], input="test\n")
         self.assertEqual(result.exit_code, 0)
-        result = runner.invoke(cli, ['-dso', 'unfollow', 'beempy'], input="test\n")
+        result = runner.invoke(cli, ['-dso', 'unfollow', 'bhivepy'], input="test\n")
         self.assertEqual(result.exit_code, 0)
 
     def test_mute_unmute(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['-dso', 'mute', 'beempy'], input="test\n")
+        result = runner.invoke(cli, ['-dso', 'mute', 'bhivepy'], input="test\n")
         self.assertEqual(result.exit_code, 0)
-        result = runner.invoke(cli, ['-dso', 'unfollow', 'beempy'], input="test\n")
+        result = runner.invoke(cli, ['-dso', 'unfollow', 'bhivepy'], input="test\n")
         self.assertEqual(result.exit_code, 0)
 
     def test_witnesscreate(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['-ds', 'witnesscreate', 'beem', pub_key], input="test\n")
+        result = runner.invoke(cli, ['-ds', 'witnesscreate', 'bhive', pub_key], input="test\n")
 
     def test_witnessupdate(self):
         runner = CliRunner()

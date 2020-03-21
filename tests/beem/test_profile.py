@@ -11,7 +11,7 @@ import unittest
 import base64
 import json
 from pprint import pprint
-from beem.profile import Profile, DotDict
+from bhive.profile import Profile, DotDict
 
 
 class Testcases(unittest.TestCase):

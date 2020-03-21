@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Packaging logic for beem."""
+"""Packaging logic for bhive."""
 import codecs
 import io
 import os
@@ -39,7 +39,7 @@ requires = [
 
 def write_version_py(filename):
     """Write version."""
-    cnt = """\"""THIS FILE IS GENERATED FROM beem SETUP.PY.\"""
+    cnt = """\"""THIS FILE IS GENERATED FROM bhive SETUP.PY.\"""
 version = '%(version)s'
 """
     with open(filename, 'w') as a:
@@ -58,29 +58,29 @@ def get_long_description():
 if __name__ == '__main__':
 
     # Rewrite the version file everytime
-    write_version_py('beem/version.py')
-    write_version_py('beembase/version.py')
-    write_version_py('beemapi/version.py')
-    write_version_py('beemgraphenebase/version.py')
+    write_version_py('bhive/version.py')
+    write_version_py('bhivebase/version.py')
+    write_version_py('bhiveapi/version.py')
+    write_version_py('bhivegraphenebase/version.py')
 
     setup(
-        name='beem',
+        name='bhive',
         version=VERSION,
         description='Unofficial Python library for HIVE',
         long_description=get_long_description(),
-        download_url='https://github.com/thecrazygmn/beem/tarball/' + VERSION,
+        download_url='https://github.com/thecrazygmn/bhive/tarball/' + VERSION,
         author='Holger Nahrstaedt',
         author_email='thecrazygm@gmail.com',
         maintainer='Holger Nahrstaedt',
         maintainer_email='thecrazygm@gmail.com',
-        url='http://www.github.com/thecrazygmn/beem',
+        url='http://www.github.com/thecrazygmn/bhive',
         keywords=['hive', 'library', 'api', 'rpc'],
         packages=[
-            "beem",
-            "beemapi",
-            "beembase",
-            "beemgraphenebase",
-            "beemgrapheneapi"
+            "bhive",
+            "bhiveapi",
+            "bhivebase",
+            "bhivegraphenebase",
+            "bhivegrapheneapi"
         ],
         classifiers=[
             'License :: OSI Approved :: MIT License',
@@ -100,7 +100,7 @@ if __name__ == '__main__':
         install_requires=requires,
         entry_points={
             'console_scripts': [
-                'beempy=beem.cli:cli',
+                'bhivepy=bhive.cli:cli',
             ],
         },
         setup_requires=['pytest-runner'],

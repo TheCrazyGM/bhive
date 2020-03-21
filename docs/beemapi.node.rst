@@ -1,7 +1,7 @@
-beemapi\.node
+bhiveapi\.node
 =============
 
-.. automodule:: beemapi.node
+.. automodule:: bhiveapi.node
     :members:
     :undoc-members:
     :show-inheritance:

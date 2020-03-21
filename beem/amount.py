@@ -5,9 +5,9 @@ from __future__ import print_function
 from __future__ import unicode_literals
 from builtins import bytes, int, str
 from future.utils import python_2_unicode_compatible
-from beemgraphenebase.py23 import bytes_types, integer_types, string_types, text_type
-from beem.instance import shared_hive_instance
-from beem.asset import Asset
+from bhivegraphenebase.py23 import bytes_types, integer_types, string_types, text_type
+from bhive.instance import shared_hive_instance
+from bhive.asset import Asset
 from decimal import Decimal, ROUND_DOWN
 
 
@@ -49,22 +49,22 @@ class Amount(dict):
             * ``args`` can be a dictionary containing ``amount`` and ``asset_id``
             * ``args`` can be a dictionary containing ``amount`` and ``asset``
             * ``args`` can be a list of a ``float`` and ``str`` (symbol)
-            * ``args`` can be a list of a ``float`` and a :class:`beem.asset.Asset`
+            * ``args`` can be a list of a ``float`` and a :class:`bhive.asset.Asset`
             * ``amount`` and ``asset`` are defined manually
 
         An instance is a dictionary and comes with the following keys:
 
             * ``amount`` (float)
             * ``symbol`` (str)
-            * ``asset`` (instance of :class:`beem.asset.Asset`)
+            * ``asset`` (instance of :class:`bhive.asset.Asset`)
 
         Instances of this class can be used in regular mathematical expressions
         (``+-*/%``) such as:
 
         .. testcode::
 
-            from beem.amount import Amount
-            from beem.asset import Asset
+            from bhive.amount import Amount
+            from bhive.asset import Asset
             a = Amount("1 HIVE")
             b = Amount(1, "HIVE")
             c = Amount("20", Asset("HIVE"))

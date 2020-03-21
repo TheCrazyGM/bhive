@@ -6,11 +6,11 @@ from builtins import super
 from builtins import str
 import time
 import unittest
-from beem import Hive, exceptions
-from beem.instance import set_shared_hive_instance
-from beem.blockchainobject import ObjectCache
-from beem.account import Account
-from beem.nodelist import NodeList
+from bhive import Hive, exceptions
+from bhive.instance import set_shared_hive_instance
+from bhive.blockchainobject import ObjectCache
+from bhive.account import Account
+from bhive.nodelist import NodeList
 
 
 class Testcases(unittest.TestCase):

@@ -7,7 +7,7 @@ from builtins import object
 from future.utils import python_2_unicode_compatible
 from collections import OrderedDict
 import json
-from beemgraphenebase.types import (
+from bhivegraphenebase.types import (
     Uint8, Int16, Uint16, Uint32, Uint64,
     Varint32, Int64, String, Bytes, Void,
     Array, PointInTime, Signature, Bool,

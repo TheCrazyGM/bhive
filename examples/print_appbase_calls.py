@@ -7,7 +7,7 @@ import sys
 from datetime import timedelta
 import time
 import io
-from beem.hive import Hive
+from bhive.hive import Hive
 import logging
 from prettytable import PrettyTable
 log = logging.getLogger(__name__)

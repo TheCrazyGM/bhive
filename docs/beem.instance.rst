@@ -1,7 +1,7 @@
-beem\.instance
+bhive\.instance
 ==============
 
-.. automodule:: beem.instance
+.. automodule:: bhive.instance
     :members:
     :undoc-members:
     :show-inheritance:

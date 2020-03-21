@@ -1,7 +1,7 @@
-beem\.comment
+bhive\.comment
 =============
 
-.. automodule:: beem.comment
+.. automodule:: bhive.comment
     :members:
     :undoc-members:
     :show-inheritance:

@@ -1,7 +1,7 @@
-beem\.nodelist
+bhive\.nodelist
 ==============
 
-.. automodule:: beem.nodelist
+.. automodule:: bhive.nodelist
     :members:
     :undoc-members:
     :show-inheritance:

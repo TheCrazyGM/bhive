@@ -1,20 +1,20 @@
-beempy CLI
+bhivepy CLI
 ~~~~~~~~~~
-`beempy` is a convenient CLI utility that enables you to manage your wallet, transfer funds, check
+`bhivepy` is a convenient CLI utility that enables you to manage your wallet, transfer funds, check
 balances and more.
 
 Using the Wallet
 ----------------
-`beempy` lets you leverage your BIP38 encrypted wallet to perform various actions on your accounts.
+`bhivepy` lets you leverage your BIP38 encrypted wallet to perform various actions on your accounts.
 
-The first time you use `beempy`, you will be prompted to enter a password. This password will be used to encrypt
-the `beempy` wallet, which contains your private keys.
+The first time you use `bhivepy`, you will be prompted to enter a password. This password will be used to encrypt
+the `bhivepy` wallet, which contains your private keys.
 
 You can change the password via `changewalletpassphrase` command.
 
 ::
 
-    beempy changewalletpassphrase
+    bhivepy changewalletpassphrase
 
 
 From this point on, every time an action requires your private keys, you will be prompted ot enter
@@ -24,7 +24,7 @@ To bypass password entry, you can set an environment variable ``UNLOCK``.
 
 ::
 
-    UNLOCK=mysecretpassword beempy transfer <recipient_name> 100 HIVE
+    UNLOCK=mysecretpassword bhivepy transfer <recipient_name> 100 HIVE
 
 Common Commands
 ---------------
@@ -32,51 +32,51 @@ First, you may like to import your Hive account:
 
 ::
 
-    beempy importaccount
+    bhivepy importaccount
 
 
 You can also import individual private keys:
 
 ::
 
-   beempy addkey <private_key>
+   bhivepy addkey <private_key>
 
 Listing accounts:
 
 ::
 
-   beempy listaccounts
+   bhivepy listaccounts
 
 Show balances:
 
 ::
 
-   beempy balance account_name1 account_name2
+   bhivepy balance account_name1 account_name2
 
 Sending funds:
 
 ::
 
-   beempy transfer --account <account_name> <recipient_name> 100 HIVE memo
+   bhivepy transfer --account <account_name> <recipient_name> 100 HIVE memo
 
 Upvoting a post:
 
 ::
 
-   beempy upvote --account <account_name> https://hive.blog/funny/@mynameisbrian/the-content-stand-a-comic
+   bhivepy upvote --account <account_name> https://hive.blog/funny/@mynameisbrian/the-content-stand-a-comic
 
 
 Setting Defaults
 ----------------
-For a more convenient use of ``beempy`` as well as the ``beem`` library, you can set some defaults.
+For a more convenient use of ``bhivepy`` as well as the ``bhive`` library, you can set some defaults.
 This is especially useful if you have a single Hive account.
 
 ::
 
-   beempy set default_account test
-   beempy set default_vote_weight 100
+   bhivepy set default_account test
+   bhivepy set default_vote_weight 100
 
-   beempy config
+   bhivepy config
     +---------------------+--------+
     | Key                 | Value  |
     +---------------------+--------+
@@ -88,22 +88,22 @@ If you've set up your `default_account`, you can now send funds by omitting this
 
 ::
 
-    beempy transfer <recipient_name> 100 HIVE memo
+    bhivepy transfer <recipient_name> 100 HIVE memo
 
 Commands
 --------
 
-.. click:: beem.cli:cli
-    :prog: beempy
+.. click:: bhive.cli:cli
+    :prog: bhivepy
     :show-nested:
 
-beempy --help
+bhivepy --help
 -------------
-You can see all available commands with ``beempy --help``
+You can see all available commands with ``bhivepy --help``
 
 ::
 
-    ~ % beempy --help
+    ~ % bhivepy --help
    Usage: cli.py [OPTIONS] COMMAND1 [ARGS]... [COMMAND2 [ARGS]...]...
 
    Options:

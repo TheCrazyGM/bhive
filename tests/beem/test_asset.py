@@ -6,11 +6,11 @@ from builtins import str
 from builtins import super
 import unittest
 from parameterized import parameterized
-from beem import Hive
-from beem.asset import Asset
-from beem.instance import set_shared_hive_instance
-from beem.exceptions import AssetDoesNotExistsException
-from beem.nodelist import NodeList
+from bhive import Hive
+from bhive.asset import Asset
+from bhive.instance import set_shared_hive_instance
+from bhive.exceptions import AssetDoesNotExistsException
+from bhive.nodelist import NodeList
 
 
 class Testcases(unittest.TestCase):

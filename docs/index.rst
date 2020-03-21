@@ -9,12 +9,12 @@
    http://openalea.gforge.inria.fr/doc/openalea/doc/_build/html/source/sphinx/rest_syntax.html
    http://rest-sphinx-memo.readthedocs.org/en/latest/ReST.html
 
-.. image:: _static/beem-logo.svg
+.. image:: _static/bhive-logo.svg
    :width: 300 px
-   :alt: beem
+   :alt: bhive
    :align: center
 
-Welcome to beem's documentation!
+Welcome to bhive's documentation!
 ================================
 
 Hive is a blockchain-based rewards platform for publishers to monetize 
@@ -25,7 +25,7 @@ software) that allows for fast transactions and ascalable blockchain
 solution. In case of Hive, it comes with decentralized publishing of
 content.
 
-The beem library has been designed to allow developers to easily
+The bhive library has been designed to allow developers to easily
 access its routines and make use of the network without dealing with all
 the related blockchain technology and cryptography. This library can be
 used to do anything that is allowed according to the Hive
@@ -35,7 +35,7 @@ blockchain protocol.
 About this Library
 ------------------
 
-The purpose of *beem* is to simplify development of products and
+The purpose of *bhive* is to simplify development of products and
 services that use the Hive blockchain. It comes with
 
 * its own (bip32-encrypted) wallet
@@ -63,7 +63,7 @@ Quickstart
 
 .. code-block:: python
 
-   from beem import Hive
+   from bhive import Hive
    hive = Hive()
    hive.wallet.unlock("wallet-passphrase")
    account = Account("test", hive_instance=hive)
@@ -71,19 +71,19 @@ Quickstart
 
 .. code-block:: python
 
-   from beem.blockchain import Blockchain
+   from bhive.blockchain import Blockchain
    blockchain = Blockchain()
    for op in blockchain.stream():
        print(op)
 
 .. code-block:: python
 
-   from beem.block import Block
+   from bhive.block import Block
    print(Block(1))
 
 .. code-block:: python
 
-   from beem.account import Account
+   from bhive.account import Account
    account = Account("test")
    print(account.balances)
    for h in account.history():
@@ -91,7 +91,7 @@ Quickstart
 
 .. code-block:: python
 
-   from beem.hive import Hive
+   from bhive.hive import Hive
    hv = Hive()
    hv.wallet.wipe(True)
    hv.wallet.create("wallet-passphrase")
@@ -101,7 +101,7 @@ Quickstart
 
 .. code-block:: python
 
-   from beem.market import Market
+   from bhive.market import Market
    market = Market("HBD:HIVE")
    print(market.ticker())
    market.hive.wallet.unlock("wallet-passphrase")

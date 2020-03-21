@@ -1,7 +1,7 @@
-beem\.imageuploader
+bhive\.imageuploader
 ===================
 
-.. automodule:: beem.imageuploader
+.. automodule:: bhive.imageuploader
     :members:
     :undoc-members:
     :show-inheritance:

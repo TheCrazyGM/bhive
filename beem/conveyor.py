@@ -13,8 +13,8 @@ from datetime import datetime
 from binascii import hexlify
 from .instance import shared_hive_instance
 from .account import Account
-from beemgraphenebase.py23 import py23_bytes
-from beemgraphenebase.ecdsasig import sign_message
+from bhivegraphenebase.py23 import py23_bytes
+from bhivegraphenebase.ecdsasig import sign_message
 try:
     from urllib.parse import urljoin
 except ImportError:
@@ -51,7 +51,7 @@ class Conveyor(object):
         """ Initialize a Conveyor instance
             :param str url: (optional) URL to the Conveyor API, defaults to
                 https://conveyor.hive.blog
-            :param beem.hive.Hive hive_instance: Hive instance
+            :param bhive.hive.Hive hive_instance: Hive instance
 
         """
 
@@ -154,8 +154,8 @@ class Conveyor(object):
 
             .. code-block:: python
 
-                from beem import Hive
-                from beem.conveyor import Conveyor
+                from bhive import Hive
+                from bhive.conveyor import Conveyor
                 s = Hive(keys=["5JPOSTINGKEY"])
                 c = Conveyor(hive_instance=s)
                 print(c.get_user_data('accountname'))
@@ -183,8 +183,8 @@ class Conveyor(object):
 
             .. code-block:: python
 
-                from beem import Hive
-                from beem.conveyor import Conveyor
+                from bhive import Hive
+                from bhive.conveyor import Conveyor
                 s = Hive(keys=["5JADMINPOSTINGKEY"])
                 c = Conveyor(hive_instance=s)
                 userdata = {'email': 'foo@bar.com', 'phone':'+123456789'}
@@ -207,8 +207,8 @@ class Conveyor(object):
 
             .. code-block:: python
 
-                from beem import Hive
-                from beem.conveyor import Conveyor
+                from bhive import Hive
+                from bhive.conveyor import Conveyor
                 s = Hive(keys=["5JPOSTINGKEY"])
                 c = Conveyor(hive_instance=s)
                 print(c.get_feature_flags('accountname'))
@@ -236,8 +236,8 @@ class Conveyor(object):
 
             .. code-block:: python
 
-                from beem import Hive
-                from beem.conveyor import Conveyor
+                from bhive import Hive
+                from bhive.conveyor import Conveyor
                 s = Hive(keys=["5JPOSTINGKEY"])
                 c = Conveyor(hive_instance=s)
                 print(c.get_feature_flag('accountname', 'accepted_tos'))

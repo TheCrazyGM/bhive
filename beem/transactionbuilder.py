@@ -6,14 +6,14 @@ from __future__ import unicode_literals
 from builtins import str
 from future.utils import python_2_unicode_compatible
 import logging
-from beemgraphenebase.py23 import bytes_types, integer_types, string_types, text_type
+from bhivegraphenebase.py23 import bytes_types, integer_types, string_types, text_type
 from .account import Account
 from .utils import formatTimeFromNow
 from .hiveconnect import HiveConnect
-from beembase.objects import Operation
-from beemgraphenebase.account import PrivateKey, PublicKey
-from beembase.signedtransactions import Signed_Transaction
-from beembase import transactions, operations
+from bhivebase.objects import Operation
+from bhivegraphenebase.account import PrivateKey, PublicKey
+from bhivebase.signedtransactions import Signed_Transaction
+from bhivebase import transactions, operations
 from .exceptions import (
     InsufficientAuthorityError,
     MissingKeyError,
@@ -21,7 +21,7 @@ from .exceptions import (
     WalletLocked,
     OfflineHasNoRPCException
 )
-from beem.instance import shared_hive_instance
+from bhive.instance import shared_hive_instance
 log = logging.getLogger(__name__)
 
 
@@ -38,9 +38,9 @@ class TransactionBuilder(dict):
 
         .. testcode::
 
-           from beem.transactionbuilder import TransactionBuilder
-           from beembase.operations import Transfer
-           from beem import Hive
+           from bhive.transactionbuilder import TransactionBuilder
+           from bhivebase.operations import Transfer
+           from bhive import Hive
            wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
            hv = Hive(nobroadcast=True, keys={'active': wif})
            tx = TransactionBuilder(hive_instance=hv)

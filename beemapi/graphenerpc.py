@@ -25,8 +25,8 @@ from .rpcutils import (
     get_api_name, get_query
 )
 from .node import Nodes
-from beemgraphenebase.version import version as beem_version
-from beemgraphenebase.chains import known_chains
+from bhivegraphenebase.version import version as bhive_version
+from bhivegraphenebase.chains import known_chains
 if sys.version_info[0] < 3:
     from thread import interrupt_main
 else:
@@ -111,7 +111,7 @@ class GrapheneRPC(object):
 
         .. code-block:: python
 
-            from beemapi.graphenerpc import GrapheneRPC
+            from bhiveapi.graphenerpc import GrapheneRPC
             ws = GrapheneRPC("wss://hived.pevo.science","","")
             print(ws.get_account_count())
 
@@ -213,7 +213,7 @@ class GrapheneRPC(object):
                     self.ws = None
                     self.session = shared_session_instance()
                     self.current_rpc = self.rpc_methods["jsonrpc"]
-                    self.headers = {'User-Agent': 'beem v%s' % (beem_version),
+                    self.headers = {'User-Agent': 'bhive v%s' % (bhive_version),
                                     'content-type': 'application/json; charset=utf-8'}
             try:
                 if self.ws:

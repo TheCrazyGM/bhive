@@ -22,13 +22,13 @@ install:
     $env:COMM_HASH = $env:APPVEYOR_REPO_COMMIT.Substring(0,8)
     
     if ($env:APPVEYOR_PULL_REQUEST_NUMBER) {
-        $env:BUILD = "beempy-{0}-{1}-{2}_win64.zip" -f $env:COMM_TAG, $env:COMM_HASH, $env:COMM_PY
-        $env:BUILD2 = "beempy-onefile-{0}-{1}-{2}_win64.zip" -f $env:COMM_TAG, $env:COMM_HASH, $env:COMM_PY
+        $env:BUILD = "bhivepy-{0}-{1}-{2}_win64.zip" -f $env:COMM_TAG, $env:COMM_HASH, $env:COMM_PY
+        $env:BUILD2 = "bhivepy-onefile-{0}-{1}-{2}_win64.zip" -f $env:COMM_TAG, $env:COMM_HASH, $env:COMM_PY
         $env:AVVER = "{0}-{1}" -f $env:COMM_TAG.TrimStart("v"), $env:COMM_HASH
     }
     else {
-        $env:BUILD = "beempy-{0}-{1}-{2}-{3}_win64.zip" -f $env:COMM_TAG, $env:COMM_COUNT, $env:COMM_HASH, $env:COMM_PY
-        $env:BUILD2 = "beempy-onefile-{0}-{1}-{2}-{3}_win64.zip" -f $env:COMM_TAG, $env:COMM_COUNT, $env:COMM_HASH, $env:COMM_PY
+        $env:BUILD = "bhivepy-{0}-{1}-{2}-{3}_win64.zip" -f $env:COMM_TAG, $env:COMM_COUNT, $env:COMM_HASH, $env:COMM_PY
+        $env:BUILD2 = "bhivepy-onefile-{0}-{1}-{2}-{3}_win64.zip" -f $env:COMM_TAG, $env:COMM_COUNT, $env:COMM_HASH, $env:COMM_PY
         $env:AVVER = "{0}-{1}" -f $env:COMM_TAG.TrimStart("v"), $env:COMM_COUNT
     }
 
@@ -60,23 +60,23 @@ build_script:
 
 test_script:
 # Run the project tests
-- cmd: py.test tests/beembase
-- cmd: py.test tests/beemgraphene
+- cmd: py.test tests/bhivebase
+- cmd: py.test tests/bhivegraphene
 
 after_test:
  # If tests are successful, create binary packages for the project.
-- cmd: pyinstaller beempy-onedir.spec
-- cmd: pyinstaller beempy-onefile.spec
+- cmd: pyinstaller bhivepy-onedir.spec
+- cmd: pyinstaller bhivepy-onefile.spec
 
 # package artifacts
-- cmd: copy /Y C:\OpenSSL-v111-Win64\bin\libcrypto-1_1-x64.dll dist\beempy
-- cmd: copy /Y C:\OpenSSL-v111-Win64\bin\libssl-1_1-x64.dll dist\beempy
-- cmd: copy /Y C:\OpenSSL-Win64\bin\ssleay32.dll dist\beempy
-- cmd: copy /Y C:\OpenSSL-Win64\bin\libeay32.dll dist\beempy
-# - cmd: 7z a -­mx9 beempy.zip %APPVEYOR_BUILD_FOLDER%\dist\beempy
-#- ps: 7z a -m0=LZMA2 -mx9 $env:BUILD .\dist\beempy
-- ps: 7z a $env:BUILD .\dist\beempy
-- ps: 7z a $env:BUILD2 .\dist\beempy.exe
+- cmd: copy /Y C:\OpenSSL-v111-Win64\bin\libcrypto-1_1-x64.dll dist\bhivepy
+- cmd: copy /Y C:\OpenSSL-v111-Win64\bin\libssl-1_1-x64.dll dist\bhivepy
+- cmd: copy /Y C:\OpenSSL-Win64\bin\ssleay32.dll dist\bhivepy
+- cmd: copy /Y C:\OpenSSL-Win64\bin\libeay32.dll dist\bhivepy
+# - cmd: 7z a -ï¿½mxbhiveempy.zip %APPVEYOR_BUILD_FOLDER%\disbhiveempy
+#- ps: 7z a -m0=LZMA2 -mx9 $env:BUILD .\dist\bhivepy
+- ps: 7z a $env:BUILD .\dist\bhivepy
+- ps: 7z a $env:BUILD2 .\dist\bhivepy.exe
 
 - ps: | # generate sha256 hashes
     (get-filehash $env:BUILD -algorithm SHA256).Hash | out-file ("{0}.sha256" -f $env:BUILD) -encoding ascii
@@ -84,22 +84,22 @@ after_test:
     (get-filehash $env:BUILD2 -algorithm SHA256).Hash | out-file ("{0}.sha256" -f $env:BUILD2) -encoding ascii
     type ("{0}.sha256" -f $env:BUILD2)
     
-#(get-filehash beempy.zip -algorithm SHA256).Hash | out-file "beempy.zip.sha256" -encoding ascii 
+#(get-filehash bhivepy.zip -algorithm SHA256).Hash | out-file "bhivepy.zip.sha256" -encoding ascii 
 
 artifacts:
   # Archive the generated packages in the ci.appveyor.com build report.
 - path: $(BUILD)
-  name: beempy
+  name: bhivepy
 - path: $(BUILD).sha256
-  name: beempy sha256 hash
+  name: bhivepy sha256 hash
 - path: $(BUILD2)
-  name: beempy onefile
+  name: bhivepy onefile
 - path: $(BUILD2).sha256
-  name: beempy onefile sha256 hash
-#- path: beempy.zip
-#  name: beempy_zip
-#- path: beempy.zip.sha256
-#  name: beempy_zip sha256 hash
+  name: bhivepy onefile sha256 hash
+#- path: bhivepy.zip
+#  name: bhivepy_zip
+#- path: bhivepy.zip.sha256
+#  name: bhivepy_zip sha256 hash
 
 on_finish: 
 - ps: | # update appveyor build version, done last to prevent webhook breakage

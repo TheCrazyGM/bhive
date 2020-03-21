@@ -12,8 +12,8 @@ from binascii import hexlify, unhexlify
 import os
 from pprint import pprint
 from itertools import cycle
-from beemgraphenebase.account import BrainKey, Address, PublicKey, PrivateKey, PasswordKey
-from beembase.memo import (
+from bhivegraphenebase.account import BrainKey, Address, PublicKey, PrivateKey, PasswordKey
+from bhivebase.memo import (
     get_shared_secret,
     _pad,
     _unpad,

@@ -5,9 +5,9 @@ include *.txt
 include MANIFEST.in
 
 # All source files
-recursive-include beem *
-recursive-include beembase *
-recursive-include beemapi *
+recursive-include bhive *
+recursive-include bhivebase *
+recursive-include bhiveapi *
 # All documentation
 recursive-include docs *
 # recursive-include demo *

@@ -1,7 +1,7 @@
-beembase\.objects
+bhivebase\.objects
 =================
 
-.. automodule:: beembase.objects
+.. automodule:: bhivebase.objects
     :members:
     :undoc-members:
     :show-inheritance:

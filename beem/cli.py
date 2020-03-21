@@ -18,34 +18,34 @@ import logging
 import click
 import yaml
 import re
-from beem.instance import set_shared_hive_instance, shared_hive_instance
-from beem.amount import Amount
-from beem.price import Price
-from beem.account import Account
-from beem.hive import Hive
-from beem.comment import Comment
-from beem.market import Market
-from beem.block import Block
-from beem.profile import Profile
-from beem.wallet import Wallet
-from beem.hiveconnect import HiveConnect
-from beem.asset import Asset
-from beem.witness import Witness, WitnessesRankedByVote, WitnessesVotedByAccount
-from beem.blockchain import Blockchain
-from beem.utils import formatTimeString, construct_authorperm, derive_beneficiaries, derive_tags, seperate_yaml_dict_from_body
-from beem.vote import AccountVotes, ActiveVotes
-from beem import exceptions
-from beem.version import version as __version__
-from beem.asciichart import AsciiChart
-from beem.transactionbuilder import TransactionBuilder
+from bhive.instance import set_shared_hive_instance, shared_hive_instance
+from bhive.amount import Amount
+from bhive.price import Price
+from bhive.account import Account
+from bhive.hive import Hive
+from bhive.comment import Comment
+from bhive.market import Market
+from bhive.block import Block
+from bhive.profile import Profile
+from bhive.wallet import Wallet
+from bhive.hiveconnect import HiveConnect
+from bhive.asset import Asset
+from bhive.witness import Witness, WitnessesRankedByVote, WitnessesVotedByAccount
+from bhive.blockchain import Blockchain
+from bhive.utils import formatTimeString, construct_authorperm, derive_beneficiaries, derive_tags, seperate_yaml_dict_from_body
+from bhive.vote import AccountVotes, ActiveVotes
+from bhive import exceptions
+from bhive.version import version as __version__
+from bhive.asciichart import AsciiChart
+from bhive.transactionbuilder import TransactionBuilder
 from timeit import default_timer as timer
-from beembase import operations
-from beemgraphenebase.account import PrivateKey, PublicKey, BrainKey
-from beemgraphenebase.base58 import Base58
-from beem.nodelist import NodeList
-from beem.conveyor import Conveyor
-from beem.imageuploader import ImageUploader
-from beem.rc import RC
+from bhivebase import operations
+from bhivegraphenebase.account import PrivateKey, PublicKey, BrainKey
+from bhivegraphenebase.base58 import Base58
+from bhive.nodelist import NodeList
+from bhive.conveyor import Conveyor
+from bhive.imageuploader import ImageUploader
+from bhive.rc import RC
 
 
 click.disable_unicode_literals_warning = True
@@ -103,7 +103,7 @@ def unlock_wallet(hv, password=None):
         return True
     password_storage = hv.config["password_storage"]
     if not password and KEYRING_AVAILABLE and password_storage == "keyring":
-        password = keyring.get_password("beem", "wallet")
+        password = keyring.get_password("bhive", "wallet")
     if not password and password_storage == "environment" and "UNLOCK" in os.environ:
         password = os.environ.get("UNLOCK")
     if bool(password):
@@ -241,10 +241,10 @@ def set(key, value):
         hv.config["password_storage"] = value
         if KEYRING_AVAILABLE and value == "keyring":
             password = click.prompt("Password to unlock wallet (Will be stored in keyring)", confirmation_prompt=False, hide_input=True)
-            password = keyring.set_password("beem", "wallet", password)
+            password = keyring.set_password("bhive", "wallet", password)
         elif KEYRING_AVAILABLE and value != "keyring":
             try:
-                keyring.delete_password("beem", "wallet")
+                keyring.delete_password("bhive", "wallet")
             except keyring.errors.PasswordDeleteError:
                 print("")
         if value == "environment":
@@ -488,7 +488,7 @@ def createwallet(wipe):
         return
     password_storage = hv.config["password_storage"]
     if KEYRING_AVAILABLE and password_storage == "keyring":
-        password = keyring.set_password("beem", "wallet", password)
+        password = keyring.set_password("bhive", "wallet", password)
     elif password_storage == "environment":
         print("The new wallet password can be stored in the UNLOCK environment variable to skip password prompt!")
     hv.wallet.create(password)
@@ -988,7 +988,7 @@ def changewalletpassphrase():
         return
     password_storage = hv.config["password_storage"]
     if KEYRING_AVAILABLE and password_storage == "keyring":
-        keyring.set_password("beem", "wallet", newpassword)
+        keyring.set_password("bhive", "wallet", newpassword)
     elif password_storage == "environment":
         print("The new wallet password can be stored in the UNLOCK invironment variable to skip password prompt!")
     hv.wallet.changePassphrase(newpassword)
@@ -1211,7 +1211,7 @@ def allow(foreign_account, permission, account, weight, threshold):
         return
     acc = Account(account, hive_instance=hv)
     if not foreign_account:
-        from beemgraphenebase.account import PasswordKey
+        from bhivegraphenebase.account import PasswordKey
         pwd = click.prompt("Password for Key Derivation", confirmation_prompt=True, hide_input=True)
         foreign_account = format(PasswordKey(account, pwd, permission).get_public(), hv.prefix)
     if threshold is not None:
@@ -1245,7 +1245,7 @@ def disallow(foreign_account, permission, account, threshold):
         threshold = int(threshold)
     acc = Account(account, hive_instance=hv)
     if not foreign_account:
-        from beemgraphenebase.account import PasswordKey
+        from bhivegraphenebase.account import PasswordKey
         pwd = click.prompt("Password for Key Derivation", confirmation_prompt=True)
         foreign_account = [format(PasswordKey(account, pwd, permission).get_public(), hv.prefix)]
     tx = acc.disallow(foreign_account, permission=permission, threshold=threshold)
@@ -1410,7 +1410,7 @@ def delprofile(variable, account):
 @click.option('--roles', help='Import specified keys (owner, active, posting, memo).', default=["active", "posting", "memo"])
 def importaccount(account, roles):
     """Import an account using a passphrase"""
-    from beemgraphenebase.account import PasswordKey
+    from bhivegraphenebase.account import PasswordKey
     hv = shared_hive_instance()
     if hv.rpc is not None:
         hv.rpc.rpcconnect()
@@ -1478,7 +1478,7 @@ def updatememokey(account, key):
         return
     acc = Account(account, hive_instance=hv)
     if not key:
-        from beemgraphenebase.account import PasswordKey
+        from bhivegraphenebase.account import PasswordKey
         pwd = click.prompt("Password for Memo Key Derivation", confirmation_prompt=True, hide_input=True)
         memo_key = PasswordKey(account, pwd, "memo")
         key = format(memo_key.get_public_key(), hv.prefix)
@@ -3160,7 +3160,7 @@ def customjson(jsonid, json_data, account, active):
     """Broadcasts a custom json
     
         First parameter is the cusom json id, the second field is a json file or a json key value combination
-        e.g. beempy customjson -a thecrazygm dw-heist username thecrazygm amount 100
+        e.g. bhivepy customjson -a thecrazygm dw-heist username thecrazygm amount 100
     """
     if jsonid is None:
         print("First argument must be the custom_json id")
@@ -3239,7 +3239,7 @@ def verify(blocknumber, trx, use_api):
     t = PrettyTable(["trx", "Signer key", "Account"])
     t.align = "l"
     if not use_api:
-        from beembase.signedtransactions import Signed_Transaction
+        from bhivebase.signedtransactions import Signed_Transaction
     for trx in trxs:
         if not use_api:
             # trx is now identical to the output of get_transaction

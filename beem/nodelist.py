@@ -8,8 +8,8 @@ import re
 import time
 import math
 import json
-from beem.instance import shared_hive_instance
-from beem.account import Account
+from bhive.instance import shared_hive_instance
+from bhive.account import Account
 import logging
 log = logging.getLogger(__name__)
 
@@ -19,7 +19,7 @@ class NodeList(list):
 
         .. code-block:: python
 
-            from beem.nodelist import NodeList
+            from bhive.nodelist import NodeList
             n = NodeList()
             nodes_urls = n.get_nodes()
 
@@ -57,7 +57,7 @@ class NodeList(list):
 
             .. code-block:: python
 
-                from beem.nodelist import NodeList
+                from bhive.nodelist import NodeList
                 nl = NodeList()
                 weights = [0, 0.1, 0.2, 1]
                 nl.update_nodes(weights)

@@ -5,10 +5,10 @@ from __future__ import print_function
 from __future__ import unicode_literals
 import logging
 from events import Events
-from beemapi.websocket import HiveWebsocket
-from beem.instance import shared_hive_instance
-from beem.blockchain import Blockchain
-from beem.price import Order, FilledOrder
+from bhiveapi.websocket import HiveWebsocket
+from bhive.instance import shared_hive_instance
+from bhive.blockchain import Blockchain
+from bhive.price import Order, FilledOrder
 log = logging.getLogger(__name__)
 # logging.basicConfig(level=logging.DEBUG)
 
@@ -27,7 +27,7 @@ class Notify(Events):
         .. code-block:: python
 
             from pprint import pprint
-            from beem.notify import Notify
+            from bhive.notify import Notify
 
             notify = Notify(
                 on_block=print,

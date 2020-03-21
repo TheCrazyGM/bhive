@@ -5,8 +5,8 @@ from __future__ import print_function
 from __future__ import unicode_literals
 import pytest
 import unittest
-from beemapi.node import Nodes
-from beemapi.rpcutils import (
+from bhiveapi.node import Nodes
+from bhiveapi.rpcutils import (
     is_network_appbase_ready,
     get_api_name, get_query, UnauthorizedError,
     RPCConnection, RPCError, NumRetriesReached

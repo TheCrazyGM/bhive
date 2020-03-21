@@ -7,10 +7,10 @@ from builtins import object
 import re
 import logging
 from binascii import hexlify, unhexlify
-from beemgraphenebase.ecdsasig import verify_message, sign_message
-from beemgraphenebase.account import PublicKey
-from beem.instance import shared_hive_instance
-from beem.account import Account
+from bhivegraphenebase.ecdsasig import verify_message, sign_message
+from bhivegraphenebase.account import PublicKey
+from bhive.instance import shared_hive_instance
+from bhive.account import Account
 from .exceptions import InvalidMessageSignature
 from .storage import configStorage as config
 

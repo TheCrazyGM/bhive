@@ -1,4 +1,4 @@
-"""beemgraphenebase."""
+"""bhivegraphenebase."""
 from .version import version as __version__
 # from . import account as Account
 # from .account import PrivateKey, PublicKey, Address, BrainKey

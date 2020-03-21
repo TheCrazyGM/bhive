@@ -1,11 +1,11 @@
 #!/usr/bin/python
 import sys
 import datetime as dt
-from beem.amount import Amount
-from beem.utils import parse_time, formatTimeString, addTzInfo
-from beem.instance import set_shared_hive_instance
-from beem import Hive
-from beem.snapshot import AccountSnapshot
+from bhive.amount import Amount
+from bhive.utils import parse_time, formatTimeString, addTzInfo
+from bhive.instance import set_shared_hive_instance
+from bhive import Hive
+from bhive.snapshot import AccountSnapshot
 import matplotlib as mpl
 # mpl.use('Agg')
 # mpl.use('TkAgg')

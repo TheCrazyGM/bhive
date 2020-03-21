@@ -8,13 +8,13 @@ from parameterized import parameterized
 import pytz
 from datetime import datetime, timedelta
 from pprint import pprint
-from beem import Hive, exceptions
-from beem.comment import Comment
-from beem.account import Account
-from beem.vote import Vote, ActiveVotes, AccountVotes
-from beem.instance import set_shared_hive_instance
-from beem.utils import construct_authorperm, resolve_authorperm, resolve_authorpermvoter, construct_authorpermvoter
-from beem.nodelist import NodeList
+from bhive import Hive, exceptions
+from bhive.comment import Comment
+from bhive.account import Account
+from bhive.vote import Vote, ActiveVotes, AccountVotes
+from bhive.instance import set_shared_hive_instance
+from bhive.utils import construct_authorperm, resolve_authorperm, resolve_authorpermvoter, construct_authorpermvoter
+from bhive.nodelist import NodeList
 
 wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
 

@@ -1,57 +1,57 @@
-beem - Unofficial Python Library for Hive
+bhive - Unofficial Python Library for Hive
 ===============================================
 
-beem is an unofficial python library for hive, which is created new from scratch from `python-bitshares`_
-The library name is derived from a beam machine, similar to the analogy between hive and steam. beem includes `python-graphenelib`_.
+bhive is an unofficial python library for hive, which is created new from scratch from `python-bitshares`_
+The library name is derived from a beam machine, similar to the analogy between hive and steam. bhive includes `python-graphenelib`_.
 
-.. image:: https://img.shields.io/pypi/v/beem.svg
-    :target: https://pypi.python.org/pypi/beem/
+.. image:: https://img.shields.io/pypi/v/bhive.svg
+    :target: https://pypi.python.org/pypi/bhive/
     :alt: Latest Version
 
-.. image:: https://img.shields.io/pypi/pyversions/beem.svg
-    :target: https://pypi.python.org/pypi/beem/
+.. image:: https://img.shields.io/pypi/pyversions/bhive.svg
+    :target: https://pypi.python.org/pypi/bhive/
     :alt: Python Versions
 
 
-.. image:: https://anaconda.org/conda-forge/beem/badges/version.svg
-    :target: https://anaconda.org/conda-forge/beem
+.. image:: https://anaconda.org/conda-forge/bhive/badges/version.svg
+    :target: https://anaconda.org/conda-forge/bhive
 
 
-.. image:: https://anaconda.org/conda-forge/beem/badges/downloads.svg
-    :target: https://anaconda.org/conda-forge/beem
+.. image:: https://anaconda.org/conda-forge/bhive/badges/downloads.svg
+    :target: https://anaconda.org/conda-forge/bhive
 
 
 Current build status
 --------------------
 
-.. image:: https://travis-ci.org/thecrazygmn/beem.svg?branch=master
-    :target: https://travis-ci.org/thecrazygmn/beem
+.. image:: https://travis-ci.org/thecrazygmn/bhive.svg?branch=master
+    :target: https://travis-ci.org/thecrazygmn/bhive
 
 .. image:: https://ci.appveyor.com/api/projects/status/ig8oqp8bt2fmr09a?svg=true
-    :target: https://ci.appveyor.com/project/thecrazygm/beem
+    :target: https://ci.appveyor.com/project/thecrazygm/bhive
 
-.. image:: https://circleci.com/gh/thecrazygmn/beem.svg?style=svg
-    :target: https://circleci.com/gh/thecrazygmn/beem
+.. image:: https://circleci.com/gh/thecrazygmn/bhive.svg?style=svg
+    :target: https://circleci.com/gh/thecrazygmn/bhive
 
-.. image:: https://readthedocs.org/projects/beem/badge/?version=latest
-  :target: http://beem.readthedocs.org/en/latest/?badge=latest
+.. image:: https://readthedocs.org/projects/bhive/badge/?version=latest
+  :target: http://bhive.readthedocs.org/en/latest/?badge=latest
 
 .. image:: https://api.codacy.com/project/badge/Grade/e5476faf97df4c658697b8e7a7efebd7
-    :target: https://www.codacy.com/app/thecrazygmn/beem?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=thecrazygmn/beem&amp;utm_campaign=Badge_Grade
+    :target: https://www.codacy.com/app/thecrazygmn/bhive?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=thecrazygmn/bhive&amp;utm_campaign=Badge_Grade
 
-.. image:: https://pyup.io/repos/github/thecrazygmn/beem/shield.svg
-     :target: https://pyup.io/repos/github/thecrazygmn/beem/
+.. image:: https://pyup.io/repos/github/thecrazygmn/bhive/shield.svg
+     :target: https://pyup.io/repos/github/thecrazygmn/bhive/
      :alt: Updates
 
 .. image:: https://api.codeclimate.com/v1/badges/e7bdb5b4aa7ab160a780/test_coverage
-   :target: https://codeclimate.com/github/thecrazygmn/beem/test_coverage
+   :target: https://codeclimate.com/github/thecrazygmn/bhive/test_coverage
    :alt: Test Coverage
 
 Support & Documentation
 =======================
-You may find help in the  `beem-discord-channel`_. The discord channel can also be used to discuss things about beem.
+You may find help in the  `bhive-discord-channel`_. The discord channel can also be used to discuss things about bhive.
 
-A complete library documentation is available at  `beem.readthedocs.io`_.
+A complete library documentation is available at  `bhive.readthedocs.io`_.
 
 Advantages over the official hive-python library
 =================================================
@@ -61,13 +61,13 @@ Advantages over the official hive-python library
 * Native support for new Appbase calls
 * Node error handling and automatic node switching
 * Usage of pycryptodomex instead of the outdated pycrypto
-* Complete documentation of beempy and all classes including all functions
+* Complete documentation of bhivepy and all classes including all functions
 * hiveconnect integration
 * Works on read-only systems
 * Own BlockchainObject class with cache
 * Contains all broadcast operations
 * Estimation of virtual account operation index from date or block number
-* the command line tool beempy uses click and has more commands
+* the command line tool bhivepy uses click and has more commands
 * HiveNodeRPC can be used to execute even not implemented RPC-Calls
 * More complete implemention
 
@@ -75,7 +75,7 @@ Installation
 ============
 The minimal working python version is 2.7.x. or 3.4.x
 
-beem can be installed parallel to python-hive.
+bhive can be installed parallel to python-hive.
 
 For Debian and Ubuntu, please ensure that the following packages are installed:
 
@@ -113,15 +113,15 @@ or:
 
     pip install -U secp256k1prp
 
-Install or update beem by pip::
+Install or update bhive by pip::
 
-    pip install -U beem
+    pip install -U bhive
 
-You can install beem from this repository if you want the latest
+You can install bhive from this repository if you want the latest
 but possibly non-compiling version::
 
-    git clone https://github.com/thecrazygmn/beem.git
-    cd beem
+    git clone https://github.com/thecrazygmn/bhive.git
+    cd bhive
     python setup.py build
 
     python setup.py install --user
@@ -131,34 +131,34 @@ Run tests after install::
     pytest
 
 
-Installing beem with conda-forge
+Installing bhive with conda-forge
 --------------------------------
 
-Installing beem from the conda-forge channel can be achieved by adding conda-forge to your channels with::
+Installing bhive from the conda-forge channel can be achieved by adding conda-forge to your channels with::
 
     conda config --add channels conda-forge
 
-Once the conda-forge channel has been enabled, beem can be installed with::
+Once the conda-forge channel has been enabled, bhive can be installed with::
 
-    conda install beem
+    conda install bhive
 
 Signing and Verify can be fasten (200 %) by installing cryptography::
 
     conda install cryptography
 
-beem can be updated by::
+bhive can be updated by::
 
-    conda update beem
+    conda update bhive
 
-CLI tool beempy
+CLI tool bhivepy
 ---------------
 A command line tool is available. The help output shows the available commands:
 
-    beempy --help
+    bhivepy --help
 
-Stand alone version of CLI tool beempy
+Stand alone version of CLI tool bhivepy
 --------------------------------------
-With the help of pyinstaller, a stand alone version of beempy was created for Windows, OSX and linux.
+With the help of pyinstaller, a stand alone version of bhivepy was created for Windows, OSX and linux.
 Each version has just to be unpacked and can be used in any terminal. The packed directories
 can be found under release. Each release has a hash sum, which is created directly in the build-server
 before transmitting the packed file. Please check the hash-sum after downloading.
@@ -180,5 +180,5 @@ Acknowledgements
 .. _python-bitshares: https://github.com/xeroc/python-bitshares
 .. _Python: http://python.org
 .. _Anaconda: https://www.continuum.io
-.. _beem.readthedocs.io: http://beem.readthedocs.io/en/latest/
-.. _beem-discord-channel: https://discord.gg/4HM592V
+.. _bhive.readthedocs.io: http://bhive.readthedocs.io/en/latest/
+.. _bhive-discord-channel: https://discord.gg/4HM592V

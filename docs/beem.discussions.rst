@@ -1,7 +1,7 @@
-beem\.discussions
+bhive\.discussions
 =================
 
-.. automodule:: beem.discussions
+.. automodule:: bhive.discussions
     :members:
     :undoc-members:
     :show-inheritance:

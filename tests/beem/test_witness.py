@@ -6,10 +6,10 @@ from builtins import super
 import unittest
 from parameterized import parameterized
 from pprint import pprint
-from beem import Hive
-from beem.witness import Witness, Witnesses, WitnessesVotedByAccount, WitnessesRankedByVote
-from beem.instance import set_shared_hive_instance
-from beem.nodelist import NodeList
+from bhive import Hive
+from bhive.witness import Witness, Witnesses, WitnessesVotedByAccount, WitnessesRankedByVote
+from bhive.instance import set_shared_hive_instance
+from bhive.nodelist import NodeList
 
 wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
 

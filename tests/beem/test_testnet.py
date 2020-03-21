@@ -9,27 +9,27 @@ import string
 import unittest
 import random
 from pprint import pprint
-from beem import Hive
-from beem.exceptions import (
+from bhive import Hive
+from bhive.exceptions import (
     InsufficientAuthorityError,
     MissingKeyError,
     InvalidWifError,
     WalletLocked
 )
-from beemapi import exceptions
-from beem.amount import Amount
-from beem.witness import Witness
-from beem.account import Account
-from beem.instance import set_shared_hive_instance, shared_hive_instance
-from beem.blockchain import Blockchain
-from beem.block import Block
-from beem.memo import Memo
-from beem.transactionbuilder import TransactionBuilder
-from beembase.operations import Transfer
-from beemgraphenebase.account import PasswordKey, PrivateKey, PublicKey
-from beem.utils import parse_time, formatTimedelta
-from beemapi.rpcutils import NumRetriesReached
-from beem.nodelist import NodeList
+from bhiveapi import exceptions
+from bhive.amount import Amount
+from bhive.witness import Witness
+from bhive.account import Account
+from bhive.instance import set_shared_hive_instance, shared_hive_instance
+from bhive.blockchain import Blockchain
+from bhive.block import Block
+from bhive.memo import Memo
+from bhive.transactionbuilder import TransactionBuilder
+from bhivebase.operations import Transfer
+from bhivegraphenebase.account import PasswordKey, PrivateKey, PublicKey
+from bhive.utils import parse_time, formatTimedelta
+from bhiveapi.rpcutils import NumRetriesReached
+from bhive.nodelist import NodeList
 
 # Py3 compatibility
 import sys
@@ -53,20 +53,20 @@ class Testcases(unittest.TestCase):
         )
         # from getpass import getpass
         # self.bts.wallet.unlock(getpass())
-        cls.bts.set_default_account("beem")
+        cls.bts.set_default_account("bhive")
 
-        # Test account "beem"
+        # Test account "bhive"
         cls.active_key = "5Jt2wTfhUt5GkZHV1HYVfkEaJ6XnY8D2iA4qjtK9nnGXAhThM3w"
         cls.posting_key = "5Jh1Gtu2j4Yi16TfhoDmg8Qj3ULcgRi7A49JXdfUUTVPkaFaRKz"
         cls.memo_key = "5KPbCuocX26aMxN9CDPdUex4wCbfw9NoT5P7UhcqgDwxXa47bit"
 
-        # Test account "beem1"
+        # Test account "bhive1"
         cls.active_key1 = "5Jo9SinzpdAiCDLDJVwuN7K5JcusKmzFnHpEAtPoBHaC1B5RDUd"
         cls.posting_key1 = "5JGNhDXuDLusTR3nbmpWAw4dcmE8WfSM8odzqcQ6mDhJHP8YkQo"
         cls.memo_key1 = "5KA2ddfAffjfRFoe1UhQjJtKnGsBn9xcsdPQTfMt1fQuErDAkWr"
 
-        cls.active_private_key_of_beem4 = '5JkZZEUWrDsu3pYF7aknSo7BLJx7VfxB3SaRtQaHhsPouDYjxzi'
-        cls.active_private_key_of_beem5 = '5Hvbm9VjRbd1B3ft8Lm81csaqQudwFwPGdiRKrCmTKcomFS3Z9J'
+        cls.active_private_key_of_bhive4 = '5JkZZEUWrDsu3pYF7aknSo7BLJx7VfxB3SaRtQaHhsPouDYjxzi'
+        cls.active_private_key_of_bhive5 = '5Hvbm9VjRbd1B3ft8Lm81csaqQudwFwPGdiRKrCmTKcomFS3Z9J'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -85,8 +85,8 @@ class Testcases(unittest.TestCase):
         hv.wallet.addPrivateKey(self.active_key)
         hv.wallet.addPrivateKey(self.memo_key)
         hv.wallet.addPrivateKey(self.posting_key)
-        hv.wallet.addPrivateKey(self.active_private_key_of_beem4)
-        hv.wallet.addPrivateKey(self.active_private_key_of_beem5)
+        hv.wallet.addPrivateKey(self.active_private_key_of_bhive4)
+        hv.wallet.addPrivateKey(self.active_private_key_of_bhive5)
 
     @classmethod
     def tearDownClass(cls):
@@ -98,20 +98,20 @@ class Testcases(unittest.TestCase):
         hv.wallet.unlock("123")
         priv_key = hv.wallet.getPrivateKeyForPublicKey(str(PrivateKey(self.posting_key, prefix=hv.prefix).pubkey))
         self.assertEqual(str(priv_key), self.posting_key)
-        priv_key = hv.wallet.getKeyForAccount("beem", "active")
+        priv_key = hv.wallet.getKeyForAccount("bhive", "active")
         self.assertEqual(str(priv_key), self.active_key)
-        priv_key = hv.wallet.getKeyForAccount("beem1", "posting")
+        priv_key = hv.wallet.getKeyForAccount("bhive1", "posting")
         self.assertEqual(str(priv_key), self.posting_key1)
 
-        priv_key = hv.wallet.getPrivateKeyForPublicKey(str(PrivateKey(self.active_private_key_of_beem4, prefix=hv.prefix).pubkey))
-        self.assertEqual(str(priv_key), self.active_private_key_of_beem4)
-        priv_key = hv.wallet.getKeyForAccount("beem4", "active")
-        self.assertEqual(str(priv_key), self.active_private_key_of_beem4)
+        priv_key = hv.wallet.getPrivateKeyForPublicKey(str(PrivateKey(self.active_private_key_of_bhive4, prefix=hv.prefix).pubkey))
+        self.assertEqual(str(priv_key), self.active_private_key_of_bhive4)
+        priv_key = hv.wallet.getKeyForAccount("bhive4", "active")
+        self.assertEqual(str(priv_key), self.active_private_key_of_bhive4)
 
-        priv_key = hv.wallet.getPrivateKeyForPublicKey(str(PrivateKey(self.active_private_key_of_beem5, prefix=hv.prefix).pubkey))
-        self.assertEqual(str(priv_key), self.active_private_key_of_beem5)
-        priv_key = hv.wallet.getKeyForAccount("beem5", "active")
-        self.assertEqual(str(priv_key), self.active_private_key_of_beem5)
+        priv_key = hv.wallet.getPrivateKeyForPublicKey(str(PrivateKey(self.active_private_key_of_bhive5, prefix=hv.prefix).pubkey))
+        self.assertEqual(str(priv_key), self.active_private_key_of_bhive5)
+        priv_key = hv.wallet.getKeyForAccount("bhive5", "active")
+        self.assertEqual(str(priv_key), self.active_private_key_of_bhive5)
 
     def test_transfer(self):
         bts = self.bts
@@ -119,9 +119,9 @@ class Testcases(unittest.TestCase):
         bts.wallet.unlock("123")
         # bts.wallet.addPrivateKey(self.active_key)
         # bts.prefix ="STX"
-        acc = Account("beem", hive_instance=bts)
+        acc = Account("bhive", hive_instance=bts)
         tx = acc.transfer(
-            "beem1", 1.33, "HBD", memo="Foobar")
+            "bhive1", 1.33, "HBD", memo="Foobar")
         self.assertEqual(
             tx["operations"][0][0],
             "transfer"
@@ -129,8 +129,8 @@ class Testcases(unittest.TestCase):
         self.assertEqual(len(tx['signatures']), 1)
         op = tx["operations"][0][1]
         self.assertIn("memo", op)
-        self.assertEqual(op["from"], "beem")
-        self.assertEqual(op["to"], "beem1")
+        self.assertEqual(op["from"], "bhive")
+        self.assertEqual(op["to"], "bhive1")
         amount = Amount(op["amount"], hive_instance=bts)
         self.assertEqual(float(amount), 1.33)
         bts.nobroadcast = True
@@ -139,9 +139,9 @@ class Testcases(unittest.TestCase):
         bts = self.bts
         bts.nobroadcast = False
         bts.wallet.unlock("123")
-        acc = Account("beem", hive_instance=bts)
+        acc = Account("bhive", hive_instance=bts)
         tx = acc.transfer(
-            "beem1", 1.33, "HBD", memo="#Foobar")
+            "bhive1", 1.33, "HBD", memo="#Foobar")
         self.assertEqual(
             tx["operations"][0][0],
             "transfer"
@@ -153,8 +153,8 @@ class Testcases(unittest.TestCase):
         memo = m.decrypt(op["memo"])
         self.assertEqual(memo, "Foobar")
 
-        self.assertEqual(op["from"], "beem")
-        self.assertEqual(op["to"], "beem1")
+        self.assertEqual(op["from"], "bhive")
+        self.assertEqual(op["to"], "bhive1")
         amount = Amount(op["amount"], hive_instance=bts)
         self.assertEqual(float(amount), 1.33)
         bts.nobroadcast = True
@@ -163,8 +163,8 @@ class Testcases(unittest.TestCase):
         hive = self.bts
         hive.nobroadcast = False
         tx = TransactionBuilder(use_condenser_api=True, hive_instance=hive)
-        tx.appendOps(Transfer(**{"from": 'beem',
-                                 "to": 'beem1',
+        tx.appendOps(Transfer(**{"from": 'bhive',
+                                 "to": 'bhive1',
                                  "amount": Amount("0.01 HIVE", hive_instance=hive),
                                  "memo": '1 of 1 transaction'}))
         self.assertEqual(
@@ -179,19 +179,19 @@ class Testcases(unittest.TestCase):
         hive.nobroadcast = True
 
     def test_transfer_2of2_simple(self):
-        # Send a 2 of 2 transaction from elf which needs beem4's cosign to send funds
+        # Send a 2 of 2 transaction from elf which needs bhive4's cosign to send funds
         hive = self.bts
         hive.nobroadcast = False
         tx = TransactionBuilder(use_condenser_api=True, hive_instance=hive)
-        tx.appendOps(Transfer(**{"from": 'beem5',
-                                 "to": 'beem1',
+        tx.appendOps(Transfer(**{"from": 'bhive5',
+                                 "to": 'bhive1',
                                  "amount": Amount("0.01 HIVE", hive_instance=hive),
                                  "memo": '2 of 2 simple transaction'}))
 
-        tx.appendWif(self.active_private_key_of_beem5)
+        tx.appendWif(self.active_private_key_of_bhive5)
         tx.sign()
         tx.clearWifs()
-        tx.appendWif(self.active_private_key_of_beem4)
+        tx.appendWif(self.active_private_key_of_bhive4)
         tx.sign(reconstruct_tx=False)
         self.assertEqual(len(tx['signatures']), 2)
         tx.broadcast()
@@ -199,53 +199,53 @@ class Testcases(unittest.TestCase):
 
     
     def test_transfer_2of2_wallet(self):
-        # Send a 2 of 2 transaction from beem5 which needs beem4's cosign to send
-        # priv key of beem5 and beem4 are stored in the wallet
+        # Send a 2 of 2 transaction from bhive5 which needs bhive4's cosign to send
+        # priv key of bhive5 and bhive4 are stored in the wallet
         # appendSigner fetches both keys and signs automatically with both keys.
         hive = self.bts
         hive.nobroadcast = False
         hive.wallet.unlock("123")
 
         tx = TransactionBuilder(use_condenser_api=True, hive_instance=hive)
-        tx.appendOps(Transfer(**{"from": 'beem5',
-                                 "to": 'beem1',
+        tx.appendOps(Transfer(**{"from": 'bhive5',
+                                 "to": 'bhive1',
                                  "amount": Amount("0.01 HIVE", hive_instance=hive),
                                  "memo": '2 of 2 serialized/deserialized transaction'}))
 
-        tx.appendSigner("beem5", "active")
+        tx.appendSigner("bhive5", "active")
         tx.sign()
         self.assertEqual(len(tx['signatures']), 2)
         tx.broadcast()
         hive.nobroadcast = True
 
     def test_transfer_2of2_serialized_deserialized(self):
-        # Send a 2 of 2 transaction from beem5 which needs beem4's cosign to send
-        # funds but sign the transaction with beem5's key and then serialize the transaction
-        # and deserialize the transaction.  After that, sign with beem4's key.
+        # Send a 2 of 2 transaction from bhive5 which needs bhive4's cosign to send
+        # funds but sign the transaction with bhive5's key and then serialize the transaction
+        # and deserialize the transaction.  After that, sign with bhive4's key.
         hive = self.bts
         hive.nobroadcast = False
         hive.wallet.unlock("123")
-        # hive.wallet.removeAccount("beem4")
-        hive.wallet.removePrivateKeyFromPublicKey(str(PublicKey(self.active_private_key_of_beem4, prefix=core_unit)))
+        # hive.wallet.removeAccount("bhive4")
+        hive.wallet.removePrivateKeyFromPublicKey(str(PublicKey(self.active_private_key_of_bhive4, prefix=core_unit)))
 
         tx = TransactionBuilder(use_condenser_api=True, hive_instance=hive)
-        tx.appendOps(Transfer(**{"from": 'beem5',
-                                 "to": 'beem1',
+        tx.appendOps(Transfer(**{"from": 'bhive5',
+                                 "to": 'bhive1',
                                  "amount": Amount("0.01 HIVE", hive_instance=hive),
                                  "memo": '2 of 2 serialized/deserialized transaction'}))
 
-        tx.appendSigner("beem5", "active")
-        tx.addSigningInformation("beem5", "active")
+        tx.appendSigner("bhive5", "active")
+        tx.addSigningInformation("bhive5", "active")
         tx.sign()
         tx.clearWifs()
         self.assertEqual(len(tx['signatures']), 1)
-        # hive.wallet.removeAccount("beem5")
-        hive.wallet.removePrivateKeyFromPublicKey(str(PublicKey(self.active_private_key_of_beem5, prefix=core_unit)))
+        # hive.wallet.removeAccount("bhive5")
+        hive.wallet.removePrivateKeyFromPublicKey(str(PublicKey(self.active_private_key_of_bhive5, prefix=core_unit)))
         tx_json = tx.json()
         del tx
         new_tx = TransactionBuilder(tx=tx_json, hive_instance=hive)
         self.assertEqual(len(new_tx['signatures']), 1)
-        hive.wallet.addPrivateKey(self.active_private_key_of_beem4)
+        hive.wallet.addPrivateKey(self.active_private_key_of_bhive4)
         new_tx.appendMissingSignatures()
         new_tx.sign(reconstruct_tx=False)
         self.assertEqual(len(new_tx['signatures']), 2)
@@ -253,57 +253,57 @@ class Testcases(unittest.TestCase):
         hive.nobroadcast = True
 
     def test_transfer_2of2_offline(self):
-        # Send a 2 of 2 transaction from beem5 which needs beem4's cosign to send
-        # funds but sign the transaction with beem5's key and then serialize the transaction
-        # and deserialize the transaction.  After that, sign with beem4's key.
+        # Send a 2 of 2 transaction from bhive5 which needs bhive4's cosign to send
+        # funds but sign the transaction with bhive5's key and then serialize the transaction
+        # and deserialize the transaction.  After that, sign with bhive4's key.
         hive = self.bts
         hive.nobroadcast = False
         hive.wallet.unlock("123")
-        # hive.wallet.removeAccount("beem4")
-        hive.wallet.removePrivateKeyFromPublicKey(str(PublicKey(self.active_private_key_of_beem4, prefix=core_unit)))
+        # hive.wallet.removeAccount("bhive4")
+        hive.wallet.removePrivateKeyFromPublicKey(str(PublicKey(self.active_private_key_of_bhive4, prefix=core_unit)))
 
         tx = TransactionBuilder(use_condenser_api=True, hive_instance=hive)
-        tx.appendOps(Transfer(**{"from": 'beem5',
-                                 "to": 'beem',
+        tx.appendOps(Transfer(**{"from": 'bhive5',
+                                 "to": 'bhive',
                                  "amount": Amount("0.01 HIVE", hive_instance=hive),
                                  "memo": '2 of 2 serialized/deserialized transaction'}))
 
-        tx.appendSigner("beem5", "active")
-        tx.addSigningInformation("beem5", "active")
+        tx.appendSigner("bhive5", "active")
+        tx.addSigningInformation("bhive5", "active")
         tx.sign()
         tx.clearWifs()
         self.assertEqual(len(tx['signatures']), 1)
-        # hive.wallet.removeAccount("beem5")
-        hive.wallet.removePrivateKeyFromPublicKey(str(PublicKey(self.active_private_key_of_beem5, prefix=core_unit)))
-        hive.wallet.addPrivateKey(self.active_private_key_of_beem4)
+        # hive.wallet.removeAccount("bhive5")
+        hive.wallet.removePrivateKeyFromPublicKey(str(PublicKey(self.active_private_key_of_bhive5, prefix=core_unit)))
+        hive.wallet.addPrivateKey(self.active_private_key_of_bhive4)
         tx.appendMissingSignatures()
         tx.sign(reconstruct_tx=False)
         self.assertEqual(len(tx['signatures']), 2)
         tx.broadcast()
         hive.nobroadcast = True
-        hive.wallet.addPrivateKey(self.active_private_key_of_beem5)
+        hive.wallet.addPrivateKey(self.active_private_key_of_bhive5)
 
     
     def test_transfer_2of2_wif(self):
         nodelist = NodeList()
-        # Send a 2 of 2 transaction from elf which needs beem4's cosign to send
+        # Send a 2 of 2 transaction from elf which needs bhive4's cosign to send
         # funds but sign the transaction with elf's key and then serialize the transaction
-        # and deserialize the transaction.  After that, sign with beem4's key.
+        # and deserialize the transaction.  After that, sign with bhive4's key.
         hive = Hive(
             node=self.nodes,
             num_retries=10,
-            keys=[self.active_private_key_of_beem5],
+            keys=[self.active_private_key_of_bhive5],
             expiration=360,
         )
 
         tx = TransactionBuilder(use_condenser_api=True, hive_instance=hive)
-        tx.appendOps(Transfer(**{"from": 'beem5',
-                                 "to": 'beem',
+        tx.appendOps(Transfer(**{"from": 'bhive5',
+                                 "to": 'bhive',
                                  "amount": Amount("0.01 HIVE", hive_instance=hive),
                                  "memo": '2 of 2 serialized/deserialized transaction'}))
 
-        tx.appendSigner("beem5", "active")
-        tx.addSigningInformation("beem5", "active")
+        tx.appendSigner("bhive5", "active")
+        tx.addSigningInformation("bhive5", "active")
         tx.sign()
         tx.clearWifs()
         self.assertEqual(len(tx['signatures']), 1)
@@ -314,7 +314,7 @@ class Testcases(unittest.TestCase):
         hive = Hive(
             node=self.nodes,
             num_retries=10,
-            keys=[self.active_private_key_of_beem4],
+            keys=[self.active_private_key_of_bhive4],
             expiration=360,
         )
         new_tx = TransactionBuilder(tx=tx_json, hive_instance=hive)
@@ -327,11 +327,11 @@ class Testcases(unittest.TestCase):
         hv = self.bts
         hv.wallet.unlock("123")
         tx = TransactionBuilder(use_condenser_api=True, hive_instance=hv)
-        tx.appendOps(Transfer(**{"from": "beem",
-                                 "to": "beem1",
+        tx.appendOps(Transfer(**{"from": "bhive",
+                                 "to": "bhive1",
                                  "amount": Amount("1.300 HBD", hive_instance=hv),
                                  "memo": "Foobar"}))
-        account = Account("beem", hive_instance=hv)
+        account = Account("bhive", hive_instance=hv)
         tx.appendSigner(account, "active")
         self.assertTrue(len(tx.wifs) > 0)
         tx.sign()
@@ -348,15 +348,15 @@ class Testcases(unittest.TestCase):
         key5 = PrivateKey()
         tx = bts.create_account(
             name,
-            creator="beem",
+            creator="bhive",
             owner_key=format(key1.pubkey, core_unit),
             active_key=format(key2.pubkey, core_unit),
             posting_key=format(key3.pubkey, core_unit),
             memo_key=format(key4.pubkey, core_unit),
             additional_owner_keys=[format(key5.pubkey, core_unit)],
             additional_active_keys=[format(key5.pubkey, core_unit)],
-            additional_owner_accounts=["beem1"],  # 1.2.0
-            additional_active_accounts=["beem1"],
+            additional_owner_accounts=["bhive1"],  # 1.2.0
+            additional_active_accounts=["bhive1"],
             storekeys=False
         )
         self.assertEqual(
@@ -372,7 +372,7 @@ class Testcases(unittest.TestCase):
             format(key5.pubkey, core_unit),
             [x[0] for x in op[role]["key_auths"]])
         self.assertIn(
-            "beem1",
+            "bhive1",
             [x[0] for x in op[role]["account_auths"]])
         role = "owner"
         self.assertIn(
@@ -382,11 +382,11 @@ class Testcases(unittest.TestCase):
             format(key5.pubkey, core_unit),
             [x[0] for x in op[role]["key_auths"]])
         self.assertIn(
-            "beem1",
+            "bhive1",
             [x[0] for x in op[role]["account_auths"]])
         self.assertEqual(
             op["creator"],
-            "beem")
+            "bhive")
 
     def test_connect(self):
         nodelist = NodeList()
@@ -395,7 +395,7 @@ class Testcases(unittest.TestCase):
         self.assertEqual(bts.prefix, "STX")
 
     def test_set_default_account(self):
-        self.bts.set_default_account("beem")
+        self.bts.set_default_account("bhive")
 
     def test_info(self):
         info = self.bts.info()
@@ -414,10 +414,10 @@ class Testcases(unittest.TestCase):
         tx1 = bts.new_tx()
         tx2 = bts.new_tx()
 
-        acc = Account("beem", hive_instance=bts)
-        acc.transfer("beem1", 1, "HIVE", append_to=tx1)
-        acc.transfer("beem1", 2, "HIVE", append_to=tx2)
-        acc.transfer("beem1", 3, "HIVE", append_to=tx1)
+        acc = Account("bhive", hive_instance=bts)
+        acc.transfer("bhive1", 1, "HIVE", append_to=tx1)
+        acc.transfer("bhive1", 2, "HIVE", append_to=tx2)
+        acc.transfer("bhive1", 3, "HIVE", append_to=tx1)
         tx1 = tx1.json()
         tx2 = tx2.json()
         ops1 = tx1["operations"]
@@ -447,11 +447,11 @@ class Testcases(unittest.TestCase):
     def test_allow(self):
         bts = self.bts
         self.assertIn(bts.prefix, "STX")
-        acc = Account("beem", hive_instance=bts)
+        acc = Account("bhive", hive_instance=bts)
         self.assertIn(acc.hive.prefix, "STX")
         tx = acc.allow(
             "STX55VCzsb47NZwWe5F3qyQKedX9iHBHMVVFSc96PDvV7wuj7W86n",
-            account="beem",
+            account="bhive",
             weight=1,
             threshold=1,
             permission="active",
@@ -469,7 +469,7 @@ class Testcases(unittest.TestCase):
 
     def test_disallow(self):
         bts = self.bts
-        acc = Account("beem", hive_instance=bts)
+        acc = Account("bhive", hive_instance=bts)
         if sys.version > '3':
             _assertRaisesRegex = self.assertRaisesRegex
         else:
@@ -493,7 +493,7 @@ class Testcases(unittest.TestCase):
         bts = self.bts
         bts.wallet.unlock("123")
         self.assertEqual(bts.prefix, "STX")
-        acc = Account("beem", hive_instance=bts)
+        acc = Account("bhive", hive_instance=bts)
         tx = acc.update_memo_key("STX55VCzsb47NZwWe5F3qyQKedX9iHBHMVVFSc96PDvV7wuj7W86n")
         self.assertEqual(
             (tx["operations"][0][0]),
@@ -506,15 +506,15 @@ class Testcases(unittest.TestCase):
 
     def test_approvewitness(self):
         bts = self.bts
-        w = Account("beem", hive_instance=bts)
-        tx = w.approvewitness("beem1")
+        w = Account("bhive", hive_instance=bts)
+        tx = w.approvewitness("bhive1")
         self.assertEqual(
             (tx["operations"][0][0]),
             "account_witness_vote"
         )
         op = tx["operations"][0][1]
         self.assertIn(
-            "beem1",
+            "bhive1",
             op["witness"])
 
     def test_appendWif(self):
@@ -524,8 +524,8 @@ class Testcases(unittest.TestCase):
                     expiration=120,
                     num_retries=10)
         tx = TransactionBuilder(use_condenser_api=True, hive_instance=hv)
-        tx.appendOps(Transfer(**{"from": "beem",
-                                 "to": "beem1",
+        tx.appendOps(Transfer(**{"from": "bhive",
+                                 "to": "bhive1",
                                  "amount": Amount("1 HIVE", hive_instance=hv),
                                  "memo": ""}))
         with self.assertRaises(
@@ -548,11 +548,11 @@ class Testcases(unittest.TestCase):
                     expiration=120,
                     num_retries=10)
         tx = TransactionBuilder(use_condenser_api=True, hive_instance=hv)
-        tx.appendOps(Transfer(**{"from": "beem",
-                                 "to": "beem1",
+        tx.appendOps(Transfer(**{"from": "bhive",
+                                 "to": "bhive1",
                                  "amount": Amount("1 HIVE", hive_instance=hv),
                                  "memo": ""}))
-        account = Account("beem", hive_instance=hv)
+        account = Account("bhive", hive_instance=hv)
         with self.assertRaises(
             AssertionError
         ):
@@ -570,11 +570,11 @@ class Testcases(unittest.TestCase):
                     expiration=120,
                     num_retries=10)
         tx = TransactionBuilder(use_condenser_api=True, hive_instance=hv)
-        tx.appendOps(Transfer(**{"from": "beem",
-                                 "to": "beem1",
+        tx.appendOps(Transfer(**{"from": "bhive",
+                                 "to": "bhive1",
                                  "amount": Amount("1 HIVE", hive_instance=hv),
                                  "memo": ""}))
-        account = Account("beem2", hive_instance=hv)
+        account = Account("bhive2", hive_instance=hv)
         tx.appendSigner(account, "active")
         tx.appendWif(self.posting_key)
         self.assertTrue(len(tx.wifs) > 0)
@@ -594,18 +594,18 @@ class Testcases(unittest.TestCase):
                     num_retries=10)
 
         tx = TransactionBuilder(use_condenser_api=True, expiration=10, hive_instance=hv)
-        tx.appendOps(Transfer(**{"from": "beem",
-                                 "to": "beem1",
+        tx.appendOps(Transfer(**{"from": "bhive",
+                                 "to": "bhive1",
                                  "amount": Amount("1 HIVE", hive_instance=hv),
                                  "memo": ""}))
-        tx.appendSigner("beem", "active")
+        tx.appendSigner("bhive", "active")
         tx.sign()
         tx.broadcast()
 
     def test_TransactionConstructor(self):
         hv = self.bts
-        opTransfer = Transfer(**{"from": "beem",
-                                 "to": "beem1",
+        opTransfer = Transfer(**{"from": "bhive",
+                                 "to": "bhive1",
                                  "amount": Amount("1 HIVE", hive_instance=hv),
                                  "memo": ""})
         tx1 = TransactionBuilder(use_condenser_api=True, hive_instance=hv)
@@ -615,7 +615,7 @@ class Testcases(unittest.TestCase):
         self.assertTrue(len(tx.list_operations()) == 1)
         self.assertTrue(repr(tx) is not None)
         self.assertTrue(str(tx) is not None)
-        account = Account("beem", hive_instance=hv)
+        account = Account("bhive", hive_instance=hv)
         tx.appendSigner(account, "active")
         self.assertTrue(len(tx.wifs) > 0)
         tx.sign()
@@ -629,8 +629,8 @@ class Testcases(unittest.TestCase):
                     nobroadcast=True,
                     expiration=120,
                     num_retries=10)
-        account = Account("beem", hive_instance=hv)
-        account.follow("beem1")
+        account = Account("bhive", hive_instance=hv)
+        account.follow("bhive1")
 
     def test_follow_posting_key(self):
         nodelist = NodeList()
@@ -639,5 +639,5 @@ class Testcases(unittest.TestCase):
                     nobroadcast=True,
                     expiration=120,
                     num_retries=10)
-        account = Account("beem", hive_instance=hv)
-        account.follow("beem1")
+        account = Account("bhive", hive_instance=hv)
+        account.follow("bhive1")

@@ -10,8 +10,8 @@ import pytz
 from datetime import datetime, timedelta
 from parameterized import parameterized
 from pprint import pprint
-from beem import Hive, exceptions, constants
-from beem.nodelist import NodeList
+from bhive import Hive, exceptions, constants
+from bhive.nodelist import NodeList
 
 wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
 

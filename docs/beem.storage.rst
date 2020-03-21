@@ -1,7 +1,7 @@
-beem\.storage
+bhive\.storage
 =============
 
-.. automodule:: beem.storage
+.. automodule:: bhive.storage
     :members:
     :undoc-members:
     :show-inheritance:

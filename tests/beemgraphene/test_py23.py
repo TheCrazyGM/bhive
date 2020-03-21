@@ -5,7 +5,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 import pytest
 import unittest
-from beemgraphenebase.py23 import (
+from bhivegraphenebase.py23 import (
     py23_bytes,
     py23_chr,
     bytes_types,

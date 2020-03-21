@@ -80,7 +80,7 @@ class AsciiChart(object):
 
             .. testcode::
 
-                from beem.asciichart import AsciiChart
+                from bhive.asciichart import AsciiChart
                 chart = AsciiChart()
                 series = [1, 2, 3, 7, 2, -4, -2]
                 chart.adapt_on_series(series)
@@ -131,7 +131,7 @@ class AsciiChart(object):
 
             .. testcode::
 
-                from beem.asciichart import AsciiChart
+                from bhive.asciichart import AsciiChart
                 chart = AsciiChart()
                 series = [1, 2, 3, 7, 2, -4, -2]
                 chart.plot(series)
@@ -151,7 +151,7 @@ class AsciiChart(object):
 
             .. testcode::
 
-                from beem.asciichart import AsciiChart
+                from bhive.asciichart import AsciiChart
                 chart = AsciiChart()
                 series = [1, 2, 3, 7, 2, -4, -2]
                 chart.adapt_on_series(series)
@@ -175,7 +175,7 @@ class AsciiChart(object):
 
             .. testcode::
 
-                from beem.asciichart import AsciiChart
+                from bhive.asciichart import AsciiChart
                 chart = AsciiChart()
                 series = [1, 2, 3, 7, 2, -4, -2]
                 chart.adapt_on_series(series)
@@ -213,7 +213,7 @@ class AsciiChart(object):
 
             .. testcode::
 
-                from beem.asciichart import AsciiChart
+                from bhive.asciichart import AsciiChart
                 chart = AsciiChart()
                 series = [1, 2, 3, 7, 2, -4, -2]
                 chart.adapt_on_series(series)

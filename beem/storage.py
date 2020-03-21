@@ -5,7 +5,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 from builtins import bytes
 from builtins import object
-from beemgraphenebase.py23 import py23_bytes, bytes_types
+from bhivegraphenebase.py23 import py23_bytes, bytes_types
 import shutil
 import time
 import os
@@ -46,9 +46,9 @@ class DataDir(object):
          Furthermore, it offers an interface to generated backups
          in the `backups/` directory every now and then.
     """
-    appname = "beem"
-    appauthor = "beem"
-    storageDatabase = "beem.sqlite"
+    appname = "bhive"
+    appauthor = "bhive"
+    storageDatabase = "bhive.sqlite"
 
     data_dir = user_data_dir(appname, appauthor)
     sqlDataBaseFile = os.path.join(data_dir, storageDatabase)

@@ -1,7 +1,7 @@
-beem\.conveyor
+bhive\.conveyor
 ==============
 
-.. automodule:: beem.conveyor
+.. automodule:: bhive.conveyor
     :members:
     :undoc-members:
     :show-inheritance:

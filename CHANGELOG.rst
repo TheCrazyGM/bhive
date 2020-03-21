@@ -21,7 +21,7 @@ Changelog
 * operations for account_update2, create_proposal, update_proposal_votes and remove_proposal were added
 * update_proposal_votes was added to steem
 * update_account_jsonmetadata was added to account
-* new beempy delete were added
+* new bhivepy delete were added
 
 0.20.23
 -------
@@ -49,7 +49,7 @@ Changelog
 0.20.20
 -------
 * Fix typo (PR #161)
-* Add feature request #162 - one-time private keys can be used in beempy
+* Add feature request #162 - one-time private keys can be used in bhivepy
 * set num_retries to a default of 100, in order to prevent crashing when a wrong node is set
 * Fix issue #171 - Account.get_balance function shows summed value of liquid balance and unclaimed reward (thanks to @sourovafrin)
 * Use Decimal class to store the amount in the Amount class
@@ -60,12 +60,12 @@ Changelog
 * Fix pyinstaller for windows
 * Improve derive_permlink and allow replies of comments with permlink lenght > 235
 * Broadcast custom_json with active authority
-* Add new beempy command customjson
+* Add new bhivepy command customjson
 
 0.20.18
 -------
 * get_blog, get_followers and get_following works with api.steemit.com (issue #146)
-* beempy newaccount - possible to provide owen, posting, active, and memo pub_key to create a new account
+* bhivepy newaccount - possible to provide owen, posting, active, and memo pub_key to create a new account
 * https://rpc.usesteem.com added to nodelist
 * NodeList.get_nodes() has a new parameter exclude_limited. When True (default value), api.steemit.com is not returned as node.
 * PR #150: fix empty block handling (by crokkon)
@@ -80,15 +80,15 @@ Changelog
 
 0.20.16
 -------
-* Fix beempy walletinfo and sign
+* Fix bhivepy walletinfo and sign
 
 0.20.15
 -------
-* Improve file reading for beempy sign and broadcast
-* add option to write file for beempy sign
+* Improve file reading for bhivepy sign and broadcast
+* add option to write file for bhivepy sign
 * Disable not working nodes
 * add missing prefix to comment_options op (by crokkon)
-* fix beempy verify --use-api (by crokkon)
+* fix bhivepy verify --use-api (by crokkon)
 * Update installation.rst (by Nick Foster)
 
 0.20.14
@@ -97,12 +97,12 @@ Changelog
 * Account: support for retrieving all delegations (thanks to crookon, PR #129)
 * Change recovery account / list recovery account change requests (thanks to crokkon, PR #130)
 * Exclude sbd_interest_rate, as it is not present on the VIT blockchain (thanks to svitx, PR #132)
-* connect for beempy createwallet (thanks to crokkon, PR #133)
+* connect for bhivepy createwallet (thanks to crokkon, PR #133)
 
 0.20.13
 -------
-* beempy post improved
-* beempy ImageUploader added
+* bhivepy post improved
+* bhivepy ImageUploader added
 * issues #125 and #126 fixed
 * VotedBeforeWaitTimeReached exception added
 
@@ -111,7 +111,7 @@ Changelog
 * pep8 formating improved
 * Too Many Requests error handled
 * different limit handling in WLS fixed for account history
-* percent-steem-dollars and max-accepted-payout added to beempy post
+* percent-steem-dollars and max-accepted-payout added to bhivepy post
 
 0.20.10
 -------
@@ -120,7 +120,7 @@ Changelog
 * RC costs adapted on changes from 0.20.6
 * VIT chain fixed
 * update_account_keys function added to account
-* beempy commands for post, reply and beneficiaries added
+* bhivepy commands for post, reply and beneficiaries added
 
 0.20.9
 ------
@@ -140,7 +140,7 @@ Changelog
 ------
 * Fix issue #97 `get_discussions()` does not finish if discussions are empty by espoem
 * Fix issue #99 DivisionByZero Error in Account.get_rc_manabar() by crokkon
-* Add claimaccount to beempy and some improvements for steem.sbd_symbol
+* Add claimaccount to bhivepy and some improvements for steem.sbd_symbol
 * newaccount adapted for HF20 and can be used to create claimed account
 * Correct operationids for WLS
 * Improve steem.refresh_data() reading
@@ -170,10 +170,10 @@ Changelog
 0.20.3
 ------
 * add RC class to calculate RC costs of operations
-* add comment, vote, transfer RC costs in account.print_info() and beempy power
-* Shows number of possible comments, votes, tranfers with available RCs in account.print_info() and beempy power
+* add comment, vote, transfer RC costs in account.print_info() and bhivepy power
+* Shows number of possible comments, votes, tranfers with available RCs in account.print_info() and bhivepy power
 * get_rc_cost was added to steem to calculation RC costs from resource count
-* bug regarding new amount format in witness update fixed (also for beempy witnessenable and witnessdisable)
+* bug regarding new amount format in witness update fixed (also for bhivepy witnessenable and witnessdisable)
 
 0.20.2
 ------
@@ -203,8 +203,8 @@ Changelog
 * last hf19 release
 * working witness_set_properties  operation
 * witness_set_properties() added to steem
-* beempy witnessproperties added
-* beempy pricefeed uses witnessproperties  when witness wif is provided
+* bhivepy witnessproperties added
+* bhivepy pricefeed uses witnessproperties  when witness wif is provided
 
 0.19.56
 -------
@@ -220,7 +220,7 @@ Changelog
 * Issue #72 fixed by crokkon
 * Improved Docu by jrswab
 * Add get_vote_pct_for_SBD, sbd_to_vote_pct and sbd_to_rshares by flugschwein
-* beembase/objects: fix serialization of appbase trx by crokkon
+* bhivebase/objects: fix serialization of appbase trx by crokkon
 * Fix many documentation errors (based on error messages when building) by flugschwein
 * Appbase detection fixed
 * Unit tests fixed
@@ -236,7 +236,7 @@ Changelog
 
 0.19.53
 -------
-* Add userdata and featureflags to beempy
+* Add userdata and featureflags to bhivepy
 * steemd.pevo.science and steemd.steemgigs.org removed from Nodelist
 * bug fixed in allow and disallow for CLI
 * Issue #52 closed thanks to crokkon
@@ -265,7 +265,7 @@ Changelog
 0.19.49
 -------
 * add get_parent() to comment
-* fix for beempy reward
+* fix for bhivepy reward
 * fix #46 (used power calculation may treat downvotes incorrectly) by crokkon
 * fix #49 (discussions: set steem inst. as keyword argument) by crokkon
 * Fix issue #51 (Discussions.get_discussions("blog", ...) returns the same two comments over and over)
@@ -287,7 +287,7 @@ Changelog
 * Added get_all_replies() to Comment for fetching all replies to a post
 * bemepy claimreward improved
 * Amount handling in Account improved
-* upvote and downvote in beempy fixed
+* upvote and downvote in bhivepy fixed
 * update_vote and build_vp_arrays added to AccountSnapshot for showing vote power history
 * account_vp_over_time added to examples
 
@@ -295,7 +295,7 @@ Changelog
 -------
 * Some bug fixes
 * Unit tests using testnet fixed
-* beem.snapshot improved
+* bhive.snapshot improved
 * Example account_sp_over_time added
 * Example account_curation_per_week_and_1k_sp added
 * Add block_number check to wait_for_and_get_block
@@ -305,7 +305,7 @@ Changelog
 * Force refresh of chain_params on node switch
 * Replace recursive call in _get_followers
 * Nodelist updated and bitcoiner.me node disabled
-* First testing version of beem.snapshot with example added (thanks to crokkon for his example)
+* First testing version of bhive.snapshot with example added (thanks to crokkon for his example)
 
 0.19.45
 -------
@@ -329,7 +329,7 @@ Changelog
 -------
 * improve parse_body for post()
 * Add conversion of datetime objects to timestamp in get_steem_per_mvest
-* Fix beem for steem update 0.19.5 and 0.19.10
+* Fix bhive for steem update 0.19.5 and 0.19.10
 
 0.19.41
 -------
@@ -361,9 +361,9 @@ Changelog
 -------
 * Bug fixes
 * Bool variables for SteemConnect link creation fixed
-* Account handling in beem.account is improved
-* json_metadata property added to beem.account
-* missing addTzInfo added to beem.blockchain
+* Account handling in bhive.account is improved
+* json_metadata property added to bhive.account
+* missing addTzInfo added to bhive.blockchain
 * json_metadata update for comment edit improved
 * use_stored_data option added to steem.info()
 * poloniex removed and huobi and ubpit added to steem_btc_ticker()
@@ -392,16 +392,16 @@ Changelog
 * Several bug fixes
 * Account features + some fixes and refactorings by crokkon
 * blockchain.awaitTxConfirmation() fix timeout by crokkon
-* beempy updatenodes added, this command can be used to update the nodes list
+* bhivepy updatenodes added, this command can be used to update the nodes list
 * NodeList.update_nodes() added, this command reads the metadata from fullnodeupdate, which contain newest nodes information
 * add option wss and https for NodeList.get_nodes
 * updatenodes is used in all tests
 * add witnessenable, witnessdisable, witnessfeed and witness
 * time_diff_est and block_diff_est added to witness for next block producing estimation
 * btc_usd_ticker, steem_btc_ticker, steem_usd_implied and _weighted_average added to Market
-* beempy witnesses uses the proxy name when set
-* beempy keygen added, for creating a witness signing key
-* beempy parsewif improved
+* bhivepy witnesses uses the proxy name when set
+* bhivepy keygen added, for creating a witness signing key
+* bhivepy parsewif improved
 
 0.19.35
 -------
@@ -425,18 +425,18 @@ Changelog
   addToken, getTokenForAccountName, removeTokenFromPublicName, getPublicNames added to the wallet class
 * url_from_tx add to steemconnect for creating a URL from any operation
 * login demo add added
-* add -l option to beempy for creating URL from any operation
-* add -s option to beempy for broadcasting via steemconnect
-* addtoken, deltoken and listtoken added to beempy
+* add -l option to bhivepy for creating URL from any operation
+* add -s option to bhivepy for broadcasting via steemconnect
+* addtoken, deltoken and listtoken added to bhivepy
 
 0.19.32
 -------
-* bug fix and improvements for beempy curation
+* bug fix and improvements for bhivepy curation
 
 0.19.31
 -------
 * datetime.date is also supported
-* beempy curation improved
+* bhivepy curation improved
 * owner key is used, when provided and when no other permission is given
 * active key is used, when provided and when no posting key is given (post, vote, ...)
 * MissingKeyError is raised when a wrong key is set by Steem(keys=[])
@@ -456,7 +456,7 @@ Changelog
 * Escrow_release added
 * Escrow_approve added
 * Decline_voting_rights added
-* Export option for votes and curation command under beempy added
+* Export option for votes and curation command under bhivepy added
 * getOwnerKeysForAccount, getActiveKeysForAccount, getPostingKeysForAccount added
 * Node Class and Nodelist added
 
@@ -471,14 +471,14 @@ Changelog
 
 0.19.28
 -------
-* Improve rewards command in beempy
+* Improve rewards command in bhivepy
 * estimate_virtual_op_num improved and small bug fixed
 * SBD value in Comment always converted to Amount
 * accuracy renamed to stop_diff
 * Doku of estimate_virtual_op_num improved
 * Unit test for estimate_virtual_op_num added
-* beempy rewards command renamed to pending
-* new beempy command: rewards shows now the received rewards
+* bhivepy rewards command renamed to pending
+* new bhivepy command: rewards shows now the received rewards
 
 0.19.27
 -------
@@ -503,7 +503,7 @@ Changelog
 * websocket will be created again for each Steem instance
 * A node benchmark which uses threads added to examples
 * Documentation improved
-* Optional threading added to beempy pingnode (use --threading with --sort)
+* Optional threading added to bhivepy pingnode (use --threading with --sort)
 
 0.19.25
 -------
@@ -511,8 +511,8 @@ Changelog
 
 0.19.24
 -------
-* AsciiChart for beempy: pricehistory, tradehistory and orderbook
-* Sort nodes regarding their ping times (beempy ping --sort --remove)
+* AsciiChart for bhivepy: pricehistory, tradehistory and orderbook
+* Sort nodes regarding their ping times (bhivepy ping --sort --remove)
 * currentnode and nextnode skip not working nodes
 * Memory consumption fer requests and websocket reduced when creating more instances of steem
 * trade_history added to market
@@ -521,15 +521,15 @@ Changelog
 
 0.19.23
 -------
-* new function for beempy added: power, follower, following, muter, muting, mute, nextnode, pingnode, currentnode
+* new function for bhivepy added: power, follower, following, muter, muting, mute, nextnode, pingnode, currentnode
 * support for read-only systems added
 * more unit tests
 * Several improvements and bug fixes
 
 0.19.22
 -------
-* beempy (command line tool) improved and all missing functions which are available in steempy are added
-* new functions to beempy added: witnesses, walletinfo, openorders, orderbook and claimreward
+* bhivepy (command line tool) improved and all missing functions which are available in steempy are added
+* new functions to bhivepy added: witnesses, walletinfo, openorders, orderbook and claimreward
 * unit tests for cli added
 
 0.19.21
@@ -554,7 +554,7 @@ Changelog
 * serveral bug fixes and improvements
 * coverage improved
 * steem.get_blockchain_version added
-* post and comment_options moved from beem.commment to beem.steem
+* post and comment_options moved from bhive.commment to bhive.steem
 * wait_for_and_get_block improved
 * num_retries handling improved
 * block_numbers can be set as start and stop in account.history and account.history_reverse, when use_block_num=True (default)
@@ -591,7 +591,7 @@ Changelog
 
 0.19.13
 -------
-* beem is now in the beta state, as now 270 unit tests exists
+* bhive is now in the beta state, as now 270 unit tests exists
 * unit tests added for appbase
 * bug fixes for appbase-api calls
 
@@ -601,7 +601,7 @@ Changelog
 
 0.19.11
 -------
-* beem is appbase ready
+* bhive is appbase ready
 * more examples added
 * print_appbase_calls added
 * https nodes can be used
@@ -620,7 +620,7 @@ Changelog
 ------
 * bug fixes
 * CLI tool added
-* beem added to conda-forge
+* bhive added to conda-forge
 * more unittests
 
 0.19.7
@@ -645,7 +645,7 @@ Changelog
 
 0.19.4
 ------
-* New library name is now beem
+* New library name is now bhive
 * Upstream fixes from https://github.com/xeroc/python-bitshares
 * Improved Docu
 
@@ -655,7 +655,7 @@ Changelog
 * Add Witness
 * Several bugfixes
 * Added all transactions that are supported from steem-python
-* New library name planned: beem
+* New library name planned: bhive
 
 0.19.2
 ------
@@ -668,7 +668,7 @@ Changelog
 * Replaced all BitShares by Steem
 * Flake8 fixed
 * Unit tests are working
-* renamed to beem
+* renamed to bhive
 * Docs fixed
 * Signing fixed
 * pysteem: Account, Amount, Asset, Block, Blockchain, Instance, Memo, Message, Notify, Price, Steem, Transactionbuilder, Vote, Witness are working

@@ -11,16 +11,16 @@ from parameterized import parameterized
 import random
 import json
 from pprint import pprint
-from beem import Hive, exceptions
-from beem.amount import Amount
-from beem.memo import Memo
-from beem.version import version as beem_version
-from beem.wallet import Wallet
-from beem.witness import Witness
-from beem.account import Account
-from beemgraphenebase.account import PrivateKey
-from beem.instance import set_shared_hive_instance
-from beem.nodelist import NodeList
+from bhive import Hive, exceptions
+from bhive.amount import Amount
+from bhive.memo import Memo
+from bhive.version import version as bhive_version
+from bhive.wallet import Wallet
+from bhive.witness import Witness
+from bhive.account import Account
+from bhivegraphenebase.account import PrivateKey
+from bhive.instance import set_shared_hive_instance
+from bhive.nodelist import NodeList
 # Py3 compatibility
 import sys
 
@@ -331,7 +331,7 @@ class Testcases(unittest.TestCase):
         self.assertEqual(op["parent_permlink"], "a")
         json_metadata = json.loads(op["json_metadata"])
         self.assertEqual(json_metadata["tags"], ["a", "b", "c", "d", "e"])
-        self.assertEqual(json_metadata["app"], "beem/%s" % (beem_version))
+        self.assertEqual(json_metadata["app"], "bhive/%s" % (bhive_version))
         self.assertEqual(
             (tx["operations"][1][0]),
             "comment_options"

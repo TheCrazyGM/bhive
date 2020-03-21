@@ -1,7 +1,7 @@
-beem\.blockchain
+bhive\.blockchain
 ================
 
-.. automodule:: beem.blockchain
+.. automodule:: bhive.blockchain
     :members:
     :undoc-members:
     :show-inheritance:

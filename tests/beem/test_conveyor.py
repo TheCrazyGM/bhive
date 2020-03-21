@@ -3,10 +3,10 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 import unittest
-from beem import Hive
-from beem.conveyor import Conveyor
-from beem.instance import set_shared_hive_instance
-from beem.nodelist import NodeList
+from bhive import Hive
+from bhive.conveyor import Conveyor
+from bhive.instance import set_shared_hive_instance
+from bhive.nodelist import NodeList
 
 wif = '5Jh1Gtu2j4Yi16TfhoDmg8Qj3ULcgRi7A49JXdfUUTVPkaFaRKz'
 

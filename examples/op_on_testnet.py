@@ -8,20 +8,20 @@ import time
 import io
 import logging
 
-from beem.blockchain import Blockchain
-from beem.block import Block
-from beem.account import Account
-from beem.amount import Amount
-from beemgraphenebase.account import PasswordKey, PrivateKey, PublicKey
-from beem.hive import Hive
-from beem.utils import parse_time, formatTimedelta
-from beemapi.exceptions import NumRetriesReached
-from beem.nodelist import NodeList
+from bhive.blockchain import Blockchain
+from bhive.block import Block
+from bhive.account import Account
+from bhive.amount import Amount
+from bhivegraphenebase.account import PasswordKey, PrivateKey, PublicKey
+from bhive.hive import Hive
+from bhive.utils import parse_time, formatTimedelta
+from bhiveapi.exceptions import NumRetriesReached
+from bhive.nodelist import NodeList
 log = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 password = "secretPassword"
-username = "beem5"
+username = "bhive5"
 useWallet = False
 walletpassword = "123"
 
@@ -57,20 +57,20 @@ if __name__ == "__main__":
                          'posting': str(posting_privkey),
                          'memo': str(memo_privkey)})
     account = Account(username, hive_instance=hv)
-    if account["name"] == "beem":
-        account.disallow("beem1", permission='posting')
-        account.allow('beem1', weight=1, permission='posting', account=None)
-        account.follow("beem1")
-    elif account["name"] == "beem5":
-        account.allow('beem4', weight=2, permission='active', account=None)
+    if account["name"] == "bhive":
+        account.disallow("bhive1", permission='posting')
+        account.allow('bhive1', weight=1, permission='posting', account=None)
+        account.follow("bhive1")
+    elif account["name"] == "bhive5":
+        account.allow('bhive4', weight=2, permission='active', account=None)
     if useWallet:
         hv.wallet.getAccountFromPrivateKey(str(active_privkey))
 
-    # hv.create_account("beem1", creator=account, password=password1)
+    # hv.create_account("bhive1", creator=account, password=password1)
 
-    account1 = Account("beem1", hive_instance=hv)
+    account1 = Account("bhive1", hive_instance=hv)
     b = Blockchain(hive_instance=hv)
     blocknum = b.get_current_block().identifier
 
-    account.transfer("beem1", 1, "HBD", "test")
+    account.transfer("bhive1", 1, "HBD", "test")
     b1 = Block(blocknum, hive_instance=hv)

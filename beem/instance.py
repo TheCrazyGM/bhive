@@ -4,7 +4,7 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 from builtins import object
-import beem as hv
+import bhive as hv
 
 
 class SharedInstance(object):
@@ -20,8 +20,8 @@ def shared_hive_instance():
 
         .. code-block:: python
 
-            from beem.account import Account
-            from beem.instance import shared_hive_instance
+            from bhive.account import Account
+            from bhive.instance import shared_hive_instance
 
             account = Account("test")
             # is equivalent with

@@ -6,11 +6,11 @@ from builtins import super
 import unittest
 from parameterized import parameterized
 from pprint import pprint
-from beem import Hive, exceptions
-from beem.block import Block, BlockHeader
+from bhive import Hive, exceptions
+from bhive.block import Block, BlockHeader
 from datetime import datetime
-from beem.instance import set_shared_hive_instance
-from beem.nodelist import NodeList
+from bhive.instance import set_shared_hive_instance
+from bhive.nodelist import NodeList
 
 wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
 

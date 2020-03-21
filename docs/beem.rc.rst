@@ -1,7 +1,7 @@
-beem\.rc
+bhive\.rc
 ========
 
-.. automodule:: beem.rc
+.. automodule:: bhive.rc
     :members:
     :undoc-members:
     :show-inheritance:

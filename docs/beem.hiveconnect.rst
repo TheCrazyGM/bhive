@@ -1,7 +1,7 @@
-beem\.hiveconnect
+bhive\.hiveconnect
 ==================
 
-.. automodule:: beem.hiveconnect
+.. automodule:: bhive.hiveconnect
     :members:
     :undoc-members:
     :show-inheritance:

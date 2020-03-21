@@ -11,18 +11,18 @@ import math
 import random
 import logging
 from prettytable import PrettyTable
-from beem.instance import shared_hive_instance
+from bhive.instance import shared_hive_instance
 from .exceptions import AccountDoesNotExistsException, OfflineHasNoRPCException
-from beemapi.exceptions import ApiNotSupported, MissingRequiredActiveAuthority
+from bhiveapi.exceptions import ApiNotSupported, MissingRequiredActiveAuthority
 from .blockchainobject import BlockchainObject
 from .blockchain import Blockchain
 from .utils import formatTimeString, formatTimedelta, remove_from_dict, reputation_to_score, addTzInfo
-from beem.amount import Amount
-from beembase import operations
-from beem.rc import RC
-from beemgraphenebase.account import PrivateKey, PublicKey, PasswordKey
-from beemgraphenebase.py23 import bytes_types, integer_types, string_types, text_type
-from beem.constants import HIVE_VOTE_REGENERATION_SECONDS, HIVE_1_PERCENT, HIVE_100_PERCENT, HIVE_VOTING_MANA_REGENERATION_SECONDS
+from bhive.amount import Amount
+from bhivebase import operations
+from bhive.rc import RC
+from bhivegraphenebase.account import PrivateKey, PublicKey, PasswordKey
+from bhivegraphenebase.py23 import bytes_types, integer_types, string_types, text_type
+from bhive.constants import HIVE_VOTE_REGENERATION_SECONDS, HIVE_1_PERCENT, HIVE_100_PERCENT, HIVE_VOTING_MANA_REGENERATION_SECONDS
 log = logging.getLogger(__name__)
 
 
@@ -37,7 +37,7 @@ class Account(BlockchainObject):
                etc.
         :returns: Account data
         :rtype: dictionary
-        :raises beem.exceptions.AccountDoesNotExistsException: if account
+        :raises bhive.exceptions.AccountDoesNotExistsException: if account
                 does not exist
 
         Instances of this class are dictionaries that come with additional
@@ -46,8 +46,8 @@ class Account(BlockchainObject):
 
         .. code-block:: python
 
-            >>> from beem.account import Account
-            >>> from beem import Hive
+            >>> from bhive.account import Account
+            >>> from bhive import Hive
             >>> hv = Hive()
             >>> account = Account("gtg", hive_instance=hv)
             >>> print(account)
@@ -257,7 +257,7 @@ class Account(BlockchainObject):
             :returns: Similar account names as list
             :rtype: list
 
-            This is a wrapper around :func:`beem.blockchain.Blockchain.get_similar_account_names()`
+            This is a wrapper around :func:`bhive.blockchain.Blockchain.get_similar_account_names()`
             using the current account name as reference.
 
         """
@@ -658,8 +658,8 @@ class Account(BlockchainObject):
 
             .. code-block:: python
 
-                >>> from beem.account import Account
-                >>> from beem import Hive
+                >>> from bhive.account import Account
+                >>> from bhive import Hive
                 >>> hv = Hive()
                 >>> account = Account("hiveio", hive_instance=hv)
                 >>> account.get_feed(0, 1, raw_data=True)
@@ -720,8 +720,8 @@ class Account(BlockchainObject):
 
             .. code-block:: python
 
-                >>> from beem.account import Account
-                >>> from beem import Hive
+                >>> from bhive.account import Account
+                >>> from bhive import Hive
                 >>> hv = Hive()
                 >>> account = Account("hiveio", hive_instance=hv)
                 >>> account.get_feed_entries(0, 1)
@@ -743,8 +743,8 @@ class Account(BlockchainObject):
 
             .. code-block:: python
 
-                >>> from beem.account import Account
-                >>> from beem import Hive
+                >>> from bhive.account import Account
+                >>> from bhive import Hive
                 >>> hv = Hive()
                 >>> account = Account("hiveio", hive_instance=hv)
                 >>> entry = account.get_blog_entries(0, 1, raw_data=True)[0]
@@ -767,8 +767,8 @@ class Account(BlockchainObject):
 
             .. code-block:: python
 
-                >>> from beem.account import Account
-                >>> from beem import Hive
+                >>> from bhive.account import Account
+                >>> from bhive import Hive
                 >>> hv = Hive()
                 >>> account = Account("hiveio", hive_instance=hv)
                 >>> account.get_blog(0, 1)
@@ -836,8 +836,8 @@ class Account(BlockchainObject):
 
             .. code-block:: python
 
-                >>> from beem.account import Account
-                >>> from beem import Hive
+                >>> from bhive.account import Account
+                >>> from bhive import Hive
                 >>> hv = Hive()
                 >>> account = Account("hiveio", hive_instance=hv)
                 >>> account.get_blog_authors()
@@ -950,7 +950,7 @@ class Account(BlockchainObject):
     @property
     def available_balances(self):
         """ List balances of an account. This call returns instances of
-            :class:`beem.amount.Amount`.
+            :class:`bhive.amount.Amount`.
         """
         amount_list = ["balance", "hbd_balance", "vesting_shares"]
         available_amount = []
@@ -1023,7 +1023,7 @@ class Account(BlockchainObject):
 
     def get_balance(self, balances, symbol):
         """ Obtain the balance of a specific Asset. This call returns instances of
-            :class:`beem.amount.Amount`. Available balance types:
+            :class:`bhive.amount.Amount`. Available balance types:
 
             * "available"
             * "saving"
@@ -1036,8 +1036,8 @@ class Account(BlockchainObject):
 
             .. code-block:: python
 
-                >>> from beem.account import Account
-                >>> account = Account("beem.app")
+                >>> from bhive.account import Account
+                >>> account = Account("bhive.app")
                 >>> account.get_balance("rewards", "HBD")
                 0.000 HBD
 
@@ -1194,8 +1194,8 @@ class Account(BlockchainObject):
 
             .. code-block:: python
 
-                >>> from beem.account import Account
-                >>> account = Account("beem.app")
+                >>> from bhive.account import Account
+                >>> account = Account("bhive.app")
                 >>> account.get_owner_history()
                 []
 
@@ -1221,8 +1221,8 @@ class Account(BlockchainObject):
 
             .. code-block:: python
 
-                >>> from beem.account import Account
-                >>> account = Account("beem.app")
+                >>> from bhive.account import Account
+                >>> account = Account("bhive.app")
                 >>> account.get_conversion_requests()
                 []
 
@@ -1249,8 +1249,8 @@ class Account(BlockchainObject):
 
             .. code-block:: python
 
-                >>> from beem.account import Account
-                >>> account = Account("beem.app")
+                >>> from bhive.account import Account
+                >>> account = Account("bhive.app")
                 >>> account.get_vesting_delegations()
                 []
 
@@ -1279,8 +1279,8 @@ class Account(BlockchainObject):
 
             .. code-block:: python
 
-                >>> from beem.account import Account
-                >>> account = Account("beem.app")
+                >>> from bhive.account import Account
+                >>> account = Account("bhive.app")
                 >>> account.get_withdraw_routes()
                 []
 
@@ -1307,8 +1307,8 @@ class Account(BlockchainObject):
 
             .. code-block:: python
 
-                >>> from beem.account import Account
-                >>> account = Account("beem.app")
+                >>> from bhive.account import Account
+                >>> account = Account("bhive.app")
                 >>> account.get_savings_withdrawals()
                 []
 
@@ -1336,8 +1336,8 @@ class Account(BlockchainObject):
 
             .. code-block:: python
 
-                >>> from beem.account import Account
-                >>> account = Account("beem.app")
+                >>> from bhive.account import Account
+                >>> account = Account("bhive.app")
                 >>> account.get_recovery_request()
                 []
 
@@ -1364,8 +1364,8 @@ class Account(BlockchainObject):
 
             .. code-block:: python
 
-                >>> from beem.account import Account
-                >>> account = Account("beem.app")
+                >>> from bhive.account import Account
+                >>> account = Account("bhive.app")
                 >>> account.get_escrow(1234)
                 []
 
@@ -1392,7 +1392,7 @@ class Account(BlockchainObject):
 
             .. code-block:: python
 
-                >>> from beem.account import Account
+                >>> from bhive.account import Account
                 >>> account = Account("hiveio")
                 >>> print(account.verify_account_authority(["STM7Q2rLBqzPzFeteQZewv9Lu3NLE69fZoLeL6YK59t7UmssCBNTU"])["valid"])
                 False
@@ -1424,10 +1424,10 @@ class Account(BlockchainObject):
 
             .. code-block:: python
 
-                >>> from beem.account import Account
-                >>> from beem import Hive
+                >>> from bhive.account import Account
+                >>> from bhive import Hive
                 >>> hv = Hive()
-                >>> account = Account("beem.app", hive_instance=hv)
+                >>> account = Account("bhive.app", hive_instance=hv)
                 >>> account.get_tags_used_by_author()
                 []
 
@@ -1455,8 +1455,8 @@ class Account(BlockchainObject):
 
             .. code-block:: python
 
-                >>> from beem.account import Account
-                >>> account = Account("beem.app")
+                >>> from bhive.account import Account
+                >>> account = Account("bhive.app")
                 >>> account.get_expiring_vesting_delegations()
                 []
 
@@ -1482,10 +1482,10 @@ class Account(BlockchainObject):
 
             .. code-block:: python
 
-                >>> from beem.account import Account
-                >>> from beem import Hive
+                >>> from bhive.account import Account
+                >>> from bhive import Hive
                 >>> hv = Hive()
-                >>> account = Account("beem.app", hive_instance=hv)
+                >>> account = Account("bhive.app", hive_instance=hv)
                 >>> account.get_account_votes()
                 []
 
@@ -1529,7 +1529,7 @@ class Account(BlockchainObject):
             :param comment: can be a Comment object or a authorpermlink
             :type comment: str, Comment
         """
-        from beem.comment import Comment
+        from bhive.comment import Comment
         c = Comment(comment, hive_instance=self.hive)
         for v in c["active_votes"]:
             if v["voter"] == self["name"]:
@@ -1542,7 +1542,7 @@ class Account(BlockchainObject):
             :param comment: can be a Comment object or a authorpermlink
             :type comment: str, Comment
         """
-        from beem.comment import Comment
+        from bhive.comment import Comment
         c = Comment(comment, hive_instance=self.hive)
         active_votes = {v["voter"]: v for v in c["active_votes"]}
         return self["name"] in active_votes
@@ -1596,8 +1596,8 @@ class Account(BlockchainObject):
             .. testsetup::
 
                 import pytz
-                from beem.account import Account
-                from beem.blockchain import Blockchain
+                from bhive.account import Account
+                from bhive.blockchain import Blockchain
                 from datetime import datetime, timedelta
                 from timeit import time as t
 
@@ -1764,7 +1764,7 @@ class Account(BlockchainObject):
 
                 only_ops and exclude_ops takes an array of strings:
                 The full list of operation ID's can be found in
-                beembase.operationids.ops.
+                bhivebase.operationids.ops.
                 Example: ['transfer', 'vote']
 
         """
@@ -1867,12 +1867,12 @@ class Account(BlockchainObject):
             .. note::
                 only_ops and exclude_ops takes an array of strings:
                 The full list of operation ID's can be found in
-                beembase.operationids.ops.
+                bhivebase.operationids.ops.
                 Example: ['transfer', 'vote']
 
             .. testsetup::
 
-                from beem.account import Account
+                from bhive.account import Account
                 from datetime import datetime
 
             .. testcode::
@@ -2031,12 +2031,12 @@ class Account(BlockchainObject):
             .. note::
                 only_ops and exclude_ops takes an array of strings:
                 The full list of operation ID's can be found in
-                beembase.operationids.ops.
+                bhivebase.operationids.ops.
                 Example: ['transfer', 'vote']
 
             .. testsetup::
 
-                from beem.account import Account
+                from bhive.account import Account
                 from datetime import datetime
 
             .. testcode::
@@ -2223,16 +2223,16 @@ class Account(BlockchainObject):
 
                 {
                     'name': 'Holger',
-                    'about': 'beem Developer',
+                    'about': 'bhive Developer',
                     'location': 'Germany',
                     'profile_image': 'https://c1.staticflickr.com/5/4715/38733717165_7070227c89_n.jpg',
                     'cover_image': 'https://farm1.staticflickr.com/894/26382750057_69f5c8e568.jpg',
-                    'website': 'https://github.com/thecrazygmn/beem'
+                    'website': 'https://github.com/thecrazygmn/bhive'
                 }
 
             .. code-block:: python
 
-                from beem.account import Account
+                from bhive.account import Account
                 account = Account("test")
                 profile = account.profile
                 profile["about"] = "test account"
@@ -2459,8 +2459,8 @@ class Account(BlockchainObject):
 
             .. code-block:: python
 
-                from beem.account import Account
-                from beem import Hive
+                from bhive.account import Account
+                from bhive import Hive
                 active_wif = "5xxxx"
                 hv = Hive(keys=[active_wif])
                 acc = Account("test", hive_instance=hv)
@@ -2983,7 +2983,7 @@ class Account(BlockchainObject):
 
             .. code-block:: python
 
-                from beem.account import Account
+                from bhive.account import Account
                 acc = Account("ned")
                 for reply in acc.feed_history(limit=10):
                     print(reply)
@@ -3046,7 +3046,7 @@ class Account(BlockchainObject):
 
             .. code-block:: python
 
-                from beem.account import Account
+                from bhive.account import Account
                 acc = Account("hiveioblog")
                 for post in acc.blog_history(limit=10):
                     print(post)
@@ -3110,7 +3110,7 @@ class Account(BlockchainObject):
 
             .. code-block:: python
 
-                from beem.account import Account
+                from bhive.account import Account
                 acc = Account("ned")
                 for comment in acc.comment_history(limit=10):
                     print(comment)
@@ -3176,7 +3176,7 @@ class Account(BlockchainObject):
 
             .. code-block:: python
 
-                from beem.account import Account
+                from bhive.account import Account
                 acc = Account("ned")
                 for reply in acc.reply_history(limit=10):
                     print(reply)

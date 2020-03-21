@@ -12,21 +12,21 @@ from pprint import pprint
 from binascii import hexlify
 from collections import OrderedDict
 
-from beembase import (
+from bhivebase import (
     transactions,
     memo,
     operations,
     objects
 )
-from beembase.objects import Operation
-from beembase.signedtransactions import Signed_Transaction
-from beemgraphenebase.account import PrivateKey
-from beemgraphenebase import account
-from beembase.operationids import getOperationNameForId
-from beemgraphenebase.py23 import py23_bytes, bytes_types
-from beem.amount import Amount
-from beem.asset import Asset
-from beem.hive import Hive
+from bhivebase.objects import Operation
+from bhivebase.signedtransactions import Signed_Transaction
+from bhivegraphenebase.account import PrivateKey
+from bhivegraphenebase import account
+from bhivebase.operationids import getOperationNameForId
+from bhivegraphenebase.py23 import py23_bytes, bytes_types
+from bhive.amount import Amount
+from bhive.asset import Asset
+from bhive.hive import Hive
 
 
 TEST_AGAINST_CLI_WALLET = False

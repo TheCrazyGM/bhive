@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# beem documentation build configuration file, created by
+# bhive documentation build configuration file, created by
 # sphinx-quickstart on Fri Jun  5 14:06:38 2015.
 #
 # This file is execfile()d with the current directory set to its
@@ -48,7 +48,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'beem'
+project = 'bhive'
 copyright = '2017, ChainSquad GmbH, 2018-2019, Holger Nahrstaedt'
 author = 'Holger Nahrstaedt'
 
@@ -129,12 +129,12 @@ html_theme = 'sphinx_rtd_theme'
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-html_logo = '_static/beem-logo_2.svg'
+html_logo = '_static/bhive-logo_2.svg'
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
 # pixels large.
-html_favicon = '_static/beem-icon_bw.png'
+html_favicon = '_static/bhive-icon_bw.png'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -202,7 +202,7 @@ html_static_path = ['_static']
 #html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'beemdoc'
+htmlhelp_basename = 'bhivedoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -224,7 +224,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  (master_doc, 'beem.tex', 'beem Documentation',
+  (master_doc, 'bhive.tex', 'bhive Documentation',
    author, 'manual'),
 ]
 
@@ -254,7 +254,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'beem', 'beem Documentation',
+    (master_doc, 'bhive', 'bhive Documentation',
      [author], 1)
 ]
 
@@ -268,8 +268,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  (master_doc, 'beem', 'beem Documentation',
-   author, 'beem', 'python library for hive',
+  (master_doc, 'bhive', 'bhive Documentation',
+   author, 'bhive', 'python library for hive',
    'Miscellaneous'),
 ]
 

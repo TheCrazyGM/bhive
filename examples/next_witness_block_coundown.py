@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import sys
-from beem import Hive
-from beem.witness import Witness, WitnessesRankedByVote
+from bhive import Hive
+from bhive.witness import Witness, WitnessesRankedByVote
 from time import sleep
 
 

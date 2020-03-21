@@ -1,7 +1,7 @@
-beembase\.transactions
+bhivebase\.transactions
 ======================
 
-.. automodule:: beembase.transactions
+.. automodule:: bhivebase.transactions
     :members:
     :undoc-members:
     :show-inheritance:

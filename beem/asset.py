@@ -45,7 +45,7 @@ class Asset(BlockchainObject):
         """
         self.chain_params = self.hive.get_network()
         if self.chain_params is None:
-            from beemgraphenebase.chains import known_chains
+            from bhivegraphenebase.chains import known_chains
             self.chain_params = known_chains["HIVEAPPBASE"]
         self["asset"] = ""
         found_asset = False

@@ -1,7 +1,7 @@
-beemgraphenebase\.objects
+bhivegraphenebase\.objects
 =========================
 
-.. automodule:: beemgraphenebase.objects
+.. automodule:: bhivegraphenebase.objects
     :members:
     :undoc-members:
     :show-inheritance:

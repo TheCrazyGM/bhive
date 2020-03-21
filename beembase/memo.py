@@ -4,8 +4,8 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 from builtins import bytes, int, str
-from beemgraphenebase.py23 import py23_bytes, bytes_types
-from beemgraphenebase.base58 import base58encode, base58decode
+from bhivegraphenebase.py23 import py23_bytes, bytes_types
+from bhivegraphenebase.base58 import base58encode, base58decode
 import sys
 import hashlib
 from binascii import hexlify, unhexlify
@@ -16,7 +16,7 @@ except ImportError:
         from Crypto.Cipher import AES
     except ImportError:
         raise ImportError("Missing dependency: pyCryptodome")
-from beemgraphenebase.account import PrivateKey, PublicKey
+from bhivegraphenebase.account import PrivateKey, PublicKey
 from .objects import Memo
 import struct
 default_prefix = "STM"

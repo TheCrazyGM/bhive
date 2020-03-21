@@ -1,7 +1,7 @@
-beem\.snapshot
+bhive\.snapshot
 ==============
 
-.. automodule:: beem.snapshot
+.. automodule:: bhive.snapshot
     :members:
     :undoc-members:
     :show-inheritance:

@@ -8,13 +8,13 @@ import time
 import io
 import logging
 from prettytable import PrettyTable
-from beem.blockchain import Blockchain
-from beem.account import Account
-from beem.block import Block
-from beem.hive import Hive
-from beem.utils import parse_time, formatTimedelta
-from beem.nodelist import NodeList
-from beemapi.exceptions import NumRetriesReached
+from bhive.blockchain import Blockchain
+from bhive.account import Account
+from bhive.block import Block
+from bhive.hive import Hive
+from bhive.utils import parse_time, formatTimedelta
+from bhive.nodelist import NodeList
+from bhiveapi.exceptions import NumRetriesReached
 log = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 

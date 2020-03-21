@@ -1,7 +1,7 @@
-beem\.wallet
+bhive\.wallet
 ============
 
-.. automodule:: beem.wallet
+.. automodule:: bhive.wallet
     :members:
     :undoc-members:
     :show-inheritance:

@@ -6,8 +6,8 @@ from builtins import super
 import unittest
 from parameterized import parameterized
 from pprint import pprint
-from beem import Hive
-from beem.discussions import (
+from bhive import Hive
+from bhive.discussions import (
     Query, Discussions_by_trending, Comment_discussions_by_payout,
     Post_discussions_by_payout, Discussions_by_created, Discussions_by_active,
     Discussions_by_cashout, Discussions_by_votes,
@@ -15,8 +15,8 @@ from beem.discussions import (
     Discussions_by_comments, Discussions_by_promoted, Discussions
 )
 from datetime import datetime
-from beem.instance import set_shared_hive_instance
-from beem.nodelist import NodeList
+from bhive.instance import set_shared_hive_instance
+from bhive.nodelist import NodeList
 
 wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
 

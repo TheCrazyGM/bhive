@@ -1,7 +1,7 @@
-beem\.witness
+bhive\.witness
 =============
 
-.. automodule:: beem.witness
+.. automodule:: bhive.witness
     :members:
     :undoc-members:
     :show-inheritance:

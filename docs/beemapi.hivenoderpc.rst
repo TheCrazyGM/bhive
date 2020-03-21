@@ -1,7 +1,7 @@
-beemapi\.hivenoderpc
+bhiveapi\.hivenoderpc
 =====================
 
-.. automodule:: beemapi.hivenoderpc
+.. automodule:: bhiveapi.hivenoderpc
     :members:
     :undoc-members:
     :show-inheritance:

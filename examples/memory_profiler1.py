@@ -4,12 +4,12 @@ import sys
 from datetime import datetime, timedelta
 import time
 import io
-from beem.hive import Hive
-from beem.account import Account
-from beem.amount import Amount
-from beem.blockchain import Blockchain
-from beem.utils import parse_time
-from beem.instance import set_shared_hive_instance
+from bhive.hive import Hive
+from bhive.account import Account
+from bhive.amount import Amount
+from bhive.blockchain import Blockchain
+from bhive.utils import parse_time
+from bhive.instance import set_shared_hive_instance
 import logging
 log = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)

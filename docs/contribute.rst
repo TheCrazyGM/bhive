@@ -1,4 +1,4 @@
-Contributing to beem
+Contributing to bhive
 ====================
 
 We welcome your contributions to our project.
@@ -6,9 +6,9 @@ We welcome your contributions to our project.
 Repository
 ----------
 
-The repository of beem is currently located at:
+The repository of bhive is currently located at:
 
-    https://github.com/thecrazygmn/beem
+    https://github.com/thecrazygmn/bhive
 
 Flow
 ----

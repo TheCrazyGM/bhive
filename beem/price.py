@@ -5,9 +5,9 @@ from __future__ import print_function
 from __future__ import unicode_literals
 from builtins import str
 from future.utils import python_2_unicode_compatible
-from beemgraphenebase.py23 import bytes_types, integer_types, string_types, text_type
+from bhivegraphenebase.py23 import bytes_types, integer_types, string_types, text_type
 from fractions import Fraction
-from beem.instance import shared_hive_instance
+from bhive.instance import shared_hive_instance
 from .exceptions import InvalidAssetException
 from .account import Account
 from .amount import Amount, quantize
@@ -24,7 +24,7 @@ class Price(dict):
 
             (quote, base)
 
-        each being an instance of :class:`beem.amount.Amount`. The
+        each being an instance of :class:`bhive.amount.Amount`. The
         amount themselves define the price.
 
         .. note::
@@ -41,14 +41,14 @@ class Price(dict):
         Way to obtain a proper instance:
 
             * ``args`` is a str with a price and two assets
-            * ``args`` can be a floating number and ``base`` and ``quote`` being instances of :class:`beem.asset.Asset`
+            * ``args`` can be a floating number and ``base`` and ``quote`` being instances of :class:`bhive.asset.Asset`
             * ``args`` can be a floating number and ``base`` and ``quote`` being instances of ``str``
             * ``args`` can be dict with keys ``price``, ``base``, and ``quote`` (*graphene balances*)
             * ``args`` can be dict with keys ``base`` and ``quote``
             * ``args`` can be dict with key ``receives`` (filled orders)
-            * ``args`` being a list of ``[quote, base]`` both being instances of :class:`beem.amount.Amount`
+            * ``args`` being a list of ``[quote, base]`` both being instances of :class:`bhive.amount.Amount`
             * ``args`` being a list of ``[quote, base]`` both being instances of ``str`` (``amount symbol``)
-            * ``base`` and ``quote`` being instances of :class:`beem.asset.Amount`
+            * ``base`` and ``quote`` being instances of :class:`bhive.asset.Amount`
 
         This allows instanciations like:
 
@@ -66,7 +66,7 @@ class Price(dict):
 
         .. code-block:: python
 
-            >>> from beem.price import Price
+            >>> from bhive.price import Price
             >>> Price("0.3314 HBD/HIVE") * 2
             0.662804 HBD/HIVE
             >>> Price(0.3314, "HBD", "HIVE")
@@ -182,7 +182,7 @@ class Price(dict):
 
             .. code-block:: python
 
-                >>> from beem.price import Price
+                >>> from bhive.price import Price
                 >>> Price("0.3314 HBD/HIVE").as_base("HIVE")
                 3.017483 HIVE/HBD
 
@@ -201,7 +201,7 @@ class Price(dict):
 
             .. code-block:: python
 
-                >>> from beem.price import Price
+                >>> from bhive.price import Price
                 >>> Price("0.3314 HBD/HIVE").as_quote("HBD")
                 3.017483 HIVE/HBD
 
@@ -218,7 +218,7 @@ class Price(dict):
 
             .. code-block:: python
 
-                >>> from beem.price import Price
+                >>> from bhive.price import Price
                 >>> Price("0.3314 HBD/HIVE").invert()
                 3.017483 HIVE/HBD
 
@@ -402,7 +402,7 @@ class Price(dict):
     def market(self):
         """ Open the corresponding market
 
-            :returns: Instance of :class:`beem.market.Market` for the
+            :returns: Instance of :class:`bhive.market.Market` for the
                       corresponding pair of assets.
         """
         from .market import Market
@@ -414,7 +414,7 @@ class Price(dict):
 
 
 class Order(Price):
-    """ This class inherits :class:`beem.price.Price` but has the ``base``
+    """ This class inherits :class:`bhive.price.Price` but has the ``base``
         and ``quote`` Amounts not only be used to represent the price (as a
         ratio of base and quote) but instead has those amounts represent the
         amounts of an actual order!
@@ -471,7 +471,7 @@ class Order(Price):
 
 
 class FilledOrder(Price):
-    """ This class inherits :class:`beem.price.Price` but has the ``base``
+    """ This class inherits :class:`bhive.price.Price` but has the ``base``
         and ``quote`` Amounts not only be used to represent the price (as a
         ratio of base and quote) but instead has those amounts represent the
         amounts of an actually filled order!

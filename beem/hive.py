@@ -12,18 +12,18 @@ import os
 import math
 import ast
 import time
-from beemgraphenebase.py23 import bytes_types, integer_types, string_types, text_type
+from bhivegraphenebase.py23 import bytes_types, integer_types, string_types, text_type
 from datetime import datetime, timedelta, date
-from beemapi.hivenoderpc import HiveNodeRPC
-from beemapi.exceptions import NoAccessApi, NoApiWithName
-from beemgraphenebase.account import PrivateKey, PublicKey
-from beembase import transactions, operations
-from beemgraphenebase.chains import known_chains
+from bhiveapi.hivenoderpc import HiveNodeRPC
+from bhiveapi.exceptions import NoAccessApi, NoApiWithName
+from bhivegraphenebase.account import PrivateKey, PublicKey
+from bhivebase import transactions, operations
+from bhivegraphenebase.chains import known_chains
 from .account import Account
 from .amount import Amount
 from .price import Price
 from .storage import configStorage as config
-from .version import version as beem_version
+from .version import version as bhive_version
 from .exceptions import (
     AccountExistsException,
     AccountDoesNotExistsException
@@ -32,7 +32,7 @@ from .wallet import Wallet
 from .hiveconnect import HiveConnect
 from .transactionbuilder import TransactionBuilder
 from .utils import formatTime, resolve_authorperm, derive_permlink, sanitize_permlink, remove_from_dict, addTzInfo, formatToTimeStamp
-from beem.constants import HIVE_VOTE_REGENERATION_SECONDS, HIVE_100_PERCENT, HIVE_1_PERCENT, HIVE_RC_REGEN_TIME
+from bhive.constants import HIVE_VOTE_REGENERATION_SECONDS, HIVE_100_PERCENT, HIVE_1_PERCENT, HIVE_RC_REGEN_TIME
 
 log = logging.getLogger(__name__)
 
@@ -107,7 +107,7 @@ class Hive(object):
 
         .. code-block:: python
 
-            >>> from beem import Hive
+            >>> from bhive import Hive
             >>> hive = Hive()
             >>> print(hive.get_blockchain_version())  # doctest: +SKIP
 
@@ -117,7 +117,7 @@ class Hive(object):
 
         .. code-block:: python
 
-            from beem import Hive
+            from bhive import Hive
             hv = Hive(node=["https://mytstnet.com"], custom_chains={"MYTESTNET":
                 {'chain_assets': [{'asset': 'HBD', 'id': 0, 'precision': 3, 'symbol': 'HBD'},
                                   {'asset': 'HIVE', 'id': 1, 'precision': 3, 'symbol': 'HIVE'},
@@ -843,7 +843,7 @@ class Hive(object):
 
             When set to "keyring" the password is taken from the
             python keyring module. A wallet password can be stored with
-            python -m keyring set beem wallet password
+            python -m keyring set bhive wallet password
 
             :param str password_storage: can be "no",
                 "keyring" or "environment"
@@ -918,7 +918,7 @@ class Hive(object):
                         accounts for different operations!
 
             .. note:: This uses :func:`Hive.txbuffer` as instance of
-                :class:`beem.transactionbuilder.TransactionBuilder`.
+                :class:`bhive.transactionbuilder.TransactionBuilder`.
                 You may want to use your own txbuffer
         """
         if self.offline:
@@ -999,7 +999,7 @@ class Hive(object):
     # -------------------------------------------------------------------------
     def newWallet(self, pwd):
         """ Create a new wallet. This method is basically only calls
-            :func:`beem.wallet.Wallet.create`.
+            :func:`bhive.wallet.Wallet.create`.
 
             :param str pwd: Password to use for the new wallet
 
@@ -1068,7 +1068,7 @@ class Hive(object):
         if not creator:
             raise ValueError(
                 "Not creator account given. Define it with " +
-                "creator=x, or set the default_account using beempy")
+                "creator=x, or set the default_account using bhivepy")
         creator = Account(creator, hive_instance=self)
         op = {
             "fee": Amount(fee, hive_instance=self),
@@ -1103,7 +1103,7 @@ class Hive(object):
         """ Create new claimed account on Hive
 
             The brainkey/password can be used to recover all generated keys
-            (see :class:`beemgraphenebase.account` for more details.
+            (see :class:`bhivegraphenebase.account` for more details.
 
             By default, this call will use ``default_account`` to
             register a new name ``account_name`` with all keys being
@@ -1165,7 +1165,7 @@ class Hive(object):
         if not creator:
             raise ValueError(
                 "Not creator account given. Define it with " +
-                "creator=x, or set the default_account using beempy")
+                "creator=x, or set the default_account using bhivepy")
         if password and (owner_key or active_key or memo_key):
             raise ValueError(
                 "You cannot use 'password' AND provide keys!"
@@ -1180,7 +1180,7 @@ class Hive(object):
         creator = Account(creator, hive_instance=self)
 
         " Generate new keys from password"
-        from beemgraphenebase.account import PasswordKey
+        from bhivegraphenebase.account import PasswordKey
         if password:
             active_key = PasswordKey(account_name, password, role="active", prefix=self.prefix)
             owner_key = PasswordKey(account_name, password, role="owner", prefix=self.prefix)
@@ -1304,7 +1304,7 @@ class Hive(object):
         """ Create new account on Hive
 
             The brainkey/password can be used to recover all generated keys
-            (see :class:`beemgraphenebase.account` for more details.
+            (see :class:`bhivegraphenebase.account` for more details.
 
             By default, this call will use ``default_account`` to
             register a new name ``account_name`` with all keys being
@@ -1361,7 +1361,7 @@ class Hive(object):
         if not creator:
             raise ValueError(
                 "Not creator account given. Define it with " +
-                "creator=x, or set the default_account using beempy")
+                "creator=x, or set the default_account using bhivepy")
         if password and (owner_key or active_key or memo_key):
             raise ValueError(
                 "You cannot use 'password' AND provide keys!"
@@ -1376,7 +1376,7 @@ class Hive(object):
         creator = Account(creator, hive_instance=self)
 
         " Generate new keys from password"
-        from beemgraphenebase.account import PasswordKey
+        from bhivegraphenebase.account import PasswordKey
         if password:
             active_key = PasswordKey(account_name, password, role="active", prefix=self.prefix)
             owner_key = PasswordKey(account_name, password, role="owner", prefix=self.prefix)
@@ -1697,7 +1697,7 @@ class Hive(object):
             into. This will also override the community specified in
             `json_metadata`.
         :param str app: (Optional) Name of the app which are used for posting
-            when not set, beem/<version> is used
+            when not set, bhive/<version> is used
         :param tags: (Optional) A list of tags to go with the
             post. This will also override the tags specified in
             `json_metadata`. The first tag will be used as a 'category'. If
@@ -1735,7 +1735,7 @@ class Hive(object):
         if app:
             json_metadata.update({'app': app})
         elif 'app' not in json_metadata:
-            json_metadata.update({'app': 'beem/%s' % (beem_version)})
+            json_metadata.update({'app': 'bhive/%s' % (bhive_version)})
 
         if not author and config["default_account"]:
             author = config["default_account"]

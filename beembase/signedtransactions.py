@@ -3,9 +3,9 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 from builtins import int, str
-from beemgraphenebase.signedtransactions import Signed_Transaction as GrapheneSigned_Transaction
+from bhivegraphenebase.signedtransactions import Signed_Transaction as GrapheneSigned_Transaction
 from .operations import Operation
-from beemgraphenebase.chains import known_chains
+from bhivegraphenebase.chains import known_chains
 import logging
 log = logging.getLogger(__name__)
 
@@ -14,8 +14,8 @@ class Signed_Transaction(GrapheneSigned_Transaction):
     """ Create a signed transaction and offer method to create the
         signature
 
-        :param num refNum: parameter ref_block_num (see :func:`beembase.transactions.getBlockParams`)
-        :param num refPrefix: parameter ref_block_prefix (see :func:`beembase.transactions.getBlockParams`)
+        :param num refNum: parameter ref_block_num (see :func:`bhivebase.transactions.getBlockParams`)
+        :param num refPrefix: parameter ref_block_prefix (see :func:`bhivebase.transactions.getBlockParams`)
         :param str expiration: expiration date
         :param array operations:  array of operations
         :param dict custom_chains: custom chain which should be added to the known chains

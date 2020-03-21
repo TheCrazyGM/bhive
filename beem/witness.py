@@ -5,16 +5,16 @@ from __future__ import print_function
 from __future__ import unicode_literals
 from builtins import str
 import json
-from beem.instance import shared_hive_instance
-from beemgraphenebase.py23 import bytes_types, integer_types, string_types, text_type
+from bhive.instance import shared_hive_instance
+from bhivegraphenebase.py23 import bytes_types, integer_types, string_types, text_type
 from .account import Account
 from .amount import Amount
 from .exceptions import WitnessDoesNotExistsException
 from .blockchainobject import BlockchainObject
 from .utils import formatTimeString
 from datetime import datetime, timedelta, date
-from beembase import transactions, operations
-from beemgraphenebase.account import PrivateKey, PublicKey
+from bhivebase import transactions, operations
+from bhivegraphenebase.account import PrivateKey, PublicKey
 import pytz
 from prettytable import PrettyTable
 
@@ -28,7 +28,7 @@ class Witness(BlockchainObject):
 
         .. code-block:: python
 
-           >>> from beem.witness import Witness
+           >>> from bhive.witness import Witness
            >>> Witness("gtg")
            <Witness gtg>
 
@@ -281,7 +281,7 @@ class GetWitnesses(WitnessesObject):
 
         .. code-block:: python
 
-            from beem.witness import GetWitnesses
+            from bhive.witness import GetWitnesses
             w = GetWitnesses(["gtg", "jesta"])
             print(w[0].json())
             print(w[1].json())
@@ -318,7 +318,7 @@ class Witnesses(WitnessesObject):
 
         .. code-block:: python
 
-           >>> from beem.witness import Witnesses
+           >>> from bhive.witness import Witnesses
            >>> Witnesses()
            <Witnesses >
 
@@ -358,7 +358,7 @@ class WitnessesVotedByAccount(WitnessesObject):
 
         .. code-block:: python
 
-           >>> from beem.witness import WitnessesVotedByAccount
+           >>> from bhive.witness import WitnessesVotedByAccount
            >>> WitnessesVotedByAccount("gtg")
            <WitnessesVotedByAccount gtg>
 
@@ -400,7 +400,7 @@ class WitnessesRankedByVote(WitnessesObject):
 
         .. code-block:: python
 
-           >>> from beem.witness import WitnessesRankedByVote
+           >>> from bhive.witness import WitnessesRankedByVote
            >>> WitnessesRankedByVote(limit=100)
            <WitnessesRankedByVote >
 
@@ -464,7 +464,7 @@ class ListWitnesses(WitnessesObject):
 
         .. code-block:: python
 
-           >>> from beem.witness import ListWitnesses
+           >>> from bhive.witness import ListWitnesses
            >>> ListWitnesses(from_account="gtg", limit=100)
            <ListWitnesses gtg>
 

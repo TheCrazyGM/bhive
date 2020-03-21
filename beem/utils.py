@@ -146,7 +146,7 @@ def resolve_authorperm(identifier):
 
         .. code-block:: python
 
-            >>> from beem.utils import resolve_authorperm
+            >>> from bhivee.utils import resolve_authorperm
             >>> author, permlink = resolve_authorperm('https://d.tube/#!/v/pottlund/m5cqkd1a')
             >>> author, permlink = resolve_authorperm("https://hive.blog/witness-category/@gtg/24lfrm-gtg-witness-log")
             >>> author, permlink = resolve_authorperm("@gtg/24lfrm-gtg-witness-log")
@@ -174,7 +174,7 @@ def construct_authorperm(*args):
 
         .. code-block:: python
 
-            >>> from beem.utils import construct_authorperm
+            >>> from bhivee.utils import construct_authorperm
             >>> print(construct_authorperm('username', 'permlink'))
             @username/permlink
             >>> print(construct_authorperm({'author': 'username', 'permlink': 'permlink'}))
@@ -224,7 +224,7 @@ def construct_authorpermvoter(*args):
 
         .. code-block:: python
 
-            >>> from beem.utils import construct_authorpermvoter
+            >>> from bhivee.utils import construct_authorpermvoter
             >>> print(construct_authorpermvoter('username', 'permlink', 'voter'))
             @username/permlink|voter
             >>> print(construct_authorpermvoter({'author': 'username', 'permlink': 'permlink', 'voter': 'voter'}))

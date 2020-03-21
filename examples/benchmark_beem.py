@@ -8,11 +8,11 @@ import time
 import io
 import logging
 
-from beem.blockchain import Blockchain
-from beem.block import Block
-from beem.hive import Hive
-from beem.utils import parse_time, formatTimedelta
-from beem.nodelist import NodeList
+from bhive.blockchain import Blockchain
+from bhive.block import Block
+from bhive.hive import Hive
+from bhive.utils import parse_time, formatTimedelta
+from bhive.nodelist import NodeList
 log = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 

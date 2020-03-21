@@ -2,13 +2,13 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
-from beem import Hive
-from beem.instance import set_shared_hive_instance
-from beem.amount import Amount
-from beem.price import Price, Order, FilledOrder
-from beem.asset import Asset
+from bhive import Hive
+from bhive.instance import set_shared_hive_instance
+from bhive.amount import Amount
+from bhive.price import Price, Order, FilledOrder
+from bhive.asset import Asset
 import unittest
-from beem.nodelist import NodeList
+from bhive.nodelist import NodeList
 
 
 class Testcases(unittest.TestCase):

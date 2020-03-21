@@ -11,10 +11,10 @@ import hashlib
 from binascii import hexlify, unhexlify
 import requests
 from .instance import shared_hive_instance
-from beem.account import Account
-from beemgraphenebase.py23 import integer_types, string_types, text_type, py23_bytes
-from beemgraphenebase.account import PrivateKey
-from beemgraphenebase.ecdsasig import sign_message, verify_message
+from bhive.account import Account
+from bhivegraphenebase.py23 import integer_types, string_types, text_type, py23_bytes
+from bhivegraphenebase.account import PrivateKey
+from bhivegraphenebase.ecdsasig import sign_message, verify_message
 
 
 class ImageUploader(object):
@@ -38,8 +38,8 @@ class ImageUploader(object):
 
             .. code-block:: python
 
-                from beem import Hive
-                from beem.imageuploader import ImageUploader
+                from bhive import Hive
+                from bhive.imageuploader import ImageUploader
                 hv = Hive(keys=["5xxx"]) # private posting key
                 iu = ImageUploader(hive_instance=hv)
                 iu.upload("path/to/image.png", "account_name") # "private posting key belongs to account_name

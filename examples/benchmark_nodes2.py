@@ -9,15 +9,15 @@ import io
 from timeit import default_timer as timer
 import logging
 from prettytable import PrettyTable
-from beem.blockchain import Blockchain
-from beem.account import Account
-from beem.block import Block
-from beem.hive import Hive
-from beem.utils import parse_time, formatTimedelta, construct_authorperm, resolve_authorperm, resolve_authorpermvoter, construct_authorpermvoter, formatTimeString
-from beem.comment import Comment
-from beem.nodelist import NodeList
-from beem.vote import Vote
-from beemapi.exceptions import NumRetriesReached
+from bhive.blockchain import Blockchain
+from bhive.account import Account
+from bhive.block import Block
+from bhive.hive import Hive
+from bhive.utils import parse_time, formatTimedelta, construct_authorperm, resolve_authorperm, resolve_authorpermvoter, construct_authorpermvoter, formatTimeString
+from bhive.comment import Comment
+from bhive.nodelist import NodeList
+from bhive.vote import Vote
+from bhiveapi.exceptions import NumRetriesReached
 FUTURES_MODULE = None
 if not FUTURES_MODULE:
     try:
@@ -203,4 +203,4 @@ if __name__ == "__main__":
         hv = Hive(offline=True)
         hv.set_default_nodes(working_nodes)
     else:
-        print("beempy set nodes " + str(working_nodes))
+        print("bhivepy set nodes " + str(working_nodes))

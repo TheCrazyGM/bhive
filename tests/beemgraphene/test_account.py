@@ -5,8 +5,8 @@ from __future__ import print_function
 from __future__ import unicode_literals
 from builtins import str
 import unittest
-from beemgraphenebase.base58 import Base58
-from beemgraphenebase.account import BrainKey, Address, PublicKey, PrivateKey, PasswordKey
+from bhivegraphenebase.base58 import Base58
+from bhivegraphenebase.account import BrainKey, Address, PublicKey, PrivateKey, PasswordKey
 
 
 class Testcases(unittest.TestCase):

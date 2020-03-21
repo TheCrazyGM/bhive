@@ -1,7 +1,7 @@
-beem\.hive
+bhive\.hive
 ===========
 
-.. automodule:: beem.hive
+.. automodule:: bhive.hive
     :members:
     :undoc-members:
     :show-inheritance:

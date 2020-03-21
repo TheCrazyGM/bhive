@@ -1,7 +1,7 @@
-beem\.aes
+bhive\.aes
 =========
 
-.. automodule:: beem.aes
+.. automodule:: bhive.aes
     :members:
     :undoc-members:
     :show-inheritance:

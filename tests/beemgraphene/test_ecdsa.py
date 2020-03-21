@@ -9,9 +9,9 @@ import unittest
 import hashlib
 import ecdsa
 from binascii import hexlify, unhexlify
-from beemgraphenebase.account import PrivateKey, PublicKey, Address
-import beemgraphenebase.ecdsasig as ecda
-from beemgraphenebase.py23 import py23_bytes
+from bhivegraphenebase.account import PrivateKey, PublicKey, Address
+import bhivegraphenebase.ecdsasig as ecda
+from bhivegraphenebase.py23 import py23_bytes
 
 
 wif = "5J4KCbg1G3my9b9hCaQXnHSm6vrwW9xQTJS6ZciW2Kek7cCkCEk"

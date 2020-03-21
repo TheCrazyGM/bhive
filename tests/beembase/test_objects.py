@@ -7,9 +7,9 @@ from binascii import hexlify, unhexlify
 import os
 import json
 from pprint import pprint
-from beembase.objects import Amount
-from beembase.objects import Operation
-from beemgraphenebase.types import (
+from bhivebase.objects import Amount
+from bhivebase.objects import Operation
+from bhivegraphenebase.types import (
     Uint8, Int16, Uint16, Uint32, Uint64,
     Varint32, Int64, String, Bytes, Void,
     Array, PointInTime, Signature, Bool,

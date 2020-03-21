@@ -1,7 +1,7 @@
-beem\.block
+bhive\.block
 ===========
 
-.. automodule:: beem.block
+.. automodule:: bhive.block
     :members:
     :undoc-members:
     :show-inheritance:

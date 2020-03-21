@@ -17,9 +17,9 @@ from .price import Price
 from .utils import resolve_authorperm, construct_authorperm, derive_permlink, remove_from_dict, make_patch, formatTimeString, formatToTimeStamp
 from .blockchainobject import BlockchainObject
 from .exceptions import ContentDoesNotExistsException, VotingInvalidOnArchivedPost
-from beembase import operations
-from beemgraphenebase.py23 import py23_bytes, bytes_types, integer_types, string_types, text_type
-from beem.constants import HIVE_REVERSE_AUCTION_WINDOW_SECONDS_HF6, HIVE_REVERSE_AUCTION_WINDOW_SECONDS_HF20, HIVE_100_PERCENT, HIVE_1_PERCENT, HIVE_REVERSE_AUCTION_WINDOW_SECONDS_HF21
+from bhivebase import operations
+from bhivegraphenebase.py23 import py23_bytes, bytes_types, integer_types, string_types, text_type
+from bhive.constants import HIVE_REVERSE_AUCTION_WINDOW_SECONDS_HF6, HIVE_REVERSE_AUCTION_WINDOW_SECONDS_HF20, HIVE_100_PERCENT, HIVE_1_PERCENT, HIVE_REVERSE_AUCTION_WINDOW_SECONDS_HF21
 log = logging.getLogger(__name__)
 
 
@@ -29,14 +29,14 @@ class Comment(BlockchainObject):
         :param str authorperm: identifier to post/comment in the form of
             ``@author/permlink``
         :param boolean use_tags_api: when set to False, list_comments from the database_api is used
-        :param Hive hive_instance: :class:`beem.hive.Hive` instance to use when accessing a RPC
+        :param Hive hive_instance: :class:`bhive.hive.Hive` instance to use when accessing a RPC
 
 
         .. code-block:: python
 
-        >>> from beem.comment import Comment
-        >>> from beem.account import Account
-        >>> from beem import Hive
+        >>> from bhive.comment import Comment
+        >>> from bhive.account import Account
+        >>> from bhive import Hive
         >>> hv = Hive()
         >>> acc = Account("gtg", hive_instance=hv)
         >>> authorperm = acc.get_blog(limit=1)[0]["authorperm"]

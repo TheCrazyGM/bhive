@@ -1,7 +1,7 @@
-beem\.utils
+bhive\.utils
 ===========
 
-.. automodule:: beem.utils
+.. automodule:: bhive.utils
     :members:
     :undoc-members:
     :show-inheritance:

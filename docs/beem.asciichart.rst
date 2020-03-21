@@ -1,7 +1,7 @@
-beem\.asciichart
+bhive\.asciichart
 ================
 
-.. automodule:: beem.asciichart
+.. automodule:: bhive.asciichart
     :members:
     :undoc-members:
     :show-inheritance:

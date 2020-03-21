@@ -1,5 +1,5 @@
 from win10toast import ToastNotifier
-from beem.account import Account
+from bhive.account import Account
 import time
 
 if __name__ == "__main__":

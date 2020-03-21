@@ -1,7 +1,7 @@
-beemgraphenebase\.account
+bhivegraphenebase\.account
 =========================
 
-.. automodule:: beemgraphenebase.account
+.. automodule:: bhivegraphenebase.account
     :members:
     :undoc-members:
     :show-inheritance:

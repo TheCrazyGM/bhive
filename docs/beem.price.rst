@@ -1,7 +1,7 @@
-beem\.price
+bhive\.price
 ===========
 
-.. automodule:: beem.price
+.. automodule:: bhive.price
     :members:
     :undoc-members:
     :show-inheritance:

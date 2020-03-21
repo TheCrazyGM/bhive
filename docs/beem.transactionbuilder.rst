@@ -1,7 +1,7 @@
-beem\.transactionbuilder
+bhive\.transactionbuilder
 ========================
 
-.. automodule:: beem.transactionbuilder
+.. automodule:: bhive.transactionbuilder
     :members:
     :undoc-members:
     :show-inheritance:

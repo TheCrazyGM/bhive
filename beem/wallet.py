@@ -7,9 +7,9 @@ from builtins import object
 import logging
 import os
 import hashlib
-from beemgraphenebase import bip38
-from beemgraphenebase.account import PrivateKey
-from beem.instance import shared_hive_instance
+from bhivegraphenebase import bip38
+from bhivegraphenebase.account import PrivateKey
+from bhive.instance import shared_hive_instance
 from .account import Account
 from .aes import AESCipher
 from .exceptions import (
@@ -22,8 +22,8 @@ from .exceptions import (
     OfflineHasNoRPCException,
     AccountDoesNotExistsException,
 )
-from beemapi.exceptions import NoAccessApi
-from beemgraphenebase.py23 import py23_bytes
+from bhiveapi.exceptions import NoAccessApi
+from bhivegraphenebase.py23 import py23_bytes
 from .storage import configStorage as config
 try:
     import keyring
@@ -49,14 +49,14 @@ class Wallet(object):
 
         Three wallet operation modes are possible:
 
-        * **Wallet Database**: Here, beem loads the keys from the
+        * **Wallet Database**: Here, bhive loads the keys from the
           locally stored wallet SQLite database (see ``storage.py``).
-          To use this mode, simply call :class:`beem.hive.Hive` without the
+          To use this mode, simply call :class:`bhive.hive.Hive` without the
           ``keys`` parameter
         * **Providing Keys**: Here, you can provide the keys for
           your accounts manually. All you need to do is add the wif
           keys for the accounts you want to use as a simple array
-          using the ``keys`` parameter to :class:`beem.hive.Hive`.
+          using the ``keys`` parameter to :class:`bhive.hive.Hive`.
         * **Force keys**: This more is for advanced users and
           requires that you know what you are doing. Here, the
           ``keys`` parameter is a dictionary that overwrite the
@@ -68,19 +68,19 @@ class Wallet(object):
 
         .. code-block:: python
 
-           from beem import Hive
+           from bhive import Hive
            hive = Hive()
            hive.wallet.wipe(True)
            hive.wallet.create("supersecret-passphrase")
 
-        This will raise :class:`beem.exceptions.WalletExists` if you already have a wallet installed.
+        This will raise :class:`bhive.exceptions.WalletExists` if you already have a wallet installed.
 
 
         The wallet can be unlocked for signing using
 
         .. code-block:: python
 
-           from beem import Hive
+           from bhive import Hive
            hive = Hive()
            hive.wallet.unlock("supersecret-passphrase")
 
@@ -90,7 +90,7 @@ class Wallet(object):
 
         .. code-block:: python
 
-           from beem import Hive
+           from bhive import Hive
            hive = Hive()
            hive.wallet.unlock("supersecret-passphrase")
            hive.wallet.addPrivateKey("5xxxxxxxxxxxxxxxxxxxx")
@@ -217,7 +217,7 @@ class Wallet(object):
             self.unlock(pwd)
         elif password_storage == "keyring" and KEYRING_AVAILABLE:
             log.debug("Trying to use keyring to unlock wallet")
-            pwd = keyring.get_password("beem", "wallet")
+            pwd = keyring.get_password("bhive", "wallet")
             self.unlock(pwd)
         else:
             raise WrongMasterPasswordException
@@ -659,7 +659,7 @@ class Wallet(object):
     def getKeyType(self, account, pub):
         """ Get key type
 
-            :param beem.account.Account/dict account: Account data
+            :param bhive.account.Account/dict account: Account data
             :type account: Account, dict
             :param str pub: Public key
 

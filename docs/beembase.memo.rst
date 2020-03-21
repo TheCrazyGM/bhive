@@ -1,7 +1,7 @@
-beembase\.memo
+bhivebase\.memo
 ==============
 
-.. automodule:: beembase.memo
+.. automodule:: bhivebase.memo
     :members:
     :undoc-members:
     :show-inheritance:

@@ -1,7 +1,7 @@
-beemgraphenebase\.ecdsasig
+bhivegraphenebase\.ecdsasig
 ==========================
 
-.. automodule:: beemgraphenebase.ecdsasig
+.. automodule:: bhivegraphenebase.ecdsasig
     :members:
     :undoc-members:
     :show-inheritance:

@@ -1,7 +1,7 @@
-beem\.notify
+bhive\.notify
 ============
 
-.. automodule:: beem.notify
+.. automodule:: bhive.notify
     :members:
     :undoc-members:
     :show-inheritance:

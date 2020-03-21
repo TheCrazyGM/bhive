@@ -1,7 +1,7 @@
-beem\.account
+bhive\.account
 =============
 
-.. automodule:: beem.account
+.. automodule:: bhive.account
     :members:
     :undoc-members:
     :show-inheritance:

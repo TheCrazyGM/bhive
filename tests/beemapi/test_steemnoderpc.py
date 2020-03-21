@@ -12,13 +12,13 @@ from parameterized import parameterized
 import random
 import itertools
 from pprint import pprint
-from beem import Hive
-from beemapi.hivenoderpc import SteemNodeRPC
-from beemapi.websocket import SteemWebsocket
-from beemapi import exceptions
-from beemapi.exceptions import NumRetriesReached, CallRetriesReached
-from beem.instance import set_shared_hive_instance
-from beem.nodelist import NodeList
+from bhive import Hive
+from bhiveapi.hivenoderpc import SteemNodeRPC
+from bhiveapi.websocket import SteemWebsocket
+from bhiveapi import exceptions
+from bhiveapi.exceptions import NumRetriesReached, CallRetriesReached
+from bhive.instance import set_shared_hive_instance
+from bhive.nodelist import NodeList
 # Py3 compatibility
 import sys
 

@@ -10,14 +10,14 @@ import pytz
 import logging
 from prettytable import PrettyTable
 from datetime import datetime, date
-from beemgraphenebase.py23 import integer_types, string_types, text_type
+from bhivegraphenebase.py23 import integer_types, string_types, text_type
 from .instance import shared_hive_instance
 from .account import Account
 from .exceptions import VoteDoesNotExistsException
 from .utils import resolve_authorperm, resolve_authorpermvoter, construct_authorpermvoter, construct_authorperm, formatTimeString, addTzInfo, reputation_to_score
 from .blockchainobject import BlockchainObject
 from .comment import Comment
-from beemapi.exceptions import UnkownKey
+from bhiveapi.exceptions import UnkownKey
 
 log = logging.getLogger(__name__)
 
@@ -30,8 +30,8 @@ class Vote(BlockchainObject):
 
         .. code-block:: python
 
-           >>> from beem.vote import Vote
-           >>> from beem import Hive
+           >>> from bhive.vote import Vote
+           >>> from bhive import Hive
            >>> hv = Hive()
            >>> v = Vote("@gtg/hive-pressure-4-need-for-speed|gandalf", hive_instance=hv)
 

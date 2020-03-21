@@ -17,10 +17,10 @@ one comment operation from each sender.
 .. code-block:: python
 
   from pprint import pprint
-  from beem import Hive
-  from beem.account import Account
-  from beem.comment import Comment
-  from beem.instance import set_shared_hive_instance
+  from bhive import Hive
+  from bhive.account import Account
+  from bhive.comment import Comment
+  from bhive.instance import set_shared_hive_instance
 
   # not a real working key
   wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
@@ -56,9 +56,9 @@ When using  `nobroadcast=True` the transaction is not broadcasted but printed.
 .. code-block:: python
 
   from pprint import pprint
-  from beem import Hive
-  from beem.account import Account
-  from beem.instance import set_shared_hive_instance
+  from bhive import Hive
+  from bhive.account import Account
+  from bhive.instance import set_shared_hive_instance
 
   # Only for testing not a real working key
   wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
@@ -102,7 +102,7 @@ with a `clear_cache()` call from any BlockchainObject.
 .. code-block:: python
 
   from pprint import pprint
-  from beem.account import Account
+  from bhive.account import Account
 
   account = Account("test")
   pprint(str(account._cache))
@@ -118,10 +118,10 @@ Simple Sell Script
 
 .. code-block:: python
 
-    from beem import Hive
-    from beem.market import Market
-    from beem.price import Price
-    from beem.amount import Amount
+    from bhive import Hive
+    from bhive.market import Market
+    from bhive.price import Price
+    from bhive.amount import Amount
 
     # Only for testing not a real working key
     wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
@@ -158,10 +158,10 @@ Sell at a timely rate
 .. code-block:: python
 
     import threading
-    from beem import Hive
-    from beem.market import Market
-    from beem.price import Price
-    from beem.amount import Amount
+    from bhive import Hive
+    from bhive.market import Market
+    from bhive.price import Price
+    from bhive.amount import Amount
 
     # Only for testing not a real working key
     wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
@@ -207,7 +207,7 @@ the complete queue is sended at once to the node. The result is a list with repl
 
 .. code-block:: python
 
-    from beem import Hive
+    from bhive import Hive
     hv = Hive("https://api.hive.blog")
     hv.rpc.get_config(add_to_queue=True)
     hv.rpc.rpc_queue
@@ -233,8 +233,8 @@ Lets calculate the curation reward from the last 7 days:
 .. code-block:: python
 
     from datetime import datetime, timedelta
-    from beem.account import Account
-    from beem.amount import Amount
+    from bhive.account import Account
+    from bhive.amount import Amount
 
     acc = Account("gtg")
     stop = datetime.utcnow() - timedelta(days=7)
@@ -248,9 +248,9 @@ Lets display all Posts from an account:
 
 .. code-block:: python
 
-    from beem.account import Account
-    from beem.comment import Comment
-    from beem.exceptions import ContentDoesNotExistsException
+    from bhive.account import Account
+    from bhive.comment import Comment
+    from bhive.exceptions import ContentDoesNotExistsException
     account = Account("thecrazygm")
     c_list = {}
     for c in map(Comment, account.history(only_ops=["comment"])):
@@ -266,14 +266,14 @@ Lets display all Posts from an account:
 
 Transactionbuilder
 ------------------
-Sign transactions with beem without using the wallet and build the transaction by hand.
+Sign transactions with bhive without using the wallet and build the transaction by hand.
 Example with one operation with and without the wallet:
 
 .. code-block:: python
 
-    from beem import Hive
-    from beem.transactionbuilder import TransactionBuilder
-    from beembase import operations
+    from bhive import Hive
+    from bhive.transactionbuilder import TransactionBuilder
+    from bhivebase import operations
     hv = Hive()
     # Uncomment the following when using a wallet:
     # hv.wallet.unlock("secret_password")
@@ -293,9 +293,9 @@ Example with signing and broadcasting two operations:
 
 .. code-block:: python
 
-    from beem import Hive
-    from beem.transactionbuilder import TransactionBuilder
-    from beembase import operations
+    from bhive import Hive
+    from bhive.transactionbuilder import TransactionBuilder
+    from bhivebase import operations
     hv = Hive()
     # Uncomment the following when using a wallet:
     # hv.wallet.unlock("secret_password")

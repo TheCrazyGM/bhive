@@ -5,10 +5,10 @@ from __future__ import print_function
 from __future__ import unicode_literals
 import unittest
 import json
-from beemgraphenebase import objects
-from beemgraphenebase import types
-from beem.amount import Amount
-from beem import Hive
+from bhivegraphenebase import objects
+from bhivegraphenebase import types
+from bhive.amount import Amount
+from bhive import Hive
 
 
 class Testcases(unittest.TestCase):

@@ -6,13 +6,13 @@ from builtins import super
 import unittest
 from parameterized import parameterized
 from pprint import pprint
-from beem import Hive
-from beem.market import Market
-from beem.price import Price
-from beem.asset import Asset
-from beem.amount import Amount
-from beem.instance import set_shared_hive_instance
-from beem.nodelist import NodeList
+from bhive import Hive
+from bhive.market import Market
+from bhive.price import Price
+from bhive.asset import Asset
+from bhive.amount import Amount
+from bhive.instance import set_shared_hive_instance
+from bhive.nodelist import NodeList
 
 wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
 

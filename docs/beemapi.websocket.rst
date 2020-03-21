@@ -1,4 +1,4 @@
-beemapi\.websocket
+bhiveapi\.websocket
 ==================
 
 This class allows subscribe to push notifications from the Hive
@@ -7,7 +7,7 @@ node.
 .. code-block:: python
 
     from pprint import pprint
-    from beemapi.websocket import HiveWebsocket
+    from bhiveapi.websocket import HiveWebsocket
 
     ws = HiveWebsocket(
         "wss://gtg.hive.house:8090",
@@ -18,7 +18,7 @@ node.
     ws.run_forever()
 
 
-.. autoclass:: beemapi.websocket.HiveWebsocket
+.. autoclass:: bhiveapi.websocket.HiveWebsocket
     :members:
     :undoc-members:
     :private-members:

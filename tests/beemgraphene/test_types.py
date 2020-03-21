@@ -6,10 +6,10 @@ from __future__ import unicode_literals
 from builtins import str
 import unittest
 import json
-from beemgraphenebase import types
-from beem.amount import Amount
-from beem import Hive
-from beemgraphenebase.py23 import (
+from bhivegraphenebase import types
+from bhive.amount import Amount
+from bhive import Hive
+from bhivegraphenebase.py23 import (
     py23_bytes,
     py23_chr,
     bytes_types,

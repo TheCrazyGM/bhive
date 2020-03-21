@@ -9,11 +9,11 @@ from datetime import datetime, timedelta
 import pytz
 import time
 from pprint import pprint
-from beem import Hive
-from beem.blockchain import Blockchain
-from beem.block import Block
-from beem.instance import set_shared_hive_instance
-from beem.nodelist import NodeList
+from bhive import Hive
+from bhive.blockchain import Blockchain
+from bhive.block import Block
+from bhive.instance import set_shared_hive_instance
+from bhive.nodelist import NodeList
 
 
 class Testcases(unittest.TestCase):

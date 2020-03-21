@@ -13,8 +13,8 @@ except ImportError:
 import requests
 from .storage import configStorage as config
 from six import PY2
-from beem.instance import shared_hive_instance
-from beem.amount import Amount
+from bhive.instance import shared_hive_instance
+from bhive.amount import Amount
 
 
 class HiveConnect(object):
@@ -27,10 +27,10 @@ class HiveConnect(object):
         .. code-block:: python
 
             # Run the login_app in examples and login with a account
-            from beem import Hive
-            from beem.hiveconnect import HiveConnect
-            from beem.comment import Comment
-            sc2 = HiveConnect(client_id="beem.app")
+            from bhive import Hive
+            from bhive.hiveconnect import HiveConnect
+            from bhive.comment import Comment
+            sc2 = HiveConnect(client_id="bhive.app")
             hive = Hive(hiveconnect=sc2)
             hive.wallet.unlock("supersecret-passphrase")
             post = Comment("author/permlink", hive_instance=hive)
@@ -40,9 +40,9 @@ class HiveConnect(object):
 
         .. testoutput::
 
-            from beem import Hive
-            from beem.account import Account
-            from beem.hiveconnect import HiveConnect
+            from bhive import Hive
+            from bhive.account import Account
+            from bhive.hiveconnect import HiveConnect
             from pprint import pprint
             hive = Hive(nobroadcast=True, unsigned=True)
             sc2 = HiveConnect(hive_instance=hive)
@@ -55,10 +55,10 @@ class HiveConnect(object):
 
         .. testoutput::
 
-            from beem import Hive
-            from beem.transactionbuilder import TransactionBuilder
-            from beembase import operations
-            from beem.hiveconnect import HiveConnect
+            from bhive import Hive
+            from bhive.transactionbuilder import TransactionBuilder
+            from bhivebase import operations
+            from bhive.hiveconnect import HiveConnect
             from pprint import pprint
             hv = Hive(nobroadcast=True, unsigned=True)
             sc2 = HiveConnect(hive_instance=hv)
@@ -136,7 +136,7 @@ class HiveConnect(object):
 
         .. code-block:: python
 
-            from beem.hiveconnect import HiveConnect
+            from bhive.hiveconnect import HiveConnect
             sc2 = HiveConnect()
             sc2.hive.wallet.unlock("supersecret-passphrase")
             sc2.me(username="test")

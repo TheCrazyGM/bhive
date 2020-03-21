@@ -31,7 +31,7 @@ class Query(dict):
 
         .. testcode::
 
-            from beem.discussions import Query
+            from bhive.discussions import Query
             query = Query(limit=10, tag="hiveio")
 
     """
@@ -76,7 +76,7 @@ class Discussions(object):
 
             .. testcode::
 
-                from beem.discussions import Query, Discussions
+                from bhive.discussions import Query, Discussions
                 query = Query(limit=51, tag="hiveio")
                 discussions = Discussions()
                 count = 0
@@ -195,7 +195,7 @@ class Discussions_by_trending(list):
 
         .. testcode::
 
-            from beem.discussions import Query, Discussions_by_trending
+            from bhive.discussions import Query, Discussions_by_trending
             q = Query(limit=10, tag="hive")
             for h in Discussions_by_trending(q):
                 print(h)
@@ -231,7 +231,7 @@ class Discussions_by_author_before_date(list):
 
         .. testcode::
 
-            from beem.discussions import Query, Discussions_by_author_before_date
+            from bhive.discussions import Query, Discussions_by_author_before_date
             for h in Discussions_by_author_before_date(limit=10, author="gtg"):
                 print(h)
 
@@ -261,7 +261,7 @@ class Comment_discussions_by_payout(list):
 
         .. testcode::
 
-            from beem.discussions import Query, Comment_discussions_by_payout
+            from bhive.discussions import Query, Comment_discussions_by_payout
             q = Query(limit=10)
             for h in Comment_discussions_by_payout(q):
                 print(h)
@@ -291,7 +291,7 @@ class Post_discussions_by_payout(list):
 
         .. testcode::
 
-            from beem.discussions import Query, Post_discussions_by_payout
+            from bhive.discussions import Query, Post_discussions_by_payout
             q = Query(limit=10)
             for h in Post_discussions_by_payout(q):
                 print(h)
@@ -321,7 +321,7 @@ class Discussions_by_created(list):
 
         .. testcode::
 
-            from beem.discussions import Query, Discussions_by_created
+            from bhive.discussions import Query, Discussions_by_created
             q = Query(limit=10)
             for h in Discussions_by_created(q):
                 print(h)
@@ -351,7 +351,7 @@ class Discussions_by_active(list):
 
         .. testcode::
 
-            from beem.discussions import Query, Discussions_by_active
+            from bhive.discussions import Query, Discussions_by_active
             q = Query(limit=10)
             for h in Discussions_by_active(q):
                 print(h)
@@ -382,7 +382,7 @@ class Discussions_by_cashout(list):
 
         .. testcode::
 
-            from beem.discussions import Query, Discussions_by_cashout
+            from bhive.discussions import Query, Discussions_by_cashout
             q = Query(limit=10)
             for h in Discussions_by_cashout(q):
                 print(h)
@@ -412,7 +412,7 @@ class Discussions_by_votes(list):
 
         .. testcode::
 
-            from beem.discussions import Query, Discussions_by_votes
+            from bhive.discussions import Query, Discussions_by_votes
             q = Query(limit=10)
             for h in Discussions_by_votes(q):
                 print(h)
@@ -442,7 +442,7 @@ class Discussions_by_children(list):
 
         .. testcode::
 
-            from beem.discussions import Query, Discussions_by_children
+            from bhive.discussions import Query, Discussions_by_children
             q = Query(limit=10)
             for h in Discussions_by_children(q):
                 print(h)
@@ -472,7 +472,7 @@ class Discussions_by_hot(list):
 
         .. testcode::
 
-            from beem.discussions import Query, Discussions_by_hot
+            from bhive.discussions import Query, Discussions_by_hot
             q = Query(limit=10, tag="hive")
             for h in Discussions_by_hot(q):
                 print(h)
@@ -502,7 +502,7 @@ class Discussions_by_feed(list):
 
         .. testcode::
 
-            from beem.discussions import Query, Discussions_by_feed
+            from bhive.discussions import Query, Discussions_by_feed
             q = Query(limit=10, tag="hive")
             for h in Discussions_by_feed(q):
                 print(h)
@@ -536,7 +536,7 @@ class Discussions_by_blog(list):
 
         .. testcode::
 
-            from beem.discussions import Query, Discussions_by_blog
+            from bhive.discussions import Query, Discussions_by_blog
             q = Query(limit=10)
             for h in Discussions_by_blog(q):
                 print(h)
@@ -572,7 +572,7 @@ class Discussions_by_comments(list):
 
         .. testcode::
 
-            from beem.discussions import Query, Discussions_by_comments
+            from bhive.discussions import Query, Discussions_by_comments
             q = Query(limit=10, start_author="hiveio", start_permlink="firstpost")
             for h in Discussions_by_comments(q):
                 print(h)
@@ -604,7 +604,7 @@ class Discussions_by_promoted(list):
 
         .. testcode::
 
-            from beem.discussions import Query, Discussions_by_promoted
+            from bhive.discussions import Query, Discussions_by_promoted
             q = Query(limit=10, tag="hive")
             for h in Discussions_by_promoted(q):
                 print(h)
@@ -634,7 +634,7 @@ class Replies_by_last_update(list):
 
         .. testcode::
 
-            from beem.discussions import Query, Replies_by_last_update
+            from bhive.discussions import Query, Replies_by_last_update
             q = Query(limit=10, start_parent_author="hiveio", start_permlink="firstpost")
             for h in Replies_by_last_update(q):
                 print(h)
@@ -667,7 +667,7 @@ class Trending_tags(list):
 
         .. testcode::
 
-            from beem.discussions import Query, Trending_tags
+            from bhive.discussions import Query, Trending_tags
             q = Query(limit=10, start_tag="")
             for h in Trending_tags(q):
                 print(h)

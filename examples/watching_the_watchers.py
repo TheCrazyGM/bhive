@@ -3,11 +3,11 @@ import sys
 from datetime import datetime, timedelta
 import time
 import io
-from beem.blockchain import Blockchain
-from beem.comment import Comment
-from beem.account import Account
-from beem.utils import parse_time, construct_authorperm
-from beem import exceptions
+from bhive.blockchain import Blockchain
+from bhive.comment import Comment
+from bhive.account import Account
+from bhive.utils import parse_time, construct_authorperm
+from bhive import exceptions
 import logging
 log = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)

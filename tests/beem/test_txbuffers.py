@@ -5,25 +5,25 @@ from __future__ import unicode_literals
 from builtins import super
 import unittest
 from parameterized import parameterized
-from beem import Hive
-from beem.instance import set_shared_hive_instance
-from beem.transactionbuilder import TransactionBuilder
-from beembase.signedtransactions import Signed_Transaction
-from beembase.operations import Transfer
-from beem.account import Account
-from beem.block import Block
-from beemgraphenebase.base58 import Base58
-from beem.amount import Amount
-from beem.exceptions import (
+from bhive import Hive
+from bhive.instance import set_shared_hive_instance
+from bhive.transactionbuilder import TransactionBuilder
+from bhivebase.signedtransactions import Signed_Transaction
+from bhivebase.operations import Transfer
+from bhive.account import Account
+from bhive.block import Block
+from bhivegraphenebase.base58 import Base58
+from bhive.amount import Amount
+from bhive.exceptions import (
     InsufficientAuthorityError,
     MissingKeyError,
     InvalidWifError,
     WalletLocked
 )
-from beemapi import exceptions
-from beem.wallet import Wallet
-from beem.utils import formatTimeFromNow
-from beem.nodelist import NodeList
+from bhiveapi import exceptions
+from bhive.wallet import Wallet
+from bhive.utils import formatTimeFromNow
+from bhive.nodelist import NodeList
 wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
 
 

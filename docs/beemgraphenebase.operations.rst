@@ -1,7 +1,7 @@
-beemgraphenebase\.operations
+bhivegraphenebase\.operations
 ============================
 
-.. automodule:: beemgraphenebase.operationids
+.. automodule:: bhivegraphenebase.operationids
     :members:
     :undoc-members:
     :show-inheritance:

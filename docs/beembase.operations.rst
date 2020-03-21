@@ -1,7 +1,7 @@
-beembase\.operations
+bhivebase\.operations
 ====================
 
-.. automodule:: beembase.operationids
+.. automodule:: bhivebase.operationids
     :members:
     :undoc-members:
     :show-inheritance:

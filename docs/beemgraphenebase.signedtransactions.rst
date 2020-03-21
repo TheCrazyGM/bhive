@@ -1,7 +1,7 @@
-beemgraphenebase\.signedtransactions 
+bhivegraphenebase\.signedtransactions 
 ====================================
 
-.. automodule:: beemgraphenebase.signedtransactions
+.. automodule:: bhivegraphenebase.signedtransactions
     :members:
     :undoc-members:
     :show-inheritance:

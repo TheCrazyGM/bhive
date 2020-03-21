@@ -7,13 +7,13 @@ import unittest
 from parameterized import parameterized
 import mock
 from pprint import pprint
-from beem import Hive, exceptions
-from beem.account import Account
-from beem.amount import Amount
-from beem.asset import Asset
-from beem.wallet import Wallet
-from beem.instance import set_shared_hive_instance, shared_hive_instance
-from beem.nodelist import NodeList
+from bhive import Hive, exceptions
+from bhive.account import Account
+from bhive.amount import Amount
+from bhive.asset import Asset
+from bhive.wallet import Wallet
+from bhive.instance import set_shared_hive_instance, shared_hive_instance
+from bhive.nodelist import NodeList
 
 wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
 

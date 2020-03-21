@@ -1,10 +1,10 @@
 ..  -*- rst -*-
 
 ===============
-beem benchmarks
+bhive benchmarks
 ===============
 
-Benchmarking beem with Airspeed Velocity.
+Benchmarking bhive with Airspeed Velocity.
 
 
 Usage
@@ -17,11 +17,11 @@ First navigate to the benchmarks subfolder of the repository.
 
     cd benchmarks
 
-To run all benchmarks once against the current build of beem::
+To run all benchmarks once against the current build of bhive::
 
     asv run --python=same --quick
 
-To run all benchmarks more than once against the current build of beem::
+To run all benchmarks more than once against the current build of bhive::
 
     asv run --python=same
 

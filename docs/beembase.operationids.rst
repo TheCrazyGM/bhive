@@ -1,7 +1,7 @@
-beembase\.operationids
+bhivebase\.operationids
 ======================
 
-.. automodule:: beembase.operationids
+.. automodule:: bhivebase.operationids
     :members:
     :noindex:
     :undoc-members:

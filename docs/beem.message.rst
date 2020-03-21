@@ -1,7 +1,7 @@
-beem\.message
+bhive\.message
 =============
 
-.. automodule:: beem.message
+.. automodule:: bhive.message
     :members:
     :undoc-members:
     :show-inheritance:

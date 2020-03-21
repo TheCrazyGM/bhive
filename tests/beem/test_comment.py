@@ -6,13 +6,13 @@ from builtins import super, str
 import unittest
 from parameterized import parameterized
 from pprint import pprint
-from beem import Hive, exceptions
-from beem.comment import Comment, RecentReplies, RecentByPath
-from beem.vote import Vote
-from beem.account import Account
-from beem.instance import set_shared_hive_instance
-from beem.utils import resolve_authorperm
-from beem.nodelist import NodeList
+from bhive import Hive, exceptions
+from bhive.comment import Comment, RecentReplies, RecentByPath
+from bhive.vote import Vote
+from bhive.account import Account
+from bhive.instance import set_shared_hive_instance
+from bhive.utils import resolve_authorperm
+from bhive.nodelist import NodeList
 
 wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
 

@@ -13,10 +13,10 @@ from binascii import hexlify, unhexlify
 import os
 import json
 from pprint import pprint
-from beem.amount import Amount
-from beembase.operations import Transfer
-from beembase.objects import Operation
-from beembase.signedtransactions import Signed_Transaction
+from bhive.amount import Amount
+from bhivebase.operations import Transfer
+from bhivebase.objects import Operation
+from bhivebase.signedtransactions import Signed_Transaction
 
 wif = "5J4KCbg1G3my9b9hCaQXnHSm6vrwW9xQTJS6ZciW2Kek7cCkCEk"
 

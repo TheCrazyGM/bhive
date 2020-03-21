@@ -1,7 +1,7 @@
-beembase\.signedtransactions
+bhivebase\.signedtransactions
 ============================
 
-.. automodule:: beembase.signedtransactions
+.. automodule:: bhivebase.signedtransactions
     :members:
     :undoc-members:
     :show-inheritance:

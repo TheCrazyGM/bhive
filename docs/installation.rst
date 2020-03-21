@@ -2,7 +2,7 @@ Installation
 ============
 The minimal working python version is 2.7.x. or 3.4.x
 
-beem can be installed parallel to python-hive.
+bhive can be installed parallel to python-hive.
 
 For Debian and Ubuntu, please ensure that the following packages are installed:
         
@@ -42,28 +42,28 @@ Signing and Verify can be fasten (200 %) by installing cryptography. Install cry
 
     pip install -U cryptography
     
-Install beem with pip:
+Install bhive with pip:
 
 .. code:: bash
 
-    pip install -U beem
+    pip install -U bhive
 
 Sometimes this does not work. Please try::
 
-    pip3 install -U beem
+    pip3 install -U bhive
 
 or::
 
-    python -m pip install beem
+    python -m pip install bhive
 
 Manual installation
 -------------------
     
-You can install beem from this repository if you want the latest
+You can install bhive from this repository if you want the latest
 but possibly non-compiling version::
 
-    git clone https://github.com/thecrazygmn/beem.git
-    cd beem
+    git clone https://github.com/thecrazygmn/bhive.git
+    cd bhive
     python setup.py build
     
     python setup.py install --user
@@ -73,16 +73,16 @@ Run tests after install::
     pytest
     
     
-Installing beem with conda-forge
+Installing bhive with conda-forge
 --------------------------------
 
-Installing beem from the conda-forge channel can be achieved by adding conda-forge to your channels with::
+Installing bhive from the conda-forge channel can be achieved by adding conda-forge to your channels with::
 
     conda config --add channels conda-forge
     
-Once the conda-forge channel has been enabled, beem can be installed with::
+Once the conda-forge channel has been enabled, bhive can be installed with::
 
-    conda install beem
+    conda install bhive
 
 Signing and Verify can be fasten (200 %) by installing cryptography::
 

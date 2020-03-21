@@ -4,7 +4,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 from binascii import hexlify, unhexlify
 import struct
-from beemgraphenebase.account import PublicKey
+from bhivegraphenebase.account import PublicKey
 from .signedtransactions import Signed_Transaction
 from .operations import (
     Op_wrapper,

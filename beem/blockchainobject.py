@@ -5,8 +5,8 @@ from __future__ import print_function
 from __future__ import unicode_literals
 from builtins import str
 from future.utils import python_2_unicode_compatible
-from beemgraphenebase.py23 import bytes_types, integer_types, string_types, text_type
-from beem.instance import shared_hive_instance
+from bhivegraphenebase.py23 import bytes_types, integer_types, string_types, text_type
+from bhive.instance import shared_hive_instance
 from datetime import datetime, timedelta
 import json
 import threading

@@ -3,12 +3,12 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 from builtins import int, str
-from beemgraphenebase.py23 import bytes_types, integer_types, string_types, text_type
+from bhivegraphenebase.py23 import bytes_types, integer_types, string_types, text_type
 from collections import OrderedDict
 import json
 from binascii import hexlify, unhexlify
 import re
-from beemgraphenebase.types import (
+from bhivegraphenebase.types import (
     Uint8, Int16, Uint16, Uint32, Uint64,
     Varint32, Int64, String, Bytes, Void,
     Array, PointInTime, Signature, Bool,
@@ -16,8 +16,8 @@ from beemgraphenebase.types import (
     Map, Id, HexString
 )
 from .objects import GrapheneObject, isArgsThisClass
-from beemgraphenebase.account import PublicKey
-from beemgraphenebase.py23 import PY2, PY3
+from bhivegraphenebase.account import PublicKey
+from bhivegraphenebase.py23 import PY2, PY3
 from .operationids import operations
 from .objects import (
     Operation,

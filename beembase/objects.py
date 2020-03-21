@@ -6,20 +6,20 @@ from builtins import bytes, int, str
 from builtins import object
 from future.utils import python_2_unicode_compatible
 import json
-from beemgraphenebase.py23 import py23_bytes, bytes_types, integer_types, string_types, text_type
+from bhivegraphenebase.py23 import py23_bytes, bytes_types, integer_types, string_types, text_type
 from collections import OrderedDict
-from beemgraphenebase.types import (
+from bhivegraphenebase.types import (
     Uint8, Int16, Uint16, Uint32, Uint64,
     Varint32, Int64, String, Bytes, Void,
     Array, PointInTime, Signature, Bool,
     Set, Fixed_array, Optional, Static_variant,
     Map, Id
 )
-from beemgraphenebase.objects import GrapheneObject, isArgsThisClass
+from bhivegraphenebase.objects import GrapheneObject, isArgsThisClass
 from .objecttypes import object_type
-from beemgraphenebase.account import PublicKey
-from beemgraphenebase.objects import Operation as GPHOperation
-from beemgraphenebase.chains import known_chains
+from bhivegraphenebase.account import PublicKey
+from bhivegraphenebase.objects import Operation as GPHOperation
+from bhivegraphenebase.chains import known_chains
 from .operationids import operations, operations_wls
 import struct
 default_prefix = "STM"
@@ -108,7 +108,7 @@ class Operation(GPHOperation):
         super(Operation, self).__init__(*args, **kwargs)
 
     def _getklass(self, name):
-        module = __import__("beembase.operations", fromlist=["operations"])
+        module = __import__("bhivebase.operations", fromlist=["operations"])
         class_ = getattr(module, name)
         return class_
 

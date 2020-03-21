@@ -3,7 +3,7 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 from builtins import bytes, str, int
-from beemgraphenebase.py23 import py23_bytes, bytes_types
+from bhiveegraphenebase.py23 import py23_bytes, bytes_types
 import ecdsa
 import hashlib
 from binascii import hexlify, unhexlify
@@ -45,8 +45,8 @@ class Signed_Transaction(GrapheneObject):
     """ Create a signed transaction and offer method to create the
         signature
 
-        :param num refNum: parameter ref_block_num (see :func:`beembase.transactions.getBlockParams`)
-        :param num refPrefix: parameter ref_block_prefix (see :func:`beembase.transactions.getBlockParams`)
+        :param num refNum: parameter ref_block_num (see :func:`bhiveebase.transactions.getBlockParams`)
+        :param num refPrefix: parameter ref_block_prefix (see :func:`bhiveebase.transactions.getBlockParams`)
         :param str expiration: expiration date
         :param array operations:  array of operations
     """

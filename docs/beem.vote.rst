@@ -1,7 +1,7 @@
-beem\.vote
+bhive\.vote
 ==========
 
-.. automodule:: beem.vote
+.. automodule:: bhive.vote
     :members:
     :undoc-members:
     :show-inheritance:

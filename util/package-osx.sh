@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-VERSION=$(python -c 'import beem; print(beem.__version__)')
+VERSION=$(python -c 'import bhive; print(bhive.__version__)')
 COMM_TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
 COMM_COUNT=$(git rev-list --count HEAD)
-BUILD="beempy-${COMM_TAG}-${COMM_COUNT}_osx.dmg"
+BUILD="bhivepy-${COMM_TAG}-${COMM_COUNT}_osx.dmg"
 
 rm -rf dist build locale
 pip install 
@@ -10,13 +10,13 @@ python setup.py clean
 python setup.py build_ext
 # python setup.py build_locales
 pip install pyinstaller
-pyinstaller beempy-onedir.spec
+pyinstaller bhivepy-onedir.spec
 
 cd dist
-ditto -rsrc --arch x86_64 'beempy.app' 'beempy.tmp'
-rm -r 'beempy.app'
-mv 'beempy.tmp' 'beempy.app'
-hdiutil create -volname "beempy $VERSION" -srcfolder 'beempy.app' -ov -format UDBZ "$BUILD"
+ditto -rsrc --arch x86_64 'bhivepy.app' 'bhivepy.tmp'
+rm -r 'bhivepy.app'
+mv 'bhivepy.tmp' 'bhivepy.app'
+hdiutil create -volname "bhivepy $VERSION" -srcfolder 'bhivepy.app' -ov -format UDBZ "$BUILD"
 if [ -n "$UPLOAD_OSX" ]
 then
     curl --upload-file "$BUILD" https://transfer.sh/

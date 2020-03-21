@@ -1,12 +1,12 @@
 from __future__ import print_function
 from memory_profiler import profile
 import sys
-from beem.hive import Hive
-from beem.account import Account
-from beem.blockchain import Blockchain
-from beem.instance import set_shared_hive_instance, clear_cache
-from beem.storage import configStorage as config
-from beemapi.graphenerpc import GrapheneRPC
+from bhive.hive import Hive
+from bhive.account import Account
+from bhive.blockchain import Blockchain
+from bhive.instance import set_shared_hive_instance, clear_cache
+from bhive.storage import configStorage as config
+from bhiveapi.graphenerpc import GrapheneRPC
 import logging
 log = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)

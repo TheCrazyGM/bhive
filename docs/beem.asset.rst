@@ -1,7 +1,7 @@
-beem\.asset
+bhive\.asset
 ===========
 
-.. automodule:: beem.asset
+.. automodule:: bhive.asset
     :members:
     :undoc-members:
     :show-inheritance:

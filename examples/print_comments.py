@@ -3,8 +3,8 @@ import sys
 from datetime import timedelta
 import time
 import io
-from beem.blockchain import Blockchain
-from beem.utils import parse_time
+from bhive.blockchain import Blockchain
+from bhive.utils import parse_time
 import logging
 log = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)

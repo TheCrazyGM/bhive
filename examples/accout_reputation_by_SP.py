@@ -1,8 +1,8 @@
-from beem import Hive
+from bhive import Hive
 import numpy as np
-from beem.utils import reputation_to_score
-from beem.amount import Amount
-from beem.constants import HIVE_100_PERCENT
+from bhive.utils import reputation_to_score
+from bhive.amount import Amount
+from bhive.constants import HIVE_100_PERCENT
 import matplotlib as mpl
 # mpl.use('Agg')
 # mpl.use('TkAgg')

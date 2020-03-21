@@ -1,11 +1,11 @@
 from builtins import super
 import unittest
 import mock
-from beem import Hive
-from beem.message import Message
-from beem.account import Account
-from beem.instance import set_shared_hive_instance
-from beem.nodelist import NodeList
+from bhive import Hive
+from bhive.message import Message
+from bhive.account import Account
+from bhive.instance import set_shared_hive_instance
+from bhive.nodelist import NodeList
 
 wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
 core_unit = "STM"
@@ -36,7 +36,7 @@ class Testcases(unittest.TestCase):
                 })
 
         with mock.patch(
-            "beem.account.Account.refresh",
+            "bhive.account.Account.refresh",
             new=new_refresh
         ):
             account = Account("test")
@@ -55,7 +55,7 @@ class Testcases(unittest.TestCase):
                 })
 
         with mock.patch(
-            "beem.account.Account.refresh",
+            "bhive.account.Account.refresh",
             new=new_refresh
         ):
             Message(

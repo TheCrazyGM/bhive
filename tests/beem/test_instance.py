@@ -10,24 +10,24 @@ import unittest
 import random
 from parameterized import parameterized
 from pprint import pprint
-from beem import Hive
-from beem.amount import Amount
-from beem.witness import Witness
-from beem.account import Account
-from beem.instance import set_shared_hive_instance, shared_hive_instance, set_shared_config
-from beem.blockchain import Blockchain
-from beem.block import Block
-from beem.market import Market
-from beem.price import Price
-from beem.comment import Comment
-from beem.vote import Vote
-from beemapi.exceptions import RPCConnection
-from beem.wallet import Wallet
-from beem.transactionbuilder import TransactionBuilder
-from beembase.operations import Transfer
-from beemgraphenebase.account import PasswordKey, PrivateKey, PublicKey
-from beem.utils import parse_time, formatTimedelta
-from beem.nodelist import NodeList
+from bhive import Hive
+from bhive.amount import Amount
+from bhive.witness import Witness
+from bhive.account import Account
+from bhive.instance import set_shared_hive_instance, shared_hive_instance, set_shared_config
+from bhive.blockchain import Blockchain
+from bhive.block import Block
+from bhive.market import Market
+from bhive.price import Price
+from bhive.comment import Comment
+from bhive.vote import Vote
+from bhiveapi.exceptions import RPCConnection
+from bhive.wallet import Wallet
+from bhive.transactionbuilder import TransactionBuilder
+from bhivebase.operations import Transfer
+from bhivegraphenebase.account import PasswordKey, PrivateKey, PublicKey
+from bhive.utils import parse_time, formatTimedelta
+from bhive.nodelist import NodeList
 
 # Py3 compatibility
 import sys

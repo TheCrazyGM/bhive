@@ -13,12 +13,12 @@ import logging
 import websocket
 from itertools import cycle
 from threading import Thread
-from beemapi.rpcutils import (
+from bhiveapi.rpcutils import (
     is_network_appbase_ready,
     get_api_name, get_query, UnauthorizedError,
     RPCConnection, RPCError, NumRetriesReached
 )
-from beemapi.node import Nodes
+from bhiveapi.node import Nodes
 from events import Events
 
 log = logging.getLogger(__name__)

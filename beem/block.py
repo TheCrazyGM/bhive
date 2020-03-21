@@ -8,8 +8,8 @@ import json
 from .exceptions import BlockDoesNotExistsException
 from .utils import parse_time, formatTimeString
 from .blockchainobject import BlockchainObject
-from beemapi.exceptions import ApiNotSupported
-from beemgraphenebase.py23 import bytes_types, integer_types, string_types, text_type
+from bhiveapi.exceptions import ApiNotSupported
+from bhivegraphenebase.py23 import bytes_types, integer_types, string_types, text_type
 
 
 class Block(BlockchainObject):
@@ -32,7 +32,7 @@ class Block(BlockchainObject):
 
         .. code-block:: python
 
-            >>> from beem.block import Block
+            >>> from bhive.block import Block
             >>> block = Block(1)
             >>> print(block)
             <Block 1>
@@ -261,8 +261,8 @@ class Block(BlockchainObject):
     def ops_statistics(self, add_to_ops_stat=None):
         """Returns a statistic with the occurrence of the different operation types"""
         if add_to_ops_stat is None:
-            import beembase.operationids
-            ops_stat = beembase.operationids.operations.copy()
+            import bhivebase.operationids
+            ops_stat = bhivebase.operationids.operations.copy()
             for key in ops_stat:
                 ops_stat[key] = 0
         else:
@@ -292,7 +292,7 @@ class BlockHeader(BlockchainObject):
 
         .. code-block:: python
 
-            >>> from beem.block import BlockHeader
+            >>> from bhive.block import BlockHeader
             >>> block = BlockHeader(1)
             >>> print(block)
             <BlockHeader 1>

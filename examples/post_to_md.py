@@ -5,9 +5,9 @@ import sys
 import pytz
 import markdown
 from datetime import datetime, timedelta
-from beem.blockchain import Blockchain
-from beem.comment import Comment
-from beem.utils import formatTimeString, formatTimedelta, remove_from_dict, reputation_to_score, parse_time
+from bhive.blockchain import Blockchain
+from bhive.comment import Comment
+from bhive.utils import formatTimeString, formatTimedelta, remove_from_dict, reputation_to_score, parse_time
 import logging
 log = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)

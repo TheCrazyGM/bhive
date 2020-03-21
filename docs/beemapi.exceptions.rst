@@ -1,7 +1,7 @@
-beemapi\.exceptions
+bhiveapi\.exceptions
 ===================
 
-.. automodule:: beemapi.exceptions
+.. automodule:: bhiveapi.exceptions
     :members:
     :undoc-members:
     :show-inheritance:

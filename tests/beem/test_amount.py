@@ -5,11 +5,11 @@ from __future__ import unicode_literals
 from builtins import super
 import unittest
 from parameterized import parameterized
-from beem import Hive
-from beem.amount import Amount
-from beem.asset import Asset
-from beem.nodelist import NodeList
-from beem.instance import set_shared_hive_instance, SharedInstance
+from bhive import Hive
+from bhive.amount import Amount
+from bhive.asset import Asset
+from bhive.nodelist import NodeList
+from bhive.instance import set_shared_hive_instance, SharedInstance
 from decimal import Decimal
 
 

@@ -4,11 +4,11 @@ from __future__ import print_function
 from __future__ import unicode_literals
 from builtins import super
 import unittest
-from beem import Hive, exceptions
-from beem.instance import set_shared_hive_instance
-from beem.account import Account
-from beem.witness import Witness
-from beem.nodelist import NodeList
+from bhive import Hive, exceptions
+from bhive.instance import set_shared_hive_instance
+from bhive.account import Account
+from bhive.witness import Witness
+from bhive.nodelist import NodeList
 
 
 class Testcases(unittest.TestCase):

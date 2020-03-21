@@ -1,77 +1,77 @@
 Modules
 =======
 
-beem Modules
+bhive Modules
 ---------------
 
 .. toctree::
 
-   beem.account
-   beem.aes
-   beem.amount
-   beem.asciichart
-   beem.asset
-   beem.block
-   beem.blockchain
-   beem.blockchainobject
-   beem.comment
-   beem.conveyor
-   beem.discussions
-   beem.exceptions
-   beem.imageuploader
-   beem.instance
-   beem.market
-   beem.memo
-   beem.message
-   beem.nodelist
-   beem.notify
-   beem.price
-   beem.rc
-   beem.snapshot
-   beem.hive
-   beem.hiveconnect
-   beem.storage
-   beem.transactionbuilder
-   beem.utils
-   beem.vote
-   beem.wallet
-   beem.witness
+   bhive.account
+   bhive.aes
+   bhive.amount
+   bhive.asciichart
+   bhive.asset
+   bhive.block
+   bhive.blockchain
+   bhive.blockchainobject
+   bhive.comment
+   bhive.conveyor
+   bhive.discussions
+   bhive.exceptions
+   bhive.imageuploader
+   bhive.instance
+   bhive.market
+   bhive.memo
+   bhive.message
+   bhive.nodelist
+   bhive.notify
+   bhive.price
+   bhive.rc
+   bhive.snapshot
+   bhive.hive
+   bhive.hiveconnect
+   bhive.storage
+   bhive.transactionbuilder
+   bhive.utils
+   bhive.vote
+   bhive.wallet
+   bhive.witness
 
-beemapi Modules
+bhiveapi Modules
 ------------------
 
 .. toctree::
 
-   beemapi.exceptions
-   beemapi.graphenenerpc
-   beemapi.node
-   beemapi.hivenoderpc
-   beemapi.websocket
+   bhiveapi.exceptions
+   bhiveapi.graphenenerpc
+   bhiveapi.node
+   bhiveapi.hivenoderpc
+   bhiveapi.websocket
 
-beembase Modules
+bhivebase Modules
 -------------------
 
 .. toctree::
 
-   beembase.memo
-   beembase.objects
-   beembase.objecttypes
-   beembase.operationids
-   beembase.operations
-   beembase.signedtransactions
-   beembase.transactions
+   bhivebase.memo
+   bhivebase.objects
+   bhivebase.objecttypes
+   bhivebase.operationids
+   bhivebase.operations
+   bhivebase.signedtransactions
+   bhivebase.transactions
 
 
-beemgraphenebase Modules
+bhivegraphenebase Modules
 ---------------------------
 
 .. toctree::
 
-   beemgraphenebase.account
-   beemgraphenebase.base58
-   beemgraphenebase.bip38
-   beemgraphenebase.ecdsasig
-   beemgraphenebase.objects
-   beemgraphenebase.objecttypes
-   beemgraphenebase.operations
-   beemgraphenebase.signedtransactions
+   bhivegraphenebase.account
+   bhivegraphenebase.base58
+   bhivegraphenebase.bip38
+   bhivegraphenebase.ecdsasig
+   bhivegraphenebase.objects
+   bhivegraphenebase.objecttypes
+   bhivegraphenebase.operations
+   bhivegraphenebase.signedtransactions

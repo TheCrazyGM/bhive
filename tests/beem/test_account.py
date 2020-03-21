@@ -10,14 +10,14 @@ import pytz
 from datetime import datetime, timedelta
 from parameterized import parameterized
 from pprint import pprint
-from beem import Hive, exceptions
-from beem.account import Account
-from beem.block import Block
-from beem.amount import Amount
-from beem.asset import Asset
-from beem.utils import formatTimeString
-from beem.nodelist import NodeList
-from beem.instance import set_shared_hive_instance
+from bhive import Hive, exceptions
+from bhive.account import Account
+from bhive.block import Block
+from bhive.amount import Amount
+from bhive.asset import Asset
+from bhive.utils import formatTimeString
+from bhive.nodelist import NodeList
+from bhive.instance import set_shared_hive_instance
 
 wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
 

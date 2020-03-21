@@ -1,9 +1,9 @@
 import unittest
-from beem import Hive
-from beem.account import Account
-from beem.instance import set_shared_hive_instance, SharedInstance
-from beem.blockchainobject import BlockchainObject
-from beem.nodelist import NodeList
+from bhive import Hive
+from bhive.account import Account
+from bhive.instance import set_shared_hive_instance, SharedInstance
+from bhive.blockchainobject import BlockchainObject
+from bhive.nodelist import NodeList
 
 import logging
 log = logging.getLogger()
@@ -38,5 +38,5 @@ class Testcases(unittest.TestCase):
             nobroadcast=True,
         )
         set_shared_hive_instance(b2)
-        bts = Account("beem")
+        bts = Account("bhive")
         self.assertEqual(bts.hive.prefix, "STM")

@@ -1,4 +1,4 @@
-beemapi\.graphenerpc
+bhiveapi\.graphenerpc
 ====================
 
 
@@ -9,7 +9,7 @@ This class allows to call API methods exposed by the witness node via
 websockets. It does **not** support notifications and is not run
 asynchronously.
 
-.. automodule:: beemapi.graphenerpc
+.. automodule:: bhiveapi.graphenerpc
     :members:
     :undoc-members:
     :show-inheritance:

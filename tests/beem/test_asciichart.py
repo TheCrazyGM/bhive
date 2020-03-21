@@ -10,7 +10,7 @@ import random
 import unittest
 import base64
 from pprint import pprint
-from beem.asciichart import AsciiChart
+from bhive.asciichart import AsciiChart
 
 
 class Testcases(unittest.TestCase):
