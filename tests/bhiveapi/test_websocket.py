@@ -11,7 +11,7 @@ import random
 import itertools
 from pprint import pprint
 from bhive import Hive
-from bhiveapi.websocket import SteemWebsocket
+from bhiveapi.websocket import HiveWebsocket
 from bhive.instance import set_shared_hive_instance
 from bhive.nodelist import NodeList
 # Py3 compatibility
@@ -29,7 +29,7 @@ class Testcases(unittest.TestCase):
         nodelist.update_nodes(hive_instance=Hive(node=nodelist.get_nodes(normal=True, appbase=True), num_retries=10))
         hv = Hive(node=nodelist.get_nodes())
 
-        self.ws = SteemWebsocket(
+        self.ws = HiveWebsocket(
             urls=hv.rpc.nodes,
             num_retries=10
         )

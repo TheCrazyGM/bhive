@@ -13,8 +13,8 @@ import random
 import itertools
 from pprint import pprint
 from bhive import Hive
-from bhiveapi.hivenoderpc import SteemNodeRPC
-from bhiveapi.websocket import SteemWebsocket
+from bhiveapi.hivenoderpc import HiveNodeRPC
+from bhiveapi.websocket import HiveWebsocket
 from bhiveapi import exceptions
 from bhiveapi.exceptions import NumRetriesReached, CallRetriesReached
 from bhive.instance import set_shared_hive_instance
@@ -43,7 +43,7 @@ class Testcases(unittest.TestCase):
             keys={"active": wif, "owner": wif, "memo": wif},
             num_retries=10
         )
-        cls.rpc = SteemNodeRPC(urls=cls.nodes_hiveit)
+        cls.rpc = HiveNodeRPC(urls=cls.nodes_hiveit)
         # from getpass import getpass
         # self.bts.wallet.unlock(getpass())
         set_shared_hive_instance(cls.nodes_hiveit)
@@ -86,7 +86,7 @@ class Testcases(unittest.TestCase):
         for node in self.nodes:
             str_list += node + ";"
         str_list = str_list[:-1]
-        rpc = SteemNodeRPC(urls=str_list)
+        rpc = HiveNodeRPC(urls=str_list)
         self.assertIn(rpc.url, self.nodes + self.nodes_hiveit)
         rpc.next()
         self.assertIn(rpc.url, self.nodes + self.nodes_hiveit)
@@ -96,7 +96,7 @@ class Testcases(unittest.TestCase):
         for node in self.nodes:
             str_list += node + ","
         str_list = str_list[:-1]
-        rpc = SteemNodeRPC(urls=str_list)
+        rpc = HiveNodeRPC(urls=str_list)
         self.assertIn(rpc.url, self.nodes + self.nodes_hiveit)
         rpc.next()
         self.assertIn(rpc.url, self.nodes + self.nodes_hiveit)
@@ -164,21 +164,21 @@ class Testcases(unittest.TestCase):
         with self.assertRaises(
             NumRetriesReached
         ):
-            SteemNodeRPC(urls="https://wrong.link.com", num_retries=2, timeout=1)
+            HiveNodeRPC(urls="https://wrong.link.com", num_retries=2, timeout=1)
         with self.assertRaises(
             NumRetriesReached
         ):
-            SteemNodeRPC(urls="https://wrong.link.com", num_retries=3, num_retries_call=3, timeout=1)
+            HiveNodeRPC(urls="https://wrong.link.com", num_retries=3, num_retries_call=3, timeout=1)
         nodes = ["https://httpstat.us/500", "https://httpstat.us/501", "https://httpstat.us/502", "https://httpstat.us/503",
                  "https://httpstat.us/505", "https://httpstat.us/511", "https://httpstat.us/520", "https://httpstat.us/522",
                  "https://httpstat.us/524"]
         with self.assertRaises(
             NumRetriesReached
         ):
-            SteemNodeRPC(urls=nodes, num_retries=0, num_retries_call=0, timeout=1)
+            HiveNodeRPC(urls=nodes, num_retries=0, num_retries_call=0, timeout=1)
 
     def test_error_handling(self):
-        rpc = SteemNodeRPC(urls=self.nodes_hiveit, num_retries=2, num_retries_call=3)
+        rpc = HiveNodeRPC(urls=self.nodes_hiveit, num_retries=2, num_retries_call=3)
         with self.assertRaises(
             exceptions.NoMethodWithName
         ):
@@ -189,7 +189,7 @@ class Testcases(unittest.TestCase):
             rpc.get_accounts("test")
 
     def test_error_handling_appbase(self):
-        rpc = SteemNodeRPC(urls=self.nodes_hiveit, num_retries=2, num_retries_call=3)
+        rpc = HiveNodeRPC(urls=self.nodes_hiveit, num_retries=2, num_retries_call=3)
         with self.assertRaises(
             exceptions.NoMethodWithName
         ):

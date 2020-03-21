@@ -21,7 +21,7 @@ from bhive.account import Account
 from bhivegraphenebase.account import PrivateKey
 from bhive.instance import set_shared_hive_instance
 from bhive.nodelist import NodeList
-from bhive.hiveconnect import SteemConnect
+from bhive.hiveconnect import HiveConnect
 # Py3 compatibility
 import sys
 core_unit = "STM"
@@ -48,7 +48,7 @@ class Testcases(unittest.TestCase):
         acc.hive.txbuffer.clear()
         tx = acc.transfer(
             "test1", 1.000, "HIVE", memo="test")
-        sc2 = SteemConnect(hive_instance=bts)
+        sc2 = HiveConnect(hive_instance=bts)
         url = sc2.url_from_tx(tx)
         url_test = 'https://hiveconnect.com/sign/transfer?from=test&to=test1&amount=1.000+HIVE&memo=test'
         self.assertEqual(len(url), len(url_test))
@@ -63,7 +63,7 @@ class Testcases(unittest.TestCase):
 
     def test_login_url(self):
         bts = self.bts
-        sc2 = SteemConnect(hive_instance=bts)
+        sc2 = HiveConnect(hive_instance=bts)
         url = sc2.get_login_url("localhost", scope="login,vote")
         url_test = 'https://hiveconnect.com/oauth2/authorize?client_id=None&redirect_uri=localhost&scope=login,vote'
         self.assertEqual(len(url), len(url_test))
