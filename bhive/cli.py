@@ -3347,7 +3347,7 @@ def info(objects):
                 print(t)
             else:
                 print("Block number %s unknown" % obj)
-        elif re.match("^[a-zA-Z0-9\-\._]{2,16}$", obj):
+        elif re.match("^[-a-zA-Z0-9\._]{2,16}$", obj):
             account = Account(obj, hive_instance=hv)
             t = PrettyTable(["Key", "Value"])
             t.align = "l"
