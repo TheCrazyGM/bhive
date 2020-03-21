@@ -31,7 +31,7 @@ class NodeList(list):
                 "version": "0.23.0",
                 "type": "appbase",
                 "owner": "hiveio",
-                "score": 20
+                "score": 40
             },
             {
                 "url": "https://api.hive.blog",
@@ -43,6 +43,7 @@ class NodeList(list):
             {
                 "url": "https://api.hivekings.com",
                 "version": "0.23.0",
+                "type": "appbase",
                 "owner": "hivekings",
                 "score": 25
             },
