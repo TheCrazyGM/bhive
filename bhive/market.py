@@ -785,9 +785,9 @@ class Market(dict):
         prices = {}
         responses = []
         urls = [
+            "https://bittrex.com/api/v1.1/public/getmarketsummary?market=BTC-HIVE",
             "https://ionomy.com/api/v1/public/market-summary?market=btc-hive",
             # "https://poloniex.com/public?command=returnTicker",
-            #"https://bittrex.com/api/v1.1/public/getmarketsummary?market=BTC-HIVE",
             #"https://api.binance.com/api/v1/ticker/24hr",
             #"https://api.huobi.pro/market/history/kline?period=1day&size=1&symbol=hivebtc",
             #"https://crix-api.upbit.com/v1/crix/trades/ticks?code=CRIX.UPBIT.BTC-HIVE&count=1",

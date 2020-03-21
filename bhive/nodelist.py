@@ -41,11 +41,17 @@ class NodeList(list):
                 "score": 40
             },
             {
+                "url": "https://api.hivekings.com",
+                "version": "0.23.0",
+                "owner": "hivekings",
+                "score": 25
+            },
+            {
                 "url": "https://anyx.io",
                 "version": "0.23.0",
                 "type": "appbase",
-                "owner": "hiveio",
-                "score": 30
+                "owner": "anyx",
+                "score": 70
             }]
         super(NodeList, self).__init__(nodes)
 

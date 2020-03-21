@@ -47,30 +47,6 @@ Current build status
    :target: https://codeclimate.com/github/thecrazygmn/bhive/test_coverage
    :alt: Test Coverage
 
-Support & Documentation
-=======================
-You may find help in the  `bhive-discord-channel`_. The discord channel can also be used to discuss things about bhive.
-
-A complete library documentation is available at  `bhive.readthedocs.io`_.
-
-Advantages over the official hive-python library
-=================================================
-
-* High unit test coverage
-* Support for websocket nodes
-* Native support for new Appbase calls
-* Node error handling and automatic node switching
-* Usage of pycryptodomex instead of the outdated pycrypto
-* Complete documentation of bhivepy and all classes including all functions
-* hiveconnect integration
-* Works on read-only systems
-* Own BlockchainObject class with cache
-* Contains all broadcast operations
-* Estimation of virtual account operation index from date or block number
-* the command line tool bhivepy uses click and has more commands
-* HiveNodeRPC can be used to execute even not implemented RPC-Calls
-* More complete implemention
-
 Installation
 ============
 The minimal working python version is 2.7.x. or 3.4.x
@@ -152,7 +128,7 @@ bhive can be updated by::
 
 CLI tool bhivepy
 ---------------
-A command line tool is available. The help output shows the available commands:
+A command line tool is available. The help output shows the available commands::
 
     bhivepy --help
 
@@ -173,7 +149,7 @@ This library is licensed under the MIT License.
 
 Acknowledgements
 ================
-`python-bitshares`_ and `python-graphenelib`_ were created by Fabian Schuh (xeroc).
+`beem`_ created by holgern80 `python-bitshares`_ and `python-graphenelib`_ were created by Fabian Schuh (xeroc).
 
 
 .. _python-graphenelib: https://github.com/xeroc/python-graphenelib
