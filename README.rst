@@ -12,14 +12,6 @@ The library name is a play on word from beem and hive making a bee hive. bhive i
     :target: https://pypi.python.org/pypi/bhive/
     :alt: Python Versions
 
-
-.. image:: https://anaconda.org/conda-forge/bhive/badges/version.svg
-    :target: https://anaconda.org/conda-forge/bhive
-
-
-.. image:: https://anaconda.org/conda-forge/bhive/badges/downloads.svg
-    :target: https://anaconda.org/conda-forge/bhive
-
 Installation
 ============
 The minimal working python version is 2.7.x. or 3.4.x
@@ -80,29 +72,9 @@ Run tests after install::
 
     pytest
 
-
-Installing bhive with conda-forge
----------------------------------
-
-Installing bhive from the conda-forge channel can be achieved by adding conda-forge to your channels with::
-
-    conda config --add channels conda-forge
-
-Once the conda-forge channel has been enabled, bhive can be installed with::
-
-    conda install bhive
-
-Signing and Verify can be fasten (200 %) by installing cryptography::
-
-    conda install cryptography
-
-bhive can be updated by::
-
-    conda update bhive
-
 CLI tool bhivepy
 ----------------
-A command line tool is available. The help output shows the available commands::
+A command line tool is avail1able. The help output shows the available commands::
 
     bhivepy --help
 
@@ -129,6 +101,3 @@ beem created by holger80 `python-bitshares`_ and `python-graphenelib`_ were crea
 .. _python-graphenelib: https://github.com/xeroc/python-graphenelib
 .. _python-bitshares: https://github.com/xeroc/python-bitshares
 .. _Python: http://python.org
-.. _Anaconda: https://www.continuum.io
-.. _bhive.readthedocs.io: http://bhive.readthedocs.io/en/latest/
-.. _bhive-discord-channel: https://discord.gg/4HM592V
