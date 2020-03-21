@@ -39,7 +39,7 @@ class Testcases(unittest.TestCase):
             keys={"active": wif},
             num_retries=10
         )
-        acc = Account("holger80", hive_instance=cls.bts)
+        acc = Account("bhive.app", hive_instance=cls.bts)
         comment = acc.get_feed(limit=20)[-1]
         cls.authorperm = comment.authorperm
         [author, permlink] = resolve_authorperm(cls.authorperm)

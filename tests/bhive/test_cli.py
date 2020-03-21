@@ -225,7 +225,7 @@ class Testcases(unittest.TestCase):
         runner = CliRunner()
         result = runner.invoke(cli, ['-ds', 'allow', '--account', 'bhive.app', '--permission', 'posting', 'bhivepy'], input="test\n")
         self.assertEqual(result.exit_code, 0)
-        result = runner.invoke(cli, ['-ds', 'disallow', '--account', 'holger80', '--permission', 'posting', 'rewarding'], input="test\n")
+        result = runner.invoke(cli, ['-ds', 'disallow', '--account', 'bhive.app', '--permission', 'posting', 'rewarding'], input="test\n")
         self.assertEqual(result.exit_code, 0)
 
     def test_witnesses(self):
@@ -242,12 +242,12 @@ class Testcases(unittest.TestCase):
 
     def test_approvewitness(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['-ds', 'approvewitness', '-a', 'bhivepy', 'holger80'], input="test\n")
+        result = runner.invoke(cli, ['-ds', 'approvewitness', '-a', 'bhivepy', 'bhive.app'], input="test\n")
         self.assertEqual(result.exit_code, 0)
 
     def test_disapprovewitness(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['-ds', 'disapprovewitness',  '-a', 'bhivepy', 'holger80'], input="test\n")
+        result = runner.invoke(cli, ['-ds', 'disapprovewitness',  '-a', 'bhivepy', 'bhive.app'], input="test\n")
         self.assertEqual(result.exit_code, 0)
 
     def test_newaccount(self):
@@ -404,32 +404,32 @@ class Testcases(unittest.TestCase):
 
     def test_pending(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['pending', 'holger80'])
+        result = runner.invoke(cli, ['pending', 'bhive.app'])
         self.assertEqual(result.exit_code, 0)
-        result = runner.invoke(cli, ['pending', '--post', '--comment', '--curation', 'holger80'])
+        result = runner.invoke(cli, ['pending', '--post', '--comment', '--curation', 'bhive.app'])
         self.assertEqual(result.exit_code, 0)
-        result = runner.invoke(cli, ['pending', '--post', '--comment', '--curation', '--permlink', '--days', '1', 'holger80'])
+        result = runner.invoke(cli, ['pending', '--post', '--comment', '--curation', '--permlink', '--days', '1', 'bhive.app'])
         self.assertEqual(result.exit_code, 0)
-        result = runner.invoke(cli, ['pending', '--post', '--comment', '--curation', '--author', '--days', '1', 'holger80'])
+        result = runner.invoke(cli, ['pending', '--post', '--comment', '--curation', '--author', '--days', '1', 'bhive.app'])
         self.assertEqual(result.exit_code, 0)
-        result = runner.invoke(cli, ['pending', '--post', '--comment', '--curation', '--author', '--title', '--days', '1', 'holger80'])
+        result = runner.invoke(cli, ['pending', '--post', '--comment', '--curation', '--author', '--title', '--days', '1', 'bhive.app'])
         self.assertEqual(result.exit_code, 0)
-        result = runner.invoke(cli, ['pending', '--post', '--comment', '--curation', '--author', '--permlink', '--length', '30', '--days', '1', 'holger80'])
+        result = runner.invoke(cli, ['pending', '--post', '--comment', '--curation', '--author', '--permlink', '--length', '30', '--days', '1', 'bhive.app'])
         self.assertEqual(result.exit_code, 0)
 
     def test_rewards(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['rewards', 'holger80'])
+        result = runner.invoke(cli, ['rewards', 'bhive.app'])
         self.assertEqual(result.exit_code, 0)
-        result = runner.invoke(cli, ['rewards', '--post', '--comment', '--curation', 'holger80'])
+        result = runner.invoke(cli, ['rewards', '--post', '--comment', '--curation', 'bhive.app'])
         self.assertEqual(result.exit_code, 0)
-        result = runner.invoke(cli, ['rewards', '--post', '--comment', '--curation', '--permlink', 'holger80'])
+        result = runner.invoke(cli, ['rewards', '--post', '--comment', '--curation', '--permlink', 'bhive.app'])
         self.assertEqual(result.exit_code, 0)
-        result = runner.invoke(cli, ['rewards', '--post', '--comment', '--curation', '--author', 'holger80'])
+        result = runner.invoke(cli, ['rewards', '--post', '--comment', '--curation', '--author', 'bhive.app'])
         self.assertEqual(result.exit_code, 0)
-        result = runner.invoke(cli, ['rewards', '--post', '--comment', '--curation', '--author', '--title', 'holger80'])
+        result = runner.invoke(cli, ['rewards', '--post', '--comment', '--curation', '--author', '--title', 'bhive.app'])
         self.assertEqual(result.exit_code, 0)
-        result = runner.invoke(cli, ['rewards', '--post', '--comment', '--curation', '--author', '--permlink', '--length', '30', 'holger80'])
+        result = runner.invoke(cli, ['rewards', '--post', '--comment', '--curation', '--author', '--permlink', '--length', '30', 'bhive.app'])
         self.assertEqual(result.exit_code, 0)
 
     def test_curation(self):

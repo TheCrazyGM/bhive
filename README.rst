@@ -149,7 +149,7 @@ This library is licensed under the MIT License.
 
 Acknowledgements
 ================
-`beem`_ created by holgern80 `python-bitshares`_ and `python-graphenelib`_ were created by Fabian Schuh (xeroc).
+`beem`_ created by holger80 `python-bitshares`_ and `python-graphenelib`_ were created by Fabian Schuh (xeroc).
 
 
 .. _python-graphenelib: https://github.com/xeroc/python-graphenelib

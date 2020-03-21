@@ -486,7 +486,7 @@ class Testcases(unittest.TestCase):
         self.assertTrue(comments[0].depth > 0)
 
     def test_blog_history(self):
-        account = Account("holger80", hive_instance=self.bts)
+        account = Account("bhive.app", hive_instance=self.bts)
         posts = []
         for p in account.blog_history(limit=5):
             if p["author"] != account["name"]:

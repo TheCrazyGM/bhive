@@ -35,7 +35,7 @@ class Testcases(unittest.TestCase):
         set_shared_hive_instance(cls.bts)
         cls.bts.set_default_account("test")
 
-        acc = Account("holger80", hive_instance=cls.bts)
+        acc = Account("bhive.app", hive_instance=cls.bts)
         n_votes = 0
         index = 0
         while n_votes == 0:

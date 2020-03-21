@@ -57,8 +57,8 @@ class Testcases(unittest.TestCase):
     def test_authorpermvoter_resolve(self):
         self.assertEqual(resolve_authorpermvoter('theaussiegame/cryptokittie-giveaway-number-2|test'),
                          ('theaussiegame', 'cryptokittie-giveaway-number-2', 'test'))
-        self.assertEqual(resolve_authorpermvoter('holger80/virtuelle-cloud-mining-ponzi-schemen-auch-bekannt-als-hypt|holger80'),
-                         ('holger80', 'virtuelle-cloud-mining-ponzi-schemen-auch-bekannt-als-hypt', 'holger80'))
+        self.assertEqual(resolve_authorpermvoter('bhive.app/virtuelle-cloud-mining-ponzi-schemen-auch-bekannt-als-hypt|bhive.app'),
+                         ('bhive.app', 'virtuelle-cloud-mining-ponzi-schemen-auch-bekannt-als-hypt', 'bhive.app'))
 
     def test_sanitizePermlink(self):
         self.assertEqual(sanitize_permlink("aAf_0.12"), "aaf-0-12")
@@ -114,21 +114,21 @@ class Testcases(unittest.TestCase):
         self.assertEqual(t, t2)
 
     def test_derive_beneficiaries(self):
-        t = "holger80:10"
+        t = "bhive.app:10"
         b = derive_beneficiaries(t)
-        self.assertEqual(b, [{"account": "holger80", "weight": 1000}])
-        t = "holger80"
+        self.assertEqual(b, [{"account": "bhive.app", "weight": 1000}])
+        t = "bhive.app"
         b = derive_beneficiaries(t)
-        self.assertEqual(b, [{"account": "holger80", "weight": 10000}])
-        t = "holger80:30,bhive.app:40"
+        self.assertEqual(b, [{"account": "bhive.app", "weight": 10000}])
+        t = "bhive.app:30,bhive.app:40"
         b = derive_beneficiaries(t)
-        self.assertEqual(b, [{"account": "bhive.app", "weight": 4000}, {"account": "holger80", "weight": 3000}])
-        t = "holger80:30,bhive.app"
+        self.assertEqual(b, [{"account": "bhive.app", "weight": 4000}, {"account": "bhive.app", "weight": 3000}])
+        t = "bhive.app:30,bhive.app"
         b = derive_beneficiaries(t)
-        self.assertEqual(b, [{"account": "bhive.app", "weight": 7000}, {"account": "holger80", "weight": 3000}])
-        t = ["holger80:30", "bhive.app"]
+        self.assertEqual(b, [{"account": "bhive.app", "weight": 7000}, {"account": "bhive.app", "weight": 3000}])
+        t = ["bhive.app:30", "bhive.app"]
         b = derive_beneficiaries(t)
-        self.assertEqual(b, [{"account": "bhive.app", "weight": 7000}, {"account": "holger80", "weight": 3000}])
+        self.assertEqual(b, [{"account": "bhive.app", "weight": 7000}, {"account": "bhive.app", "weight": 3000}])
 
     def test_derive_tags(self):
         t = "test1,test2"

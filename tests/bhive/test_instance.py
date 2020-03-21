@@ -52,7 +52,7 @@ class Testcases(unittest.TestCase):
             num_retries=10
         )
         set_shared_hive_instance(cls.bts)
-        acc = Account("holger80", hive_instance=cls.bts)
+        acc = Account("bhive.app", hive_instance=cls.bts)
         comment = acc.get_blog(limit=20)[-1]
         cls.authorperm = comment.authorperm
         votes = acc.get_account_votes()
