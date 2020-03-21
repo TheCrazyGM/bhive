@@ -1,5 +1,5 @@
 Contributing to bhive
-====================
+===============+=====
 
 We welcome your contributions to our project.
 

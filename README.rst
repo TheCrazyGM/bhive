@@ -1,8 +1,8 @@
 bhive - Unofficial Python Library for Hive
-===============================================
+==========================================
 
-bhive is an unofficial python library for hive, which is created new from scratch from `python-bitshares`_
-The library name is derived from a beam machine, similar to the analogy between hive and steam. bhive includes `python-graphenelib`_.
+bhive is an unofficial python library for hive, which is created new from beem
+The library name is a play on word from beem and hive making a bee hive. bhive includes `python-graphenelib`_.
 
 .. image:: https://img.shields.io/pypi/v/bhive.svg
     :target: https://pypi.python.org/pypi/bhive/
@@ -20,38 +20,12 @@ The library name is derived from a beam machine, similar to the analogy between 
 .. image:: https://anaconda.org/conda-forge/bhive/badges/downloads.svg
     :target: https://anaconda.org/conda-forge/bhive
 
-
-Current build status
---------------------
-
-.. image:: https://travis-ci.org/thecrazygmn/bhive.svg?branch=master
-    :target: https://travis-ci.org/thecrazygmn/bhive
-
-.. image:: https://ci.appveyor.com/api/projects/status/ig8oqp8bt2fmr09a?svg=true
-    :target: https://ci.appveyor.com/project/thecrazygm/bhive
-
-.. image:: https://circleci.com/gh/thecrazygmn/bhive.svg?style=svg
-    :target: https://circleci.com/gh/thecrazygmn/bhive
-
-.. image:: https://readthedocs.org/projects/bhive/badge/?version=latest
-  :target: http://bhive.readthedocs.org/en/latest/?badge=latest
-
-.. image:: https://api.codacy.com/project/badge/Grade/e5476faf97df4c658697b8e7a7efebd7
-    :target: https://www.codacy.com/app/thecrazygmn/bhive?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=thecrazygmn/bhive&amp;utm_campaign=Badge_Grade
-
-.. image:: https://pyup.io/repos/github/thecrazygmn/bhive/shield.svg
-     :target: https://pyup.io/repos/github/thecrazygmn/bhive/
-     :alt: Updates
-
-.. image:: https://api.codeclimate.com/v1/badges/e7bdb5b4aa7ab160a780/test_coverage
-   :target: https://codeclimate.com/github/thecrazygmn/bhive/test_coverage
-   :alt: Test Coverage
-
 Installation
 ============
 The minimal working python version is 2.7.x. or 3.4.x
+Tested on python versoin 3.7.5
 
-bhive can be installed parallel to python-hive.
+bhive can be installed parallel to python-hive and beem.
 
 For Debian and Ubuntu, please ensure that the following packages are installed:
 
@@ -108,7 +82,7 @@ Run tests after install::
 
 
 Installing bhive with conda-forge
---------------------------------
+---------------------------------
 
 Installing bhive from the conda-forge channel can be achieved by adding conda-forge to your channels with::
 
@@ -127,13 +101,13 @@ bhive can be updated by::
     conda update bhive
 
 CLI tool bhivepy
----------------
+----------------
 A command line tool is available. The help output shows the available commands::
 
     bhivepy --help
 
 Stand alone version of CLI tool bhivepy
---------------------------------------
+---------------------------------------
 With the help of pyinstaller, a stand alone version of bhivepy was created for Windows, OSX and linux.
 Each version has just to be unpacked and can be used in any terminal. The packed directories
 can be found under release. Each release has a hash sum, which is created directly in the build-server
@@ -149,7 +123,7 @@ This library is licensed under the MIT License.
 
 Acknowledgements
 ================
-`beem`_ created by holger80 `python-bitshares`_ and `python-graphenelib`_ were created by Fabian Schuh (xeroc).
+beem created by holger80 `python-bitshares`_ and `python-graphenelib`_ were created by Fabian Schuh (xeroc).
 
 
 .. _python-graphenelib: https://github.com/xeroc/python-graphenelib

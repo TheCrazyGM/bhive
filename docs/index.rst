@@ -15,7 +15,7 @@
    :align: center
 
 Welcome to bhive's documentation!
-================================
+===========================+=====
 
 Hive is a blockchain-based rewards platform for publishers to monetize 
 content and grow community.

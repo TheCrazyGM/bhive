@@ -74,7 +74,7 @@ Run tests after install::
     
     
 Installing bhive with conda-forge
---------------------------------
+---------------------------------
 
 Installing bhive from the conda-forge channel can be achieved by adding conda-forge to your channels with::
 

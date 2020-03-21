@@ -36,8 +36,8 @@ check:
 	python3 setup.py check
 
 dist:
-	python3 setup.py sdist upload -r pypi
-	python3 setup.py bdist_wheel upload
+	python3 setup.py sdist 
+	python3 setup.py bdist_wheel
 
 docs:
 	sphinx-apidoc -d 6 -e -f -o docs . *.py tests
