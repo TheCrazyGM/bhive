@@ -47,7 +47,7 @@ class Testcases(unittest.TestCase):
         acc = self.account
         acc.hive.txbuffer.clear()
         tx = acc.transfer(
-            "test1", 1.000, "STEEM", memo="test")
+            "test1", 1.000, "HIVE", memo="test")
         sc2 = HiveConnect(hive_instance=bts)
         url = sc2.url_from_tx(tx)
         url_test = 'https://hiveconnect.com/sign/transfer?from=test&to=test1&amount=1.000+HIVE&memo=test'

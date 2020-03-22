@@ -33,7 +33,7 @@ class Benchmark(object):
 
 class Transaction(Benchmark):
     def setup(self):
-        self.prefix = u"STEEM"
+        self.prefix = u"HIVE"
         self.default_prefix = u"STM"
         self.wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
         self.ref_block_num = 34294

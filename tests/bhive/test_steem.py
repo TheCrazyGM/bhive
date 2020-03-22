@@ -47,7 +47,7 @@ class Testcases(unittest.TestCase):
         acc = self.account
         acc.hive.txbuffer.clear()
         tx = acc.transfer(
-            "test", 1.33, "SBD", memo="Foobar", account="test1")
+            "test", 1.33, "HBD", memo="Foobar", account="test1")
         self.assertEqual(
             tx["operations"][0][0],
             "transfer"
@@ -204,9 +204,9 @@ class Testcases(unittest.TestCase):
         tx1 = bts.new_tx()
         tx2 = bts.new_tx()
 
-        acc.transfer("test1", 1, "STEEM", append_to=tx1)
-        acc.transfer("test1", 2, "STEEM", append_to=tx2)
-        acc.transfer("test1", 3, "STEEM", append_to=tx1)
+        acc.transfer("test1", 1, "HIVE", append_to=tx1)
+        acc.transfer("test1", 2, "HIVE", append_to=tx2)
+        acc.transfer("test1", 3, "HIVE", append_to=tx1)
         tx1 = tx1.json()
         tx2 = tx2.json()
         ops1 = tx1["operations"]

@@ -66,8 +66,8 @@ class Amount(dict):
             from bhive.amount import Amount
             from bhive.asset import Asset
             a = Amount("1 HIVE")
-            b = Amount(1, "STEEM")
-            c = Amount("20", Asset("STEEM"))
+            b = Amount(1, "HIVE")
+            c = Amount("20", Asset("HIVE"))
             a + b
             a * 2
             a += b

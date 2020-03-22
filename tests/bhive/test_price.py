@@ -28,11 +28,11 @@ class Testcases(unittest.TestCase):
 
         Price("0.315 HIVE/HBD")
         Price(1.0, "HIVE/HBD")
-        Price(0.315, base="STEEM", quote="SBD")
-        Price(0.315, base=Asset("STEEM"), quote=Asset("SBD"))
+        Price(0.315, base="HIVE", quote="HBD")
+        Price(0.315, base=Asset("HIVE"), quote=Asset("HBD"))
         Price({
-            "base": {"amount": 1, "asset_id": "SBD"},
-            "quote": {"amount": 10, "asset_id": "STEEM"}})
+            "base": {"amount": 1, "asset_id": "HBD"},
+            "quote": {"amount": 10, "asset_id": "HIVE"}})
         Price("", quote="10 HBD", base="1 HIVE")
         Price("10 HBD", "1 HIVE")
         Price(Amount("10 HBD"), Amount("1 HIVE"))
@@ -41,15 +41,15 @@ class Testcases(unittest.TestCase):
         p1 = Price(10.0, "HIVE/HBD")
         p2 = Price(5.0, "VESTS/HIVE")
         p3 = p1 * p2
-        p4 = p3.as_base("SBD")
+        p4 = p3.as_base("HBD")
         p4_2 = p3.as_quote("VESTS")
 
         self.assertEqual(p4["quote"]["symbol"], "VESTS")
-        self.assertEqual(p4["base"]["symbol"], "SBD")
+        self.assertEqual(p4["base"]["symbol"], "HBD")
         # 10 HIVE/HBD * 0.2 VESTS/HIVE = 50 VESTS/HBD = 0.02 HBD/VESTS
         self.assertEqual(float(p4), 0.02)
         self.assertEqual(p4_2["quote"]["symbol"], "VESTS")
-        self.assertEqual(p4_2["base"]["symbol"], "SBD")
+        self.assertEqual(p4_2["base"]["symbol"], "HBD")
         self.assertEqual(float(p4_2), 0.02)
         p3 = p1 * 5
         self.assertEqual(float(p3), 50)
@@ -57,9 +57,9 @@ class Testcases(unittest.TestCase):
         # Inline multiplication
         p5 = Price(10.0, "HIVE/HBD")
         p5 *= p2
-        p4 = p5.as_base("SBD")
+        p4 = p5.as_base("HBD")
         self.assertEqual(p4["quote"]["symbol"], "VESTS")
-        self.assertEqual(p4["base"]["symbol"], "SBD")
+        self.assertEqual(p4["base"]["symbol"], "HBD")
         # 10 HIVE/HBD * 0.2 VESTS/HIVE = 2 VESTS/HBD = 0.02 HBD/VESTS
         self.assertEqual(float(p4), 0.02)
         p6 = Price(10.0, "HIVE/HBD")
@@ -74,7 +74,7 @@ class Testcases(unittest.TestCase):
         p3 = p1 / p2
         p4 = p3.as_base("VESTS")
         self.assertEqual(p4["base"]["symbol"], "VESTS")
-        self.assertEqual(p4["quote"]["symbol"], "SBD")
+        self.assertEqual(p4["quote"]["symbol"], "HBD")
         # 10 HIVE/HBD * 0.2 VESTS/HIVE = 2 VESTS/HBD = 0.5 HBD/VESTS
         self.assertEqual(float(p4), 2)
 

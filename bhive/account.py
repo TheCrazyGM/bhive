@@ -1031,14 +1031,14 @@ class Account(BlockchainObject):
             * "total"
 
             :param str balances: Defines the balance type
-            :param symbol: Can be "SBD", "STEEM" or "VESTS
+            :param symbol: Can be "HBD", "HIVE" or "VESTS
             :type symbol: str, dict
 
             .. code-block:: python
 
                 >>> from bhive.account import Account
                 >>> account = Account("bhive.app")
-                >>> account.get_balance("rewards", "SBD")
+                >>> account.get_balance("rewards", "HBD")
                 0.000 HBD
 
         """
@@ -2464,7 +2464,7 @@ class Account(BlockchainObject):
                 active_wif = "5xxxx"
                 hv = Hive(keys=[active_wif])
                 acc = Account("test", hive_instance=hv)
-                acc.transfer("test1", 1, "STEEM", "test")
+                acc.transfer("test1", 1, "HIVE", "test")
 
         """
 

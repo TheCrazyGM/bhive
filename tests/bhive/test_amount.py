@@ -30,10 +30,10 @@ class Testcases(unittest.TestCase):
             num_retries=10
         )
         set_shared_hive_instance(cls.bts)
-        cls.asset = Asset("SBD")
+        cls.asset = Asset("HBD")
         cls.symbol = cls.asset["symbol"]
         cls.precision = cls.asset["precision"]
-        cls.asset2 = Asset("STEEM")
+        cls.asset2 = Asset("HIVE")
 
     def dotest(self, ret, amount, symbol):
         self.assertEqual(float(ret), float(amount))
@@ -44,7 +44,7 @@ class Testcases(unittest.TestCase):
     def test_init(self):
         hv = self.bts
         # String init
-        asset = Asset("SBD", hive_instance=hv)
+        asset = Asset("HBD", hive_instance=hv)
         symbol = asset["symbol"]
         precision = asset["precision"]
         amount = Amount("1 {}".format(symbol), hive_instance=hv)
@@ -69,7 +69,7 @@ class Testcases(unittest.TestCase):
         self.dotest(amount, 1.3, symbol)
 
         # Asset as symbol
-        amount = Amount(1.3, Asset("SBD"), hive_instance=hv)
+        amount = Amount(1.3, Asset("HBD"), hive_instance=hv)
         self.dotest(amount, 1.3, symbol)
 
         # Asset as symbol
@@ -77,17 +77,17 @@ class Testcases(unittest.TestCase):
         self.dotest(amount, 1.3, symbol)
 
         # keyword inits
-        amount = Amount(amount=1.3, asset=Asset("SBD", hive_instance=hv), hhive_instance=hv)
+        amount = Amount(amount=1.3, asset=Asset("HBD", hive_instance=hv), hhive_instance=hv)
         self.dotest(amount, 1.3, symbol)
         
-        amount = Amount(amount=1.3001, asset=Asset("SBD", hive_instance=hv), hhive_instance=hv)
+        amount = Amount(amount=1.3001, asset=Asset("HBD", hive_instance=hv), hhive_instance=hv)
         self.dotest(amount, 1.3001, symbol)        
 
-        amount = Amount(amount=1.3001, asset=Asset("SBD", hive_instance=hv), fixed_point_arithmetic=True, hhive_instance=hv)
+        amount = Amount(amount=1.3001, asset=Asset("HBD", hive_instance=hv), fixed_point_arithmetic=True, hhive_instance=hv)
         self.dotest(amount, 1.3, symbol)   
 
         # keyword inits
-        amount = Amount(amount=1.3, asset=dict(Asset("SBD", hive_instance=hv)), hhive_instance=hv)
+        amount = Amount(amount=1.3, asset=dict(Asset("HBD", hive_instance=hv)), hhive_instance=hv)
         self.dotest(amount, 1.3, symbol)
 
         # keyword inits
@@ -112,7 +112,7 @@ class Testcases(unittest.TestCase):
             (1.0, self.symbol))
 
     def test_json_appbase(self):
-        asset = Asset("SBD", hive_instance=self.bts)
+        asset = Asset("HBD", hive_instance=self.bts)
         amount = Amount("1", asset, new_appbase_format=False, hive_instance=self.bts)
         if self.bts.rpc.get_use_appbase():
             self.assertEqual(
@@ -122,7 +122,7 @@ class Testcases(unittest.TestCase):
             self.assertEqual(amount.json(), "1.000 HBD")
 
     def test_json_appbase2(self):
-        asset = Asset("SBD", hive_instance=self.bts)
+        asset = Asset("HBD", hive_instance=self.bts)
         amount = Amount("1", asset, new_appbase_format=True, hive_instance=self.bts)
         if self.bts.rpc.get_use_appbase():
             self.assertEqual(
@@ -153,7 +153,7 @@ class Testcases(unittest.TestCase):
             int(Amount(int(1), self.symbol)),
             1000)      
         self.assertEqual(
-            int(Amount(amount=round(0.1509,3), asset=Asset("SBD"))),
+            int(Amount(amount=round(0.1509,3), asset=Asset("HBD"))),
             151)
 
     def test_dict(self):

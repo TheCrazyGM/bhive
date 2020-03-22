@@ -86,7 +86,7 @@ def prompt_callback(ctx, param, value):
 
 
 def asset_callback(ctx, param, value):
-    if value not in ["STEEM", "SBD"]:
+    if value not in ["HIVE", "HBD"]:
         print("Please HIVE or HBD as asset!")
         ctx.abort()
     else:
@@ -1025,7 +1025,7 @@ def balance(account):
     for name in account:
         a = Account(name, hive_instance=hv)
         print("\n@%s" % a.name)
-        t = PrettyTable(["Account", "STEEM", "SBD", "VESTS"])
+        t = PrettyTable(["Account", "HIVE", "HBD", "VESTS"])
         t.align = "r"
         t.add_row([
             'Available',
@@ -1079,7 +1079,7 @@ def interest(account):
             i["last_payment"],
             "in %s" % (i["next_payment_duration"]),
             "%.1f%%" % i["interest_rate"],
-            "%.3f %s" % (i["interest"], "SBD"),
+            "%.3f %s" % (i["interest"], "HBD"),
         ])
     print(t)
 
@@ -1774,7 +1774,7 @@ def ticker(sbd_to_steem):
     ticker = market.ticker()
     for key in ticker:
         if key in ["highest_bid", "latest", "lowest_ask"] and sbd_to_steem:
-            t.add_row([key, str(ticker[key].as_base("SBD"))])
+            t.add_row([key, str(ticker[key].as_base("HBD"))])
         elif key in "percent_change" and sbd_to_steem:
             t.add_row([key, "%.2f %%" % -ticker[key]])
         elif key in "percent_change":
@@ -1897,13 +1897,13 @@ def orderbook(chart, limit, show_date, width, height, ascii):
     n = 0
     for order in orderbook["asks"]:
         asks.append(order)
-        sum_asks += float(order.as_base("SBD")["base"])
+        sum_asks += float(order.as_base("HBD")["base"])
         sumsum_asks.append(sum_asks)
     if n < len(asks):
         n = len(asks)
     for order in orderbook["bids"]:
         bids.append(order)
-        sum_bids += float(order.as_base("SBD")["base"])
+        sum_bids += float(order.as_base("HBD")["base"])
         sumsum_bids.append(sum_bids)
     if n < len(bids):
         n = len(bids)
@@ -2744,17 +2744,17 @@ def rewards(accounts, only_sum, post, comment, curation, length, author, permlin
         m = Market(hive_instance=hv)
         latest = m.ticker()["latest"]
         if author and permlink:
-            t = PrettyTable(["Author", "Permlink", "Payout", "SBD", "HP + HIVE", "Liquid USD", "Invested USD"])
+            t = PrettyTable(["Author", "Permlink", "Payout", "HBD", "HP + HIVE", "Liquid USD", "Invested USD"])
         elif author and title:
-                t = PrettyTable(["Author", "Title", "Payout", "SBD", "HP + HIVE", "Liquid USD", "Invested USD"])
+                t = PrettyTable(["Author", "Title", "Payout", "HBD", "HP + HIVE", "Liquid USD", "Invested USD"])
         elif author:
-            t = PrettyTable(["Author", "Payout", "SBD", "HP + HIVE", "Liquid USD", "Invested USD"])
+            t = PrettyTable(["Author", "Payout", "HBD", "HP + HIVE", "Liquid USD", "Invested USD"])
         elif not author and permlink:
-            t = PrettyTable(["Permlink", "Payout", "SBD", "HP + HIVE", "Liquid USD", "Invested USD"])
+            t = PrettyTable(["Permlink", "Payout", "HBD", "HP + HIVE", "Liquid USD", "Invested USD"])
         elif not author and title:
-            t = PrettyTable(["Title", "Payout", "SBD", "HP + HIVE", "Liquid USD", "Invested USD"])
+            t = PrettyTable(["Title", "Payout", "HBD", "HP + HIVE", "Liquid USD", "Invested USD"])
         else:
-            t = PrettyTable(["Received", "SBD", "HP + HIVE", "Liquid USD", "Invested USD"])
+            t = PrettyTable(["Received", "HBD", "HP + HIVE", "Liquid USD", "Invested USD"])
         t.align = "l"
         rows = []
         start_op = account.estimate_virtual_op_num(limit_time)
@@ -2941,17 +2941,17 @@ def pending(accounts, only_sum, post, comment, curation, length, author, permlin
         m = Market(hive_instance=hv)
         latest = m.ticker()["latest"]
         if author and permlink:
-            t = PrettyTable(["Author", "Permlink", "Cashout", "SBD", "HP", "Liquid USD", "Invested USD"])
+            t = PrettyTable(["Author", "Permlink", "Cashout", "HBD", "HP", "Liquid USD", "Invested USD"])
         elif author and title:
-            t = PrettyTable(["Author", "Title", "Cashout", "SBD", "HP", "Liquid USD", "Invested USD"])
+            t = PrettyTable(["Author", "Title", "Cashout", "HBD", "HP", "Liquid USD", "Invested USD"])
         elif author:
-            t = PrettyTable(["Author", "Cashout", "SBD", "HP", "Liquid USD", "Invested USD"])
+            t = PrettyTable(["Author", "Cashout", "HBD", "HP", "Liquid USD", "Invested USD"])
         elif not author and permlink:
-            t = PrettyTable(["Permlink", "Cashout", "SBD", "HP", "Liquid USD", "Invested USD"])
+            t = PrettyTable(["Permlink", "Cashout", "HBD", "HP", "Liquid USD", "Invested USD"])
         elif not author and title:
-            t = PrettyTable(["Title", "Cashout", "SBD", "HP", "Liquid USD", "Invested USD"])
+            t = PrettyTable(["Title", "Cashout", "HBD", "HP", "Liquid USD", "Invested USD"])
         else:
-            t = PrettyTable(["Cashout", "SBD", "HP", "Liquid USD", "Invested USD"])
+            t = PrettyTable(["Cashout", "HBD", "HP", "Liquid USD", "Invested USD"])
         t.align = "l"
         rows = []
         c_list = {}

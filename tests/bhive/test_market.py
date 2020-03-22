@@ -45,8 +45,8 @@ class Testcases(unittest.TestCase):
         self.assertEqual(m3.get_string(), u'HIVE:HBD')
         self.assertTrue(m1 == m2)
 
-        base = Asset("SBD", hive_instance=bts)
-        quote = Asset("STEEM", hive_instance=bts)
+        base = Asset("HBD", hive_instance=bts)
+        quote = Asset("HIVE", hive_instance=bts)
         m = Market(base, quote, hive_instance=bts)
         self.assertEqual(m.get_string(), u'HIVE:HBD')
 
@@ -126,7 +126,7 @@ class Testcases(unittest.TestCase):
         self.assertEqual(str(Amount('0.500 HBD', hive_instance=bts)), op["amount_to_sell"])
 
         p = Price(5, u"HBD:HIVE", hive_instance=bts)
-        a = Amount(0.1, "STEEM", hive_instance=bts)
+        a = Amount(0.1, "HIVE", hive_instance=bts)
         tx = m.buy(p, a, account="test")
         op = tx["operations"][0][1]
         self.assertEqual(str(a), op["min_to_receive"])
@@ -153,7 +153,7 @@ class Testcases(unittest.TestCase):
         self.assertEqual(str(Amount('0.100 HIVE', hive_instance=bts)), op["amount_to_sell"])
 
         p = Price(5, u"HBD:HIVE", hive_instance=bts)
-        a = Amount(0.1, "STEEM", hive_instance=bts)
+        a = Amount(0.1, "HIVE", hive_instance=bts)
         tx = m.sell(p, a, account="test")
         op = tx["operations"][0][1]
         self.assertEqual(str(Amount('0.500 HBD', hive_instance=bts)), op["min_to_receive"])

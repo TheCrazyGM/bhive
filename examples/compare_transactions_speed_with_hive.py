@@ -38,7 +38,7 @@ from timeit import default_timer as timer
 class BhiveTest(object):
 
     def setup(self):
-        self.prefix = u"STEEM"
+        self.prefix = u"HIVE"
         self.default_prefix = u"STM"
         self.wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
         self.ref_block_num = 34294
@@ -63,7 +63,7 @@ class BhiveTest(object):
 class HiveTest(object):
 
     def setup(self):
-        self.prefix = u"STEEM"
+        self.prefix = u"HIVE"
         self.default_prefix = u"STM"
         self.wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
         self.ref_block_num = 34294

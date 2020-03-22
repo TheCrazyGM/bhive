@@ -171,7 +171,7 @@ Sending a Transfer
    hive = Hive()
    hive.wallet.unlock("wallet-passphrase")
    account = Account("test", hive_instance=hive)
-   account.transfer("null", 1, "SBD", "test")
+   account.transfer("null", 1, "HBD", "test")
 
 Upvote a post
 

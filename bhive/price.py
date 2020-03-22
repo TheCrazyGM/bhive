@@ -53,9 +53,9 @@ class Price(dict):
         This allows instanciations like:
 
         * ``Price("0.315 HBD/HIVE")``
-        * ``Price(0.315, base="SBD", quote="STEEM")``
-        * ``Price(0.315, base=Asset("SBD"), quote=Asset("STEEM"))``
-        * ``Price({"base": {"amount": 1, "asset_id": "SBD"}, "quote": {"amount": 10, "asset_id": "SBD"}})``
+        * ``Price(0.315, base="HBD", quote="HIVE")``
+        * ``Price(0.315, base=Asset("HBD"), quote=Asset("HIVE"))``
+        * ``Price({"base": {"amount": 1, "asset_id": "HBD"}, "quote": {"amount": 10, "asset_id": "HBD"}})``
         * ``Price(quote="10 HIVE", base="1 HBD")``
         * ``Price("10 HIVE", "1 HBD")``
         * ``Price(Amount("10 HIVE"), Amount("1 HBD"))``
@@ -69,7 +69,7 @@ class Price(dict):
             >>> from bhive.price import Price
             >>> Price("0.3314 HBD/HIVE") * 2
             0.662804 HBD/HIVE
-            >>> Price(0.3314, "SBD", "STEEM")
+            >>> Price(0.3314, "HBD", "HIVE")
             0.331402 HBD/HIVE
 
     """
@@ -183,7 +183,7 @@ class Price(dict):
             .. code-block:: python
 
                 >>> from bhive.price import Price
-                >>> Price("0.3314 HBD/HIVE").as_base("STEEM")
+                >>> Price("0.3314 HBD/HIVE").as_base("HIVE")
                 3.017483 HIVE/HBD
 
         """
@@ -202,7 +202,7 @@ class Price(dict):
             .. code-block:: python
 
                 >>> from bhive.price import Price
-                >>> Price("0.3314 HBD/HIVE").as_quote("SBD")
+                >>> Price("0.3314 HBD/HIVE").as_quote("HBD")
                 3.017483 HIVE/HBD
 
         """

@@ -39,9 +39,9 @@ one comment operation from each sender.
   # Post
   c = Comment("@gtg/witness-gtg-log")
 
-  account.transfer("test1", 1, "STEEM")
-  account.transfer("test2", 1, "STEEM")
-  account.transfer("test3", 1, "SBD")
+  account.transfer("test1", 1, "HIVE")
+  account.transfer("test2", 1, "HIVE")
+  account.transfer("test3", 1, "HBD")
   # Upvote post with 25%
   c.upvote(25, voter=account)
 
@@ -74,7 +74,7 @@ When using  `nobroadcast=True` the transaction is not broadcasted but printed.
   # Account will use now testnet
   account = Account("test")
 
-  pprint(account.transfer("test1", 1, "STEEM"))
+  pprint(account.transfer("test1", 1, "HIVE"))
 
 When executing the script above, the output will be similar to the following:
 

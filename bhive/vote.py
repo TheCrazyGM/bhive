@@ -231,7 +231,7 @@ class VotesObject(list):
 
     def printAsTable(self, voter=None, votee=None, start=None, stop=None, start_percent=None, stop_percent=None, sort_key="time", reverse=True, allow_refresh=True, return_str=False, **kwargs):
         utc = pytz.timezone('UTC')
-        table_header = ["Voter", "Votee", "SBD", "Time", "Rshares", "Percent", "Weight"]
+        table_header = ["Voter", "Votee", "HBD", "Time", "Rshares", "Percent", "Weight"]
         t = PrettyTable(table_header)
         t.align = "l"
         start = addTzInfo(start)

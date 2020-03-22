@@ -54,7 +54,7 @@ class Testcases(unittest.TestCase):
         # symbol = asset["symbol"]
         self.assertEqual(account.name, "bhive.app")
         self.assertEqual(account["name"], account.name)
-        self.assertIsInstance(account.get_balance("available", "SBD"), Amount)
+        self.assertIsInstance(account.get_balance("available", "HBD"), Amount)
         account.print_info()
         # self.assertIsInstance(account.balance({"symbol": symbol}), Amount)
         self.assertIsInstance(account.available_balances, list)
@@ -357,7 +357,7 @@ class Testcases(unittest.TestCase):
     def test_transfer_from_savings(self):
         w = self.account
         w.hive.txbuffer.clear()
-        tx = w.transfer_from_savings(1, "STEEM", "")
+        tx = w.transfer_from_savings(1, "HIVE", "")
         self.assertEqual(
             (tx["operations"][0][0]),
             "transfer_from_savings"
@@ -370,7 +370,7 @@ class Testcases(unittest.TestCase):
     def test_transfer_to_savings(self):
         w = self.account
         w.hive.txbuffer.clear()
-        tx = w.transfer_to_savings(1, "STEEM", "")
+        tx = w.transfer_to_savings(1, "HIVE", "")
         self.assertEqual(
             (tx["operations"][0][0]),
             "transfer_to_savings"

@@ -47,7 +47,7 @@ class HiveConnect(object):
             hive = Hive(nobroadcast=True, unsigned=True)
             sc2 = HiveConnect(hive_instance=hive)
             acc = Account("test", hive_instance=hive)
-            pprint(sc2.url_from_tx(acc.transfer("test1", 1, "STEEM", "test")))
+            pprint(sc2.url_from_tx(acc.transfer("test1", 1, "HIVE", "test")))
 
         .. testcode::
 

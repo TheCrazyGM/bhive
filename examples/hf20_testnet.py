@@ -30,4 +30,4 @@ if __name__ == "__main__":
     account = Account("bhive.app", hive_instance=hv)
     print(account.get_voting_power())
 
-    account.transfer("thecrazygm", 0.001, "SBD", "test")
+    account.transfer("thecrazygm", 0.001, "HBD", "test")

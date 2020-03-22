@@ -83,8 +83,8 @@ class Market(dict):
             base = Asset(base, hive_instance=self.hive)
             super(Market, self).__init__({"base": base, "quote": quote})
         elif base is None and quote is None:
-            quote = Asset("SBD", hive_instance=self.hive)
-            base = Asset("STEEM", hive_instance=self.hive)
+            quote = Asset("HBD", hive_instance=self.hive)
+            base = Asset("HIVE", hive_instance=self.hive)
             super(Market, self).__init__({"base": base, "quote": quote})
         else:
             raise ValueError("Unknown Market config")
@@ -167,8 +167,8 @@ class Market(dict):
             hive_instance=self.hive
         )
         data["percent_change"] = float(ticker["percent_change"])
-        data["sbd_volume"] = Amount(ticker["sbd_volume"], hive_instance=self.hive)
-        data["steem_volume"] = Amount(ticker["steem_volume"], hive_instance=self.hive)
+        data["hbd_volume"] = Amount(ticker["sbd_volume"], hive_instance=self.hive)
+        data["hive_volume"] = Amount(ticker["steem_volume"], hive_instance=self.hive)
 
         return data
 
@@ -180,8 +180,8 @@ class Market(dict):
             .. code-block:: js
 
                 {
-                    "STEEM": 361666.63617,
-                    "SBD": 1087.0
+                    "HIVE": 361666.63617,
+                    "HBD": 1087.0
                 }
 
         """

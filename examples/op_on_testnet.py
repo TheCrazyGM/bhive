@@ -72,5 +72,5 @@ if __name__ == "__main__":
     b = Blockchain(hive_instance=hv)
     blocknum = b.get_current_block().identifier
 
-    account.transfer("bhive1", 1, "SBD", "test")
+    account.transfer("bhive1", 1, "HBD", "test")
     b1 = Block(blocknum, hive_instance=hv)

@@ -43,11 +43,11 @@ class Testcases(unittest.TestCase):
             Asset("FOObarNonExisting", full=False, hive_instance=hv)
 
     @parameterized.expand([
-        ("normal", "SBD", "SBD", 3, "@@000000013"),
-        ("normal", "STEEM", "STEEM", 3, "@@000000021"),
+        ("normal", "HBD", "HBD", 3, "@@000000013"),
+        ("normal", "HIVE", "HIVE", 3, "@@000000021"),
         ("normal", "VESTS", "VESTS", 6, "@@000000037"),
-        ("normal", "@@000000013", "SBD", 3, "@@000000013"),
-        ("normal", "@@000000021", "STEEM", 3, "@@000000021"),
+        ("normal", "@@000000013", "HBD", 3, "@@000000013"),
+        ("normal", "@@000000021", "HIVE", 3, "@@000000021"),
         ("normal", "@@000000037", "VESTS", 6, "@@000000037"),
     ])
     def test_properties(self, node_param, data, symbol_str, precision, asset_str):
@@ -69,15 +69,15 @@ class Testcases(unittest.TestCase):
             hv = self.bts
         else:
             hv = self.bhive.app
-        asset1 = Asset("SBD", full=False, hive_instance=hv)
-        asset2 = Asset("SBD", full=False, hive_instance=hv)
+        asset1 = Asset("HBD", full=False, hive_instance=hv)
+        asset2 = Asset("HBD", full=False, hive_instance=hv)
         self.assertTrue(asset1 == asset2)
-        self.assertTrue(asset1 == "SBD")
-        self.assertTrue(asset2 == "SBD")
-        asset3 = Asset("STEEM", full=False, hive_instance=hv)
+        self.assertTrue(asset1 == "HBD")
+        self.assertTrue(asset2 == "HBD")
+        asset3 = Asset("HIVE", full=False, hive_instance=hv)
         self.assertTrue(asset1 != asset3)
-        self.assertTrue(asset3 != "SBD")
-        self.assertTrue(asset1 != "STEEM")
+        self.assertTrue(asset3 != "HBD")
+        self.assertTrue(asset1 != "HIVE")
 
         a = {'asset': '@@000000021', 'precision': 3, 'id': 'HIVE', 'symbol': 'HIVE'}
         b = {'asset': '@@000000021', 'precision': 3, 'id': '@@000000021', 'symbol': 'HIVE'}

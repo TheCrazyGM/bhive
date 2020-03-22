@@ -31,7 +31,7 @@ from bhive.hive import Hive
 
 TEST_AGAINST_CLI_WALLET = False
 
-prefix = u"STEEM"
+prefix = u"HIVE"
 default_prefix = u"STM"
 wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
 ref_block_num = 34294
@@ -1051,10 +1051,10 @@ class Testcases(unittest.TestCase):
                     },
             "seller": "1.2.29",
             "amount_to_sell": {"amount": 100000,
-                               "asset_id": "SBD"
+                               "asset_id": "HBD"
                                },
             "min_to_receive": {"amount": 10000,
-                               "asset_id": "SBD"
+                               "asset_id": "HBD"
                                },
             "expiration": "2016-05-18T09:22:05",
             "fill_or_kill": False,
@@ -1072,11 +1072,11 @@ class Testcases(unittest.TestCase):
         from_account_id = "test"
         to_account_id = "test1"
         amount = 1000000
-        asset_id = "SBD"
+        asset_id = "HBD"
         message = "abcdefgABCDEFG0123456789"
         nonce = "5862723643998573708"
 
-        fee = objects.Asset(amount=0, asset_id="SBD")
+        fee = objects.Asset(amount=0, asset_id="HBD")
         amount = objects.Asset(amount=int(amount), asset_id=asset_id)
         encrypted_memo = memo.encode_memo(
             account.PrivateKey(wif),

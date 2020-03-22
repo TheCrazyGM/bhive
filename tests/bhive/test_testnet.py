@@ -121,7 +121,7 @@ class Testcases(unittest.TestCase):
         # bts.prefix ="STX"
         acc = Account("bhive", hive_instance=bts)
         tx = acc.transfer(
-            "bhive1", 1.33, "SBD", memo="Foobar")
+            "bhive1", 1.33, "HBD", memo="Foobar")
         self.assertEqual(
             tx["operations"][0][0],
             "transfer"
@@ -141,7 +141,7 @@ class Testcases(unittest.TestCase):
         bts.wallet.unlock("123")
         acc = Account("bhive", hive_instance=bts)
         tx = acc.transfer(
-            "bhive1", 1.33, "SBD", memo="#Foobar")
+            "bhive1", 1.33, "HBD", memo="#Foobar")
         self.assertEqual(
             tx["operations"][0][0],
             "transfer"
@@ -415,9 +415,9 @@ class Testcases(unittest.TestCase):
         tx2 = bts.new_tx()
 
         acc = Account("bhive", hive_instance=bts)
-        acc.transfer("bhive1", 1, "STEEM", append_to=tx1)
-        acc.transfer("bhive1", 2, "STEEM", append_to=tx2)
-        acc.transfer("bhive1", 3, "STEEM", append_to=tx1)
+        acc.transfer("bhive1", 1, "HIVE", append_to=tx1)
+        acc.transfer("bhive1", 2, "HIVE", append_to=tx2)
+        acc.transfer("bhive1", 3, "HIVE", append_to=tx1)
         tx1 = tx1.json()
         tx2 = tx2.json()
         ops1 = tx1["operations"]
