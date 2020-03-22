@@ -17,7 +17,7 @@ from bhive.amount import Amount
 from bhive.asset import Asset
 from bhive.utils import formatTimeString
 from bhive.nodelist import NodeList
-from bhive.instance import set_shared_hive_instance
+from bhive.instance import set_shared_steem_instance
 
 wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
 
@@ -27,7 +27,7 @@ class Testcases(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         nodelist = NodeList()
-        nodelist.update_nodes(hive_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
+        nodelist.update_nodes(steem_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
         node_list = nodelist.get_nodes(exclude_limited=True)
       
         cls.bts = Hive(
@@ -39,17 +39,17 @@ class Testcases(unittest.TestCase):
             keys={"active": wif},
             num_retries=10
         )
-        cls.account = Account("bhive.app", hive_instance=cls.bts)
-        set_shared_hive_instance(cls.bts)
+        cls.account = Account("bhive.app", steem_instance=cls.bts)
+        set_shared_steem_instance(cls.bts)
 
     def test_account(self):
         hv = self.bts
         account = self.account
-        Account("bhive.app", hive_instance=hv)
+        Account("bhive.app", steem_instance=hv)
         with self.assertRaises(
             exceptions.AccountDoesNotExistsException
         ):
-            Account("DoesNotExistsXXX", hive_instance=hv)
+            Account("DoesNotExistsXXX", steem_instance=hv)
         # asset = Asset("1.3.0")
         # symbol = asset["symbol"]
         self.assertEqual(account.name, "bhive.app")
@@ -174,7 +174,7 @@ class Testcases(unittest.TestCase):
 
     def test_history2(self):
         hv = self.bts
-        account = Account("bhive.app", hive_instance=hv)
+        account = Account("bhive.app", steem_instance=hv)
         h_list = []
         max_index = account.virtual_op_count()
         for h in account.history(start=max_index - 4, stop=max_index, use_block_num=False, batch_size=2, raw_output=False):
@@ -206,7 +206,7 @@ class Testcases(unittest.TestCase):
 
     def test_history_reverse2(self):
         hv = self.bts
-        account = Account("bhive.app", hive_instance=hv)
+        account = Account("bhive.app", steem_instance=hv)
         h_list = []
         max_index = account.virtual_op_count()
         for h in account.history_reverse(start=max_index, stop=max_index - 4, use_block_num=False, batch_size=2, raw_output=False):
@@ -239,7 +239,7 @@ class Testcases(unittest.TestCase):
     def test_history_block_num(self):
         hv = self.bts
         zero_element = 0
-        account = Account("fullnodeupdate", hive_instance=hv)
+        account = Account("fullnodeupdate", steem_instance=hv)
         h_all_raw = []
         for h in account.history_reverse(raw_output=True):
             h_all_raw.append(h)
@@ -279,7 +279,7 @@ class Testcases(unittest.TestCase):
         vp = account.get_voting_power()
         self.assertTrue(vp >= 0)
         self.assertTrue(vp <= 100)
-        sp = account.get_hive_power()
+        sp = account.get_steem_power()
         self.assertTrue(hp >= 0)
         vv = account.get_voting_value_HBD()
         self.assertTrue(vv >= 0)
@@ -407,14 +407,14 @@ class Testcases(unittest.TestCase):
             op["from"])
 
     def test_json_export(self):
-        account = Account("bhive.app", hive_instance=self.bts)
+        account = Account("bhive.app", steem_instance=self.bts)
         if account.hive.rpc.get_use_appbase():
             content = self.bts.rpc.find_accounts({'accounts': [account["name"]]}, api="database")["accounts"][0]
         else:
             content = self.bts.rpc.get_accounts([account["name"]])[0]
         keys = list(content.keys())
         json_content = account.json()
-        exclude_list = ['owner_challenged', 'average_bandwidth']  # ['json_metadata', 'reputation', 'active_votes', 'savings_hbd_seconds']
+        exclude_list = ['owner_challenged', 'average_bandwidth']  # ['json_metadata', 'reputation', 'active_votes', 'savings_sbd_seconds']
         for k in keys:
             if k not in exclude_list:
                 if isinstance(content[k], dict) and isinstance(json_content[k], list):
@@ -425,9 +425,9 @@ class Testcases(unittest.TestCase):
 
     def test_estimate_virtual_op_num(self):
         hv = self.bts
-        account = Account("gtg", hive_instance=hv)
+        account = Account("gtg", steem_instance=hv)
         block_num = 21248120
-        block = Block(block_num, hive_instance=hv)
+        block = Block(block_num, steem_instance=hv)
         op_num1 = account.estimate_virtual_op_num(block.time(), stop_diff=1, max_count=100)
         op_num2 = account.estimate_virtual_op_num(block_num, stop_diff=1, max_count=100)
         op_num3 = account.estimate_virtual_op_num(block_num, stop_diff=100, max_count=100)
@@ -463,7 +463,7 @@ class Testcases(unittest.TestCase):
 
     def test_history_votes(self):
         hv = self.bts
-        account = Account("gtg", hive_instance=hv)
+        account = Account("gtg", steem_instance=hv)
         utc = pytz.timezone('UTC')
         limit_time = utc.localize(datetime.utcnow()) - timedelta(days=2)
         votes_list = []
@@ -486,7 +486,7 @@ class Testcases(unittest.TestCase):
         self.assertTrue(comments[0].depth > 0)
 
     def test_blog_history(self):
-        account = Account("bhive.app", hive_instance=self.bts)
+        account = Account("bhive.app", steem_instance=self.bts)
         posts = []
         for p in account.blog_history(limit=5):
             if p["author"] != account["name"]:

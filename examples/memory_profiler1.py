@@ -9,7 +9,7 @@ from bhive.account import Account
 from bhive.amount import Amount
 from bhive.blockchain import Blockchain
 from bhive.utils import parse_time
-from bhive.instance import set_shared_hive_instance
+from bhive.instance import set_shared_steem_instance
 import logging
 log = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -18,7 +18,7 @@ logging.basicConfig(level=logging.INFO)
 @profile
 def profiling(name_list):
     hv = Hive()
-    set_shared_hive_instance(hv)
+    set_shared_steem_instance(hv)
     del hv
     print("start")
     for name in name_list:

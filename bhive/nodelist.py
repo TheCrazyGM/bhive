@@ -8,7 +8,7 @@ import re
 import time
 import math
 import json
-from bhive.instance import shared_hive_instance
+from bhive.instance import shared_steem_instance
 from bhive.account import Account
 import logging
 log = logging.getLogger(__name__)
@@ -56,7 +56,7 @@ class NodeList(list):
             }]
         super(NodeList, self).__init__(nodes)
 
-    def update_nodes(self, weights=None, hive_instance=None):
+    def update_nodes(self, weights=None, steem_instance=None):
         """ Reads metadata from fullnodeupdate and recalculates the nodes score
 
             :param list/dict weight: can be used to weight the different benchmarks
@@ -71,14 +71,14 @@ class NodeList(list):
                 weights = {'block': 0.1, 'history': 0.1, 'apicall': 1, 'config': 1}
                 nl.update_nodes(weights)
         """
-        hive = hive_instance or shared_hive_instance()
+        hive = steem_instance or shared_steem_instance()
         metadata = None
         account = None
         cnt = 0
         while metadata is None and cnt < 5:
             cnt += 1
             try:
-                account = Account("fullnodeupdate", hive_instance=hive)
+                account = Account("fullnodeupdate", steem_instance=hive)
                 metadata = json.loads(account["json_metadata"])
             except:
                 hive.rpc.next()

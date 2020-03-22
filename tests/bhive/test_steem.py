@@ -14,12 +14,12 @@ from pprint import pprint
 from bhive import Hive, exceptions
 from bhive.amount import Amount
 from bhive.memo import Memo
-from bhive.version import version as bhive_version
+from bhive.version import version as bsteem_version
 from bhive.wallet import Wallet
 from bhive.witness import Witness
 from bhive.account import Account
 from bhivegraphenebase.account import PrivateKey
-from bhive.instance import set_shared_hive_instance
+from bhive.instance import set_shared_steem_instance
 from bhive.nodelist import NodeList
 # Py3 compatibility
 import sys
@@ -32,7 +32,7 @@ class Testcases(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.nodelist = NodeList()
-        cls.nodelist.update_nodes(hive_instance=Hive(node=cls.nodelist.get_nodes(exclude_limited=False), num_retries=10))
+        cls.nodelist.update_nodes(steem_instance=Hive(node=cls.nodelist.get_nodes(exclude_limited=False), num_retries=10))
         cls.bts = Hive(
             node=cls.nodelist.get_nodes(exclude_limited=True),
             nobroadcast=True,
@@ -40,7 +40,7 @@ class Testcases(unittest.TestCase):
             data_refresh_time_seconds=900,
             keys={"active": wif, "owner": wif, "memo": wif},
             num_retries=10)
-        cls.account = Account("test", full=True, hive_instance=cls.bts)
+        cls.account = Account("test", full=True, steem_instance=cls.bts)
 
     def test_transfer(self):
         bts = self.bts
@@ -58,7 +58,7 @@ class Testcases(unittest.TestCase):
         self.assertEqual(op["memo"], "Foobar")
         self.assertEqual(op["from"], "test1")
         self.assertEqual(op["to"], "test")
-        amount = Amount(op["amount"], hive_instance=bts)
+        amount = Amount(op["amount"], steem_instance=bts)
         self.assertEqual(float(amount), 1.33)
 
     def test_create_account(self):
@@ -331,7 +331,7 @@ class Testcases(unittest.TestCase):
         self.assertEqual(op["parent_permlink"], "a")
         json_metadata = json.loads(op["json_metadata"])
         self.assertEqual(json_metadata["tags"], ["a", "b", "c", "d", "e"])
-        self.assertEqual(json_metadata["app"], "bhive/%s" % (bhive_version))
+        self.assertEqual(json_metadata["app"], "bhive/%s" % (bsteem_version))
         self.assertEqual(
             (tx["operations"][1][0]),
             "comment_options"
@@ -352,7 +352,7 @@ class Testcases(unittest.TestCase):
             "gtg",
             op["author"])
         self.assertEqual('1000000.000 HBD', op["max_accepted_payout"])
-        self.assertEqual(10000, op["percent_hive_dollars"])
+        self.assertEqual(10000, op["percent_steem_dollars"])
         self.assertEqual(True, op["allow_votes"])
         self.assertEqual(True, op["allow_curation_rewards"])
         self.assertEqual("witness-gtg-log", op["permlink"])
@@ -411,18 +411,18 @@ class Testcases(unittest.TestCase):
         rshares2 = hv.vests_to_rshares(1e6)
         self.assertTrue(abs(rshares - rshares2) < 2)
 
-    def test_hp_to_hbd(self):
+    def test_hp_to_sbd(self):
         hv = self.bts
         hp = 500
-        ret = hv.hp_to_hbd(hp)
+        ret = hv.hp_to_sbd(hp)
         self.assertTrue(ret is not None)
 
-    def test_hbd_to_rshares(self):
+    def test_sbd_to_rshares(self):
         hv = self.bts
         test_values = [1, 10, 100, 1e3, 1e4, 1e5, 1e6, 1e7]
         for v in test_values:
             try:
-                hbd = round(hv.rshares_to_hbd(hv.hbd_to_rshares(v)), 5)
+                hbd = round(hv.rshares_to_sbd(hv.sbd_to_rshares(v)), 5)
             except ValueError:  # Reward pool smaller than 1e7 HBD (e.g. caused by a very low hive price)
                 continue
             self.assertEqual(hbd, v)
@@ -433,7 +433,7 @@ class Testcases(unittest.TestCase):
         voting_power = 9000
         for vote_pct in range(500, 10000, 500):
             rshares = hv.hp_to_rshares(hp, voting_power=voting_power, vote_pct=vote_pct)
-            vote_pct_ret = hv.rshares_to_vote_pct(rshares, hive_power=hp, voting_power=voting_power)
+            vote_pct_ret = hv.rshares_to_vote_pct(rshares, steem_power=hp, voting_power=voting_power)
             self.assertEqual(vote_pct_ret, vote_pct)
 
     def test_sign(self):

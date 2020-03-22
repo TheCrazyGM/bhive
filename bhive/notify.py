@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 import logging
 from events import Events
 from bhiveapi.websocket import HiveWebsocket
-from bhive.instance import shared_hive_instance
+from bhive.instance import shared_steem_instance
 from bhive.blockchain import Blockchain
 from bhive.price import Order, FilledOrder
 log = logging.getLogger(__name__)
@@ -20,7 +20,7 @@ class Notify(Events):
         blockchain.
 
         :param fnt on_block: Callback that will be called for each block received
-        :param Hive hive_instance: Hive instance
+        :param Hive steem_instance: Hive instance
 
         **Example**
 
@@ -45,7 +45,7 @@ class Notify(Events):
         # accounts=[],
         on_block=None,
         only_block_id=False,
-        hive_instance=None,
+        steem_instance=None,
         keep_alive=25
     ):
         # Events
@@ -53,7 +53,7 @@ class Notify(Events):
         self.events = Events()
 
         # Hive instance
-        self.hive = hive_instance or shared_hive_instance()
+        self.hive = steem_instance or shared_steem_instance()
 
         # Callbacks
         if on_block:

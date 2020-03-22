@@ -85,12 +85,12 @@ class HiveTest(object):
 
 
 if __name__ == "__main__":
-    hive_test = HiveTest()
-    bhive_test = BhiveTest()
-    hive_test.setup()
-    bhive_test.setup()
-    hive_times = []
-    bhive_times = []
+    steem_test = HiveTest()
+    bsteem_test = BhiveTest()
+    steem_test.setup()
+    bsteem_test.setup()
+    steem_times = []
+    bsteem_times = []
     loops = 50
     for i in range(0, loops):
         print(i)
@@ -103,26 +103,26 @@ if __name__ == "__main__":
         opBhive = operations.Transfer(**{
             "from": "foo",
             "to": "baar",
-            "amount": Amount("111.110 HIVE", hive_instance=Hive(offline=True)),
+            "amount": Amount("111.110 HIVE", steem_instance=Hive(offline=True)),
             "memo": "Fooo"
         })
 
-        t_s, t_v = hive_test.doit(ops=opHive)
-        hive_times.append([t_s, t_v])
+        t_s, t_v = steem_test.doit(ops=opHive)
+        steem_times.append([t_s, t_v])
 
-        t_s, t_v = bhive_test.doit(ops=opBhive)
-        bhive_times.append([t_s, t_v])
+        t_s, t_v = bsteem_test.doit(ops=opBhive)
+        bsteem_times.append([t_s, t_v])
 
-    hive_dt = [0, 0]
-    bhive_dt = [0, 0]
+    steem_dt = [0, 0]
+    bsteem_dt = [0, 0]
     for i in range(0, loops):
-        hive_dt[0] += hive_times[i][0]
-        hive_dt[1] += hive_times[i][1]
-        bhive_dt[0] += bhive_times[i][0]
-        bhive_dt[1] += bhive_times[i][1]
+        steem_dt[0] += steem_times[i][0]
+        steem_dt[1] += steem_times[i][1]
+        bsteem_dt[0] += bsteem_times[i][0]
+        bsteem_dt[1] += bsteem_times[i][1]
     print("hive vs bhive:\n")
-    print("hive: sign: %.2f s, verification %.2f s" % (hive_dt[0] / loops, hive_dt[1] / loops))
-    print("bhive:  sign: %.2f s, verification %.2f s" % (bhive_dt[0] / loops, bhive_dt[1] / loops))
+    print("hive: sign: %.2f s, verification %.2f s" % (steem_dt[0] / loops, steem_dt[1] / loops))
+    print("bhive:  sign: %.2f s, verification %.2f s" % (bsteem_dt[0] / loops, bsteem_dt[1] / loops))
     print("------------------------------------")
     print("bhive is %.2f %% (sign) and %.2f %% (verify) faster than hive" %
-          (hive_dt[0] / bhive_dt[0] * 100, hive_dt[1] / bhive_dt[1] * 100))
+          (steem_dt[0] / bsteem_dt[0] * 100, steem_dt[1] / bsteem_dt[1] * 100))

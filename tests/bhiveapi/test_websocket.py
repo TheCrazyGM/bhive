@@ -12,7 +12,7 @@ import itertools
 from pprint import pprint
 from bhive import Hive
 from bhiveapi.websocket import HiveWebsocket
-from bhive.instance import set_shared_hive_instance
+from bhive.instance import set_shared_steem_instance
 from bhive.nodelist import NodeList
 # Py3 compatibility
 import sys
@@ -26,7 +26,7 @@ class Testcases(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         nodelist = NodeList()
-        nodelist.update_nodes(hive_instance=Hive(node=nodelist.get_nodes(normal=True, appbase=True), num_retries=10))
+        nodelist.update_nodes(steem_instance=Hive(node=nodelist.get_nodes(normal=True, appbase=True), num_retries=10))
         hv = Hive(node=nodelist.get_nodes())
 
         self.ws = HiveWebsocket(

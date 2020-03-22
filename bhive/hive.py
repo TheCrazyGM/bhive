@@ -23,7 +23,7 @@ from .account import Account
 from .amount import Amount
 from .price import Price
 from .storage import configStorage as config
-from .version import version as bhive_version
+from .version import version as bsteem_version
 from .exceptions import (
     AccountExistsException,
     AccountDoesNotExistsException
@@ -203,13 +203,13 @@ class Hive(object):
         # txbuffers/propbuffer are initialized and cleared
         self.clear()
 
-        self.wallet = Wallet(hive_instance=self, **kwargs)
+        self.wallet = Wallet(steem_instance=self, **kwargs)
 
         # set hiveconnect
         if self.hiveconnect is not None and not isinstance(self.hiveconnect, HiveConnect):
             raise ValueError("hiveconnect musst be HiveConnect object")
         if self.hiveconnect is None and self.use_sc2:
-            self.hiveconnect = HiveConnect(hive_instance=self, **kwargs)
+            self.hiveconnect = HiveConnect(steem_instance=self, **kwargs)
         elif self.hiveconnect is not None and not self.use_sc2:
             self.use_sc2 = True
 
@@ -430,11 +430,11 @@ class Hive(object):
             return None
         a = Price(
             None,
-            base=Amount(median_price['base'], hive_instance=self),
-            quote=Amount(median_price['quote'], hive_instance=self),
-            hive_instance=self
+            base=Amount(median_price['base'], steem_instance=self),
+            quote=Amount(median_price['quote'], steem_instance=self),
+            steem_instance=self
         )
-        return a.as_base(self.hbd_symbol)
+        return a.as_base(self.sbd_symbol)
 
     def get_block_interval(self, use_stored_data=True):
         """Returns the block interval in seconds"""
@@ -484,7 +484,7 @@ class Hive(object):
         params = self.get_resource_params()
         config = self.get_config()
         dyn_param = self.get_dynamic_global_properties()
-        rc_regen = int(Amount(dyn_param["total_vesting_shares"], hive_instance=self)) / (HIVE_RC_REGEN_TIME / config["HIVE_BLOCK_INTERVAL"])
+        rc_regen = int(Amount(dyn_param["total_vesting_shares"], steem_instance=self)) / (HIVE_RC_REGEN_TIME / config["HIVE_BLOCK_INTERVAL"])
         total_cost = 0
         if rc_regen == 0:
             return total_cost
@@ -510,28 +510,28 @@ class Hive(object):
         num_denom = num / denom
         return int(num_denom) + 1
 
-    def rshares_to_hbd(self, rshares, not_broadcasted_vote=False, use_stored_data=True):
+    def rshares_to_sbd(self, rshares, not_broadcasted_vote=False, use_stored_data=True):
         """ Calculates the current HBD value of a vote
         """
-        payout = float(rshares) * self.get_hbd_per_rshares(use_stored_data=use_stored_data,
+        payout = float(rshares) * self.get_sbd_per_rshares(use_stored_data=use_stored_data,
                                                            not_broadcasted_vote_rshares=rshares if not_broadcasted_vote else 0)
         return payout
 
-    def get_hbd_per_rshares(self, not_broadcasted_vote_rshares=0, use_stored_data=True):
+    def get_sbd_per_rshares(self, not_broadcasted_vote_rshares=0, use_stored_data=True):
         """ Returns the current rshares to HBD ratio
         """
         reward_fund = self.get_reward_funds(use_stored_data=use_stored_data)
-        reward_balance = float(Amount(reward_fund["reward_balance"], hive_instance=self))
+        reward_balance = float(Amount(reward_fund["reward_balance"], steem_instance=self))
         recent_claims = float(reward_fund["recent_claims"]) + not_broadcasted_vote_rshares
 
         fund_per_share = reward_balance / (recent_claims)
         median_price = self.get_median_price(use_stored_data=use_stored_data)
         if median_price is None:
             return 0
-        HBD_price = float(median_price * (Amount(1, self.hive_symbol, hive_instance=self)))
+        HBD_price = float(median_price * (Amount(1, self.steem_symbol, steem_instance=self)))
         return fund_per_share * HBD_price
 
-    def get_hive_per_mvest(self, time_stamp=None, use_stored_data=True):
+    def get_steem_per_mvest(self, time_stamp=None, use_stored_data=True):
         """ Returns the MVEST to HIVE ratio
 
             :param int time_stamp: (optional) if set, return an estimated
@@ -556,8 +556,8 @@ class Hive(object):
         global_properties = self.get_dynamic_global_properties(use_stored_data=use_stored_data)
 
         return (
-            float(Amount(global_properties['total_vesting_fund_steem'], hive_instance=self)) /
-            (float(Amount(global_properties['total_vesting_shares'], hive_instance=self)) / 1e6)
+            float(Amount(global_properties['total_vesting_fund_steem'], steem_instance=self)) /
+            (float(Amount(global_properties['total_vesting_shares'], steem_instance=self)) / 1e6)
         )
 
     def vests_to_hp(self, vests, timestamp=None, use_stored_data=True):
@@ -570,7 +570,7 @@ class Hive(object):
         """
         if isinstance(vests, Amount):
             vests = float(vests)
-        return float(vests) / 1e6 * self.get_hive_per_mvest(timestamp, use_stored_data=use_stored_data)
+        return float(vests) / 1e6 * self.get_steem_per_mvest(timestamp, use_stored_data=use_stored_data)
 
     def hp_to_vests(self, hp, timestamp=None, use_stored_data=True):
         """ Converts HP to vests
@@ -579,12 +579,12 @@ class Hive(object):
             :param datetime timestamp: (Optional) Can be used to calculate
                 the conversion rate from the past
         """
-        return hp * 1e6 / self.get_hive_per_mvest(timestamp, use_stored_data=use_stored_data)
+        return hp * 1e6 / self.get_steem_per_mvest(timestamp, use_stored_data=use_stored_data)
 
-    def hp_to_hbd(self, hp, voting_power=HIVE_100_PERCENT, vote_pct=HIVE_100_PERCENT, not_broadcasted_vote=True, use_stored_data=True):
+    def hp_to_sbd(self, hp, voting_power=HIVE_100_PERCENT, vote_pct=HIVE_100_PERCENT, not_broadcasted_vote=True, use_stored_data=True):
         """ Obtain the resulting HBD vote value from Hive power
 
-            :param number hive_power: Hive Power
+            :param number steem_power: Hive Power
             :param int voting_power: voting power (100% = 10000)
             :param int vote_pct: voting percentage (100% = 10000)
             :param bool not_broadcasted_vote: not_broadcasted or already broadcasted vote (True = not_broadcasted vote).
@@ -593,9 +593,9 @@ class Hive(object):
             vote rshares decreases the reward pool.
         """
         vesting_shares = int(self.hp_to_vests(hp, use_stored_data=use_stored_data))
-        return self.vests_to_hbd(vesting_shares, voting_power=voting_power, vote_pct=vote_pct, not_broadcasted_vote=not_broadcasted_vote, use_stored_data=use_stored_data)
+        return self.vests_to_sbd(vesting_shares, voting_power=voting_power, vote_pct=vote_pct, not_broadcasted_vote=not_broadcasted_vote, use_stored_data=use_stored_data)
 
-    def vests_to_hbd(self, vests, voting_power=HIVE_100_PERCENT, vote_pct=HIVE_100_PERCENT, not_broadcasted_vote=True, use_stored_data=True):
+    def vests_to_sbd(self, vests, voting_power=HIVE_100_PERCENT, vote_pct=HIVE_100_PERCENT, not_broadcasted_vote=True, use_stored_data=True):
         """ Obtain the resulting HBD vote value from vests
 
             :param number vests: vesting shares
@@ -607,7 +607,7 @@ class Hive(object):
             vote rshares decreases the reward pool.
         """
         vote_rshares = self.vests_to_rshares(vests, voting_power=voting_power, vote_pct=vote_pct)
-        return self.rshares_to_hbd(vote_rshares, not_broadcasted_vote=not_broadcasted_vote, use_stored_data=use_stored_data)
+        return self.rshares_to_sbd(vote_rshares, not_broadcasted_vote=not_broadcasted_vote, use_stored_data=use_stored_data)
 
     def _max_vote_denom(self, use_stored_data=True):
         # get props
@@ -623,16 +623,16 @@ class Hive(object):
         used_power = int((used_power + max_vote_denom - 1) / max_vote_denom)
         return used_power
 
-    def hp_to_rshares(self, hive_power, voting_power=HIVE_100_PERCENT, vote_pct=HIVE_100_PERCENT, use_stored_data=True):
+    def hp_to_rshares(self, steem_power, voting_power=HIVE_100_PERCENT, vote_pct=HIVE_100_PERCENT, use_stored_data=True):
         """ Obtain the r-shares from Hive power
 
-            :param number hive_power: Hive Power
+            :param number steem_power: Hive Power
             :param int voting_power: voting power (100% = 10000)
             :param int vote_pct: voting percentage (100% = 10000)
 
         """
         # calculate our account voting shares (from vests)
-        vesting_shares = int(self.hp_to_vests(hive_power, use_stored_data=use_stored_data))
+        vesting_shares = int(self.hp_to_vests(steem_power, use_stored_data=use_stored_data))
         return self.vests_to_rshares(vesting_shares, voting_power=voting_power, vote_pct=vote_pct, use_stored_data=use_stored_data)
 
     def vests_to_rshares(self, vests, voting_power=HIVE_100_PERCENT, vote_pct=HIVE_100_PERCENT, subtract_dust_threshold=True, use_stored_data=True):
@@ -652,7 +652,7 @@ class Hive(object):
             rshares -= math.copysign(self.get_dust_threshold(use_stored_data=use_stored_data), vote_pct)
         return rshares
 
-    def hbd_to_rshares(self, hbd, not_broadcasted_vote=False, use_stored_data=True):
+    def sbd_to_rshares(self, hbd, not_broadcasted_vote=False, use_stored_data=True):
         """ Obtain the r-shares from HBD
 
         :param hbd: HBD
@@ -663,17 +663,17 @@ class Hive(object):
 
         """
         if isinstance(hbd, Amount):
-            hbd = Amount(hbd, hive_instance=self)
+            hbd = Amount(hbd, steem_instance=self)
         elif isinstance(hbd, string_types):
-            hbd = Amount(hbd, hive_instance=self)
+            hbd = Amount(hbd, steem_instance=self)
         else:
-            hbd = Amount(hbd, self.hbd_symbol, hive_instance=self)
-        if hbd['symbol'] != self.hbd_symbol:
+            hbd = Amount(hbd, self.sbd_symbol, steem_instance=self)
+        if hbd['symbol'] != self.sbd_symbol:
             raise AssertionError('Should input HBD, not any other asset!')
 
         # If the vote was already broadcasted we can assume the blockchain values to be true
         if not not_broadcasted_vote:
-            return int(float(hbd) / self.get_hbd_per_rshares(use_stored_data=use_stored_data))
+            return int(float(hbd) / self.get_sbd_per_rshares(use_stored_data=use_stored_data))
 
         # If the vote wasn't broadcasted (yet), we have to calculate the rshares while considering
         # the change our vote is causing to the recent_claims. This is more important for really
@@ -681,9 +681,9 @@ class Hive(object):
         reward_fund = self.get_reward_funds(use_stored_data=use_stored_data)
         median_price = self.get_median_price(use_stored_data=use_stored_data)
         recent_claims = int(reward_fund["recent_claims"])
-        reward_balance = Amount(reward_fund["reward_balance"], hive_instance=self)
-        reward_pool_hbd = median_price * reward_balance
-        if hbd > reward_pool_hbd:
+        reward_balance = Amount(reward_fund["reward_balance"], steem_instance=self)
+        reward_pool_sbd = median_price * reward_balance
+        if hbd > reward_pool_sbd:
             raise ValueError('Provided more HBD than available in the reward pool.')
 
         # This is the formula we can use to determine the "true" rshares.
@@ -697,27 +697,27 @@ class Hive(object):
         rshares = recent_claims * float(hbd) / ((float(reward_balance) * float(median_price)) - float(hbd))
         return int(rshares)
 
-    def rshares_to_vote_pct(self, rshares, hive_power=None, vests=None, voting_power=HIVE_100_PERCENT, use_stored_data=True):
+    def rshares_to_vote_pct(self, rshares, steem_power=None, vests=None, voting_power=HIVE_100_PERCENT, use_stored_data=True):
         """ Obtain the voting percentage for a desired rshares value
             for a given Hive Power or vesting shares and voting_power
-            Give either hive_power or vests, not both.
+            Give either steem_power or vests, not both.
             When the output is greater than 10000 or less than -10000,
             the given absolute rshares are too high
 
             Returns the required voting percentage (100% = 10000)
 
             :param number rshares: desired rshares value
-            :param number hive_power: Hive Power
+            :param number steem_power: Hive Power
             :param number vests: vesting shares
             :param int voting_power: voting power (100% = 10000)
 
         """
-        if hive_power is None and vests is None:
-            raise ValueError("Either hive_power or vests has to be set!")
-        if hive_power is not None and vests is not None:
-            raise ValueError("Either hive_power or vests has to be set. Not both!")
-        if hive_power is not None:
-            vests = int(self.hp_to_vests(hive_power, use_stored_data=use_stored_data) * 1e6)
+        if steem_power is None and vests is None:
+            raise ValueError("Either steem_power or vests has to be set!")
+        if steem_power is not None and vests is not None:
+            raise ValueError("Either steem_power or vests has to be set. Not both!")
+        if steem_power is not None:
+            vests = int(self.hp_to_vests(steem_power, use_stored_data=use_stored_data) * 1e6)
 
         if self.hardfork >= 20:
             rshares += math.copysign(self.get_dust_threshold(use_stored_data=use_stored_data), rshares)
@@ -730,7 +730,7 @@ class Hive(object):
         vote_pct = used_power * HIVE_100_PERCENT / (60 * 60 * 24) / voting_power
         return int(math.copysign(vote_pct, rshares))
 
-    def hbd_to_vote_pct(self, hbd, hive_power=None, vests=None, voting_power=HIVE_100_PERCENT, not_broadcasted_vote=True, use_stored_data=True):
+    def sbd_to_vote_pct(self, hbd, steem_power=None, vests=None, voting_power=HIVE_100_PERCENT, not_broadcasted_vote=True, use_stored_data=True):
         """ Obtain the voting percentage for a desired HBD value
             for a given Hive Power or vesting shares and voting power
             Give either Hive Power or vests, not both.
@@ -741,7 +741,7 @@ class Hive(object):
 
             :param hbd: desired HBD value
             :type hbd: str, int, amount.Amount
-            :param number hive_power: Hive Power
+            :param number steem_power: Hive Power
             :param number vests: vesting shares
             :param bool not_broadcasted_vote: not_broadcasted or already broadcasted vote (True = not_broadcasted vote).
              Only impactful for very high amounts of HBD. Slight modification to the value calculation, as the not_broadcasted
@@ -749,15 +749,15 @@ class Hive(object):
 
         """
         if isinstance(hbd, Amount):
-            hbd = Amount(hbd, hive_instance=self)
+            hbd = Amount(hbd, steem_instance=self)
         elif isinstance(hbd, string_types):
-            hbd = Amount(hbd, hive_instance=self)
+            hbd = Amount(hbd, steem_instance=self)
         else:
-            hbd = Amount(hbd, self.hbd_symbol, hive_instance=self)
-        if hbd['symbol'] != self.hbd_symbol:
+            hbd = Amount(hbd, self.sbd_symbol, steem_instance=self)
+        if hbd['symbol'] != self.sbd_symbol:
             raise AssertionError()
-        rshares = self.hbd_to_rshares(hbd, not_broadcasted_vote=not_broadcasted_vote, use_stored_data=use_stored_data)
-        return self.rshares_to_vote_pct(rshares, hive_power=hive_power, vests=vests, voting_power=voting_power, use_stored_data=use_stored_data)
+        rshares = self.sbd_to_rshares(hbd, not_broadcasted_vote=not_broadcasted_vote, use_stored_data=use_stored_data)
+        return self.rshares_to_vote_pct(rshares, steem_power=steem_power, vests=vests, voting_power=voting_power, use_stored_data=use_stored_data)
 
     def get_chain_properties(self, use_stored_data=True):
         """ Return witness elected chain properties
@@ -767,7 +767,7 @@ class Hive(object):
                 {
                     'account_creation_fee': '30.000 HIVE',
                     'maximum_block_size': 65536,
-                    'hbd_interest_rate': 250
+                    'sbd_interest_rate': 250
                 }
 
         """
@@ -831,7 +831,7 @@ class Hive(object):
     def set_default_account(self, account):
         """ Set the default account to be used
         """
-        Account(account, hive_instance=self)
+        Account(account, steem_instance=self)
         config["default_account"] = account
 
     def set_password_storage(self, password_storage):
@@ -969,7 +969,7 @@ class Hive(object):
 
         """
         if tx:
-            txbuffer = TransactionBuilder(tx, hive_instance=self)
+            txbuffer = TransactionBuilder(tx, steem_instance=self)
         else:
             txbuffer = self.txbuffer
         txbuffer.appendWif(wifs)
@@ -985,7 +985,7 @@ class Hive(object):
         """
         if tx:
             # If tx is provided, we broadcast the tx
-            return TransactionBuilder(tx, hive_instance=self).broadcast()
+            return TransactionBuilder(tx, steem_instance=self).broadcast()
         else:
             return self.txbuffer.broadcast()
 
@@ -1036,7 +1036,7 @@ class Hive(object):
         """
         builder = TransactionBuilder(
             *args,
-            hive_instance=self,
+            steem_instance=self,
             **kwargs
         )
         self._txbuffers.append(builder)
@@ -1062,16 +1062,16 @@ class Hive(object):
                     (defaults to ``default_account``)
             :param str fee: when set to 0 HIVE (default), claim account is paid by RC
         """
-        fee = fee if fee is not None else "0 %s" % (self.hive_symbol)
+        fee = fee if fee is not None else "0 %s" % (self.steem_symbol)
         if not creator and config["default_account"]:
             creator = config["default_account"]
         if not creator:
             raise ValueError(
                 "Not creator account given. Define it with " +
                 "creator=x, or set the default_account using bhivepy")
-        creator = Account(creator, hive_instance=self)
+        creator = Account(creator, steem_instance=self)
         op = {
-            "fee": Amount(fee, hive_instance=self),
+            "fee": Amount(fee, steem_instance=self),
             "creator": creator["name"],
             "prefix": self.prefix,
         }
@@ -1159,7 +1159,7 @@ class Hive(object):
                 the blockchain
 
         """
-        fee = fee if fee is not None else "0 %s" % (self.hive_symbol)
+        fee = fee if fee is not None else "0 %s" % (self.steem_symbol)
         if not creator and config["default_account"]:
             creator = config["default_account"]
         if not creator:
@@ -1172,12 +1172,12 @@ class Hive(object):
             )
 
         try:
-            Account(account_name, hive_instance=self)
+            Account(account_name, steem_instance=self)
             raise AccountExistsException
         except AccountDoesNotExistsException:
             pass
 
-        creator = Account(creator, hive_instance=self)
+        creator = Account(creator, steem_instance=self)
 
         " Generate new keys from password"
         from bhivegraphenebase.account import PasswordKey
@@ -1239,17 +1239,17 @@ class Hive(object):
             posting_key_authority.append([k, 1])
 
         for k in additional_owner_accounts:
-            addaccount = Account(k, hive_instance=self)
+            addaccount = Account(k, steem_instance=self)
             owner_accounts_authority.append([addaccount["name"], 1])
         for k in additional_active_accounts:
-            addaccount = Account(k, hive_instance=self)
+            addaccount = Account(k, steem_instance=self)
             active_accounts_authority.append([addaccount["name"], 1])
         for k in additional_posting_accounts:
-            addaccount = Account(k, hive_instance=self)
+            addaccount = Account(k, steem_instance=self)
             posting_accounts_authority.append([addaccount["name"], 1])
         if combine_with_claim_account:
             op = {
-                "fee": Amount(fee, hive_instance=self),
+                "fee": Amount(fee, steem_instance=self),
                 "creator": creator["name"],
                 "prefix": self.prefix,
             }
@@ -1368,12 +1368,12 @@ class Hive(object):
             )
 
         try:
-            Account(account_name, hive_instance=self)
+            Account(account_name, steem_instance=self)
             raise AccountExistsException
         except AccountDoesNotExistsException:
             pass
 
-        creator = Account(creator, hive_instance=self)
+        creator = Account(creator, steem_instance=self)
 
         " Generate new keys from password"
         from bhivegraphenebase.account import PasswordKey
@@ -1435,22 +1435,22 @@ class Hive(object):
             posting_key_authority.append([k, 1])
 
         for k in additional_owner_accounts:
-            addaccount = Account(k, hive_instance=self)
+            addaccount = Account(k, steem_instance=self)
             owner_accounts_authority.append([addaccount["name"], 1])
         for k in additional_active_accounts:
-            addaccount = Account(k, hive_instance=self)
+            addaccount = Account(k, steem_instance=self)
             active_accounts_authority.append([addaccount["name"], 1])
         for k in additional_posting_accounts:
-            addaccount = Account(k, hive_instance=self)
+            addaccount = Account(k, steem_instance=self)
             posting_accounts_authority.append([addaccount["name"], 1])
 
         props = self.get_chain_properties()
         if self.hardfork >= 20:
-            required_fee_hive = Amount(props["account_creation_fee"], hive_instance=self)
+            required_fee_steem = Amount(props["account_creation_fee"], steem_instance=self)
         else:
-            required_fee_hive = Amount(props["account_creation_fee"], hive_instance=self) * 30
+            required_fee_steem = Amount(props["account_creation_fee"], steem_instance=self) * 30
         op = {
-            "fee": required_fee_hive,
+            "fee": required_fee_steem,
             "creator": creator["name"],
             "new_account_name": account_name,
             'owner': {'account_auths': owner_accounts_authority,
@@ -1487,14 +1487,14 @@ class Hive(object):
                     "account_subsidy_decay": x,
                     "maximum_block_size": x,
                     "url": x,
-                    "hbd_exchange_rate": x,
-                    "hbd_interest_rate": x,
+                    "sbd_exchange_rate": x,
+                    "sbd_interest_rate": x,
                     "new_signing_key": x
                 }
 
         """
 
-        owner = Account(owner, hive_instance=self)
+        owner = Account(owner, steem_instance=self)
 
         try:
             PrivateKey(wif, prefix=self.prefix)
@@ -1505,7 +1505,7 @@ class Hive(object):
             props_list.append([k, props[k]])
 
         op = operations.Witness_set_properties({"owner": owner["name"], "props": props_list, "prefix": self.prefix})
-        tb = TransactionBuilder(use_condenser_api=use_condenser_api, hive_instance=self)
+        tb = TransactionBuilder(use_condenser_api=use_condenser_api, steem_instance=self)
         tb.appendOps([op])
         tb.appendWif(wif)
         tb.sign()
@@ -1524,7 +1524,7 @@ class Hive(object):
                 {
                     "account_creation_fee": "3.000 HIVE",
                     "maximum_block_size": 65536,
-                    "hbd_interest_rate": 0,
+                    "sbd_interest_rate": 0,
                 }
 
         """
@@ -1533,21 +1533,21 @@ class Hive(object):
         if not account:
             raise ValueError("You need to provide an account")
 
-        account = Account(account, hive_instance=self)
+        account = Account(account, steem_instance=self)
 
         try:
             PublicKey(signing_key, prefix=self.prefix)
         except Exception as e:
             raise e
         if "account_creation_fee" in props:
-            props["account_creation_fee"] = Amount(props["account_creation_fee"], hive_instance=self)
+            props["account_creation_fee"] = Amount(props["account_creation_fee"], steem_instance=self)
         op = operations.Witness_update(
             **{
                 "owner": account["name"],
                 "url": url,
                 "block_signing_key": signing_key,
                 "props": props,
-                "fee": Amount(0, self.hive_symbol, hive_instance=self),
+                "fee": Amount(0, self.steem_symbol, steem_instance=self),
                 "prefix": self.prefix,
             })
         return self.finalizeOp(op, account, "active", **kwargs)
@@ -1566,7 +1566,7 @@ class Hive(object):
         if not account:
             raise ValueError("You need to provide an account")
 
-        account = Account(account, hive_instance=self)
+        account = Account(account, steem_instance=self)
         if not isinstance(proposal_ids, list):
             proposal_ids = [proposal_ids]
 
@@ -1627,7 +1627,7 @@ class Hive(object):
             account = required_posting_auths[0]
         else:
             raise Exception("At least one account needs to be specified")
-        account = Account(account, full=False, hive_instance=self)
+        account = Account(account, full=False, steem_instance=self)
         op = operations.Custom_json(
             **{
                 "json": json_data,
@@ -1682,7 +1682,7 @@ class Hive(object):
 
             comment_options = {
                 'max_accepted_payout': '1000000.000 HBD',
-                'percent_hive_dollars': 10000,
+                'percent_steem_dollars': 10000,
                 'allow_votes': True,
                 'allow_curation_rewards': True,
                 'extensions': [[0, {
@@ -1735,13 +1735,13 @@ class Hive(object):
         if app:
             json_metadata.update({'app': app})
         elif 'app' not in json_metadata:
-            json_metadata.update({'app': 'bhive/%s' % (bhive_version)})
+            json_metadata.update({'app': 'bhive/%s' % (bsteem_version)})
 
         if not author and config["default_account"]:
             author = config["default_account"]
         if not author:
             raise ValueError("You need to provide an account")
-        account = Account(author, hive_instance=self)
+        account = Account(author, steem_instance=self)
         # deal with the category and tags
         if isinstance(tags, str):
             tags = list(set([_f for _f in (re.split("[\W_]", tags)) if _f]))
@@ -1862,7 +1862,7 @@ class Hive(object):
                 account = self.config["default_account"]
         if not account:
             raise ValueError("You need to provide an account")
-        account = Account(account, hive_instance=self)
+        account = Account(account, steem_instance=self)
 
         [post_author, post_permlink] = resolve_authorperm(identifier)
 
@@ -1898,7 +1898,7 @@ class Hive(object):
                     "author": "",
                     "permlink": "",
                     "max_accepted_payout": "1000000.000 HBD",
-                    "percent_hive_dollars": 10000,
+                    "percent_steem_dollars": 10000,
                     "allow_votes": True,
                     "allow_curation_rewards": True,
                 }
@@ -1908,7 +1908,7 @@ class Hive(object):
             account = config["default_account"]
         if not account:
             raise ValueError("You need to provide an account")
-        account = Account(account, hive_instance=self)
+        account = Account(account, steem_instance=self)
         author, permlink = resolve_authorperm(identifier)
         op = self._build_comment_options_op(author, permlink, options,
                                             beneficiaries)
@@ -1917,7 +1917,7 @@ class Hive(object):
     def _build_comment_options_op(self, author, permlink, options,
                                   beneficiaries):
         options = remove_from_dict(options or {}, [
-            'max_accepted_payout', 'percent_hive_dollars',
+            'max_accepted_payout', 'percent_steem_dollars',
             'allow_votes', 'allow_curation_rewards', 'extensions'
         ], keep_keys=True)
         # override beneficiaries extension
@@ -1952,7 +1952,7 @@ class Hive(object):
 
             options['beneficiaries'] = beneficiaries
 
-        default_max_payout = "1000000.000 %s" % (self.hbd_symbol)
+        default_max_payout = "1000000.000 %s" % (self.sbd_symbol)
         comment_op = operations.Comment_options(
             **{
                 "author":
@@ -1961,8 +1961,8 @@ class Hive(object):
                 permlink,
                 "max_accepted_payout":
                 options.get("max_accepted_payout", default_max_payout),
-                "percent_hive_dollars":
-                int(options.get("percent_hive_dollars", HIVE_100_PERCENT)),
+                "percent_steem_dollars":
+                int(options.get("percent_steem_dollars", HIVE_100_PERCENT)),
                 "allow_votes":
                 options.get("allow_votes", True),
                 "allow_curation_rewards":
@@ -2002,7 +2002,7 @@ class Hive(object):
         raise KeyError("asset ID not found in chain assets")
 
     @property
-    def hbd_symbol(self):
+    def sbd_symbol(self):
         """ get the current chains symbol for HBD (e.g. "TBD" on testnet) """
         # some networks (e.g. whaleshares) do not have HBD
         try:
@@ -2012,7 +2012,7 @@ class Hive(object):
         return symbol
 
     @property
-    def hive_symbol(self):
+    def steem_symbol(self):
         """ get the current chains symbol for HIVE (e.g. "TESTS" on testnet) """
         return self._get_asset_symbol(1)
 

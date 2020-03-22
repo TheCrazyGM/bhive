@@ -23,7 +23,7 @@ from bhiveapi.hivenoderpc import HiveNodeRPC
 from .exceptions import BatchedCallsNotSupported, BlockDoesNotExistsException, BlockWaitTimeExceeded, OfflineHasNoRPCException
 from bhiveapi.exceptions import NumRetriesReached
 from bhivegraphenebase.py23 import py23_bytes
-from bhive.instance import shared_hive_instance
+from bhive.instance import shared_steem_instance
 from .amount import Amount
 import bhive as hv
 log = logging.getLogger(__name__)
@@ -177,7 +177,7 @@ class Blockchain(object):
     """ This class allows to access the blockchain and read data
         from it
 
-        :param Hive hive_instance: Hive instance
+        :param Hive steem_instance: Hive instance
         :param str mode: (default) Irreversible block (``irreversible``) or
             actual head block (``head``)
         :param int max_block_wait_repetition: maximum wait repetition for next block
@@ -224,12 +224,12 @@ class Blockchain(object):
     """
     def __init__(
         self,
-        hive_instance=None,
+        steem_instance=None,
         mode="irreversible",
         max_block_wait_repetition=None,
         data_refresh_time_seconds=900,
     ):
-        self.hive = hive_instance or shared_hive_instance()
+        self.hive = steem_instance or shared_steem_instance()
 
         if mode == "irreversible":
             self.mode = 'last_irreversible_block_num'
@@ -300,7 +300,7 @@ class Blockchain(object):
             self.get_current_block_num(),
             only_ops=only_ops,
             only_virtual_ops=only_virtual_ops,
-            hive_instance=self.hive
+            steem_instance=self.hive
         )
 
     def get_estimated_block_num(self, date, estimateForwards=False, accurate=True):
@@ -325,7 +325,7 @@ class Blockchain(object):
         date = addTzInfo(date)
         if estimateForwards:
             block_offset = 10
-            first_block = BlockHeader(block_offset, hive_instance=self.hive)
+            first_block = BlockHeader(block_offset, steem_instance=self.hive)
             time_diff = date - first_block.time()
             block_number = math.floor(time_diff.total_seconds() / self.block_interval + block_offset)
         else:
@@ -343,7 +343,7 @@ class Blockchain(object):
             second_last_block_time_diff_seconds = 10
             
             while block_time_diff.total_seconds() > self.block_interval or block_time_diff.total_seconds() < -self.block_interval:
-                block = BlockHeader(block_number, hive_instance=self.hive)
+                block = BlockHeader(block_number, steem_instance=self.hive)
                 second_last_block_time_diff_seconds = last_block_time_diff_seconds
                 last_block_time_diff_seconds = block_time_diff.total_seconds()
                 block_time_diff = date - block.time()
@@ -370,7 +370,7 @@ class Blockchain(object):
         """
         return Block(
             block_num,
-            hive_instance=self.hive
+            steem_instance=self.hive
         ).time()
 
     def block_timestamp(self, block_num):
@@ -381,7 +381,7 @@ class Blockchain(object):
         """
         block_time = Block(
             block_num,
-            hive_instance=self.hive
+            steem_instance=self.hive
         ).time()
         return int(time.mktime(block_time.timetuple()))
 
@@ -415,10 +415,10 @@ class Blockchain(object):
         elif threading:
             pool = Pool(thread_num, batch_mode=True)
         if threading:
-            hive_instance = [self.hive]
+            steem_instance = [self.hive]
             nodelist = self.hive.rpc.nodes.export_working_nodes()
             for i in range(thread_num - 1):
-                hive_instance.append(hv.Hive(node=nodelist,
+                steem_instance.append(hv.Hive(node=nodelist,
                                                 num_retries=self.hive.rpc.num_retries,
                                                 num_retries_call=self.hive.rpc.num_retries_call,
                                                 timeout=self.hive.rpc.timeout))
@@ -448,9 +448,9 @@ class Blockchain(object):
                         block_num_list.append(blocknum + i)
                         results = []
                         if FUTURES_MODULE is not None:
-                            futures.append(pool.submit(Block, blocknum + i, only_ops=only_ops, only_virtual_ops=only_virtual_ops, hive_instance=hive_instance[i]))
+                            futures.append(pool.submit(Block, blocknum + i, only_ops=only_ops, only_virtual_ops=only_virtual_ops, steem_instance=steem_instance[i]))
                         else:
-                            pool.enqueue(Block, blocknum + i, only_ops=only_ops, only_virtual_ops=only_virtual_ops, hive_instance=hive_instance[i])
+                            pool.enqueue(Block, blocknum + i, only_ops=only_ops, only_virtual_ops=only_virtual_ops, steem_instance=steem_instance[i])
                         i += 1
                     if FUTURES_MODULE is not None:
                         try:
@@ -483,7 +483,7 @@ class Blockchain(object):
                     while len(missing_block_num) > 0:
                         for blocknum in missing_block_num:
                             try:
-                                block = Block(blocknum, only_ops=only_ops, only_virtual_ops=only_virtual_ops, hive_instance=self.hive)
+                                block = Block(blocknum, only_ops=only_ops, only_virtual_ops=only_virtual_ops, steem_instance=self.hive)
                                 checked_results.append(block)
                                 result_block_nums.append(int(block.block_num))
                             except Exception as e:
@@ -499,7 +499,7 @@ class Blockchain(object):
                 if latest_block <= head_block:
                     for blocknum in range(latest_block + 1, head_block + 1):
                         if blocknum not in result_block_nums:
-                            block = Block(blocknum, only_ops=only_ops, only_virtual_ops=only_virtual_ops, hive_instance=self.hive)
+                            block = Block(blocknum, only_ops=only_ops, only_virtual_ops=only_virtual_ops, steem_instance=self.hive)
                             result_block_nums.append(blocknum)
                             yield block
             elif max_batch_size is not None and (head_block - start) >= max_batch_size and not head_block_reached:
@@ -552,7 +552,7 @@ class Blockchain(object):
                                     block = block["ops"]
                                 else:
                                     block = block["block"]
-                            block = Block(block, only_ops=only_ops, only_virtual_ops=only_virtual_ops, hive_instance=self.hive)
+                            block = Block(block, only_ops=only_ops, only_virtual_ops=only_virtual_ops, steem_instance=self.hive)
                             block["id"] = block.block_num
                             block.identifier = block.block_num
                             yield block
@@ -610,7 +610,7 @@ class Blockchain(object):
         block = None
         while (block is None or block.block_num is None or int(block.block_num) != block_number) and (block_number_check_cnt < 0 or cnt < block_number_check_cnt):
             try:
-                block = Block(block_number, only_ops=only_ops, only_virtual_ops=only_virtual_ops, hive_instance=self.hive)
+                block = Block(block_number, only_ops=only_ops, only_virtual_ops=only_virtual_ops, steem_instance=self.hive)
                 cnt += 1
             except BlockDoesNotExistsException:
                 block = None

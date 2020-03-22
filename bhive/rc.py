@@ -5,7 +5,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 import logging
 import json
-from .instance import shared_hive_instance
+from .instance import shared_steem_instance
 from bhive.constants import state_object_size_info, resource_execution_time, EXEC_FOLLOW_CUSTOM_OP_SCALE
 import hashlib
 from binascii import hexlify, unhexlify
@@ -21,9 +21,9 @@ from bhivegraphenebase.py23 import py23_bytes, bytes_types
 class RC(object):
     def __init__(
         self,
-        hive_instance=None,
+        steem_instance=None,
     ):
-        self.hive = hive_instance or shared_hive_instance()
+        self.hive = steem_instance or shared_steem_instance()
 
     def get_tx_size(self, op):
         """Returns the tx size of an operation"""

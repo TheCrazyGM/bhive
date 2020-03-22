@@ -56,7 +56,7 @@ if __name__ == "__main__":
                     wif={'active': str(active_privkey),
                          'posting': str(posting_privkey),
                          'memo': str(memo_privkey)})
-    account = Account(username, hive_instance=hv)
+    account = Account(username, steem_instance=hv)
     if account["name"] == "bhive":
         account.disallow("bhive1", permission='posting')
         account.allow('bhive1', weight=1, permission='posting', account=None)
@@ -68,9 +68,9 @@ if __name__ == "__main__":
 
     # hv.create_account("bhive1", creator=account, password=password1)
 
-    account1 = Account("bhive1", hive_instance=hv)
-    b = Blockchain(hive_instance=hv)
+    account1 = Account("bhive1", steem_instance=hv)
+    b = Blockchain(steem_instance=hv)
     blocknum = b.get_current_block().identifier
 
     account.transfer("bhive1", 1, "HBD", "test")
-    b1 = Block(blocknum, hive_instance=hv)
+    b1 = Block(blocknum, steem_instance=hv)

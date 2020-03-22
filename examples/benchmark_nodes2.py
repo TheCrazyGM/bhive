@@ -49,10 +49,10 @@ def benchmark_node(node, how_many_minutes=10, how_many_seconds=30):
     last_block_id = 19273700
     try:
         hv = Hive(node=node, num_retries=3, num_retries_call=3, timeout=30)
-        blockchain = Blockchain(hive_instance=hv)
+        blockchain = Blockchain(steem_instance=hv)
         blockchain_version = hv.get_blockchain_version()
 
-        last_block = Block(last_block_id, hive_instance=hv)
+        last_block = Block(last_block_id, steem_instance=hv)
 
         stopTime = last_block.time() + timedelta(seconds=how_many_minutes * 60)
         total_transaction = 0
@@ -91,7 +91,7 @@ def benchmark_node(node, how_many_minutes=10, how_many_seconds=30):
 
     try:
         hv = Hive(node=node, num_retries=3, num_retries_call=3, timeout=30)
-        account = Account("gtg", hive_instance=hv)
+        account = Account("gtg", steem_instance=hv)
         blockchain_version = hv.get_blockchain_version()
 
         start = timer()
@@ -115,19 +115,19 @@ def benchmark_node(node, how_many_minutes=10, how_many_seconds=30):
 
     try:
         hv = Hive(node=node, num_retries=3, num_retries_call=3, timeout=30)
-        account = Account("gtg", hive_instance=hv)
+        account = Account("gtg", steem_instance=hv)
         blockchain_version = hv.get_blockchain_version()
 
         start = timer()
-        Vote(authorpermvoter, hive_instance=hv)
+        Vote(authorpermvoter, steem_instance=hv)
         stop = timer()
         vote_time = stop - start
         start = timer()
-        Comment(authorperm, hive_instance=hv)
+        Comment(authorperm, steem_instance=hv)
         stop = timer()
         comment_time = stop - start
         start = timer()
-        Account(author, hive_instance=hv)
+        Account(author, steem_instance=hv)
         stop = timer()
         account_time = stop - start
         start = timer()

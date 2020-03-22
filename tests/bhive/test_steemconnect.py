@@ -14,12 +14,12 @@ from pprint import pprint
 from bhive import Hive, exceptions
 from bhive.amount import Amount
 from bhive.memo import Memo
-from bhive.version import version as bhive_version
+from bhive.version import version as bsteem_version
 from bhive.wallet import Wallet
 from bhive.witness import Witness
 from bhive.account import Account
 from bhivegraphenebase.account import PrivateKey
-from bhive.instance import set_shared_hive_instance
+from bhive.instance import set_shared_steem_instance
 from bhive.nodelist import NodeList
 from bhive.hiveconnect import HiveConnect
 # Py3 compatibility
@@ -32,7 +32,7 @@ class Testcases(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         nodelist = NodeList()
-        nodelist.update_nodes(hive_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
+        nodelist.update_nodes(steem_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
         cls.bts = Hive(
             node=nodelist.get_nodes(exclude_limited=True),
             nobroadcast=True,
@@ -40,7 +40,7 @@ class Testcases(unittest.TestCase):
             data_refresh_time_seconds=900,
             num_retries=10)
 
-        cls.account = Account("test", full=True, hive_instance=cls.bts)
+        cls.account = Account("test", full=True, steem_instance=cls.bts)
 
     def test_transfer(self):
         bts = self.bts
@@ -48,7 +48,7 @@ class Testcases(unittest.TestCase):
         acc.hive.txbuffer.clear()
         tx = acc.transfer(
             "test1", 1.000, "HIVE", memo="test")
-        sc2 = HiveConnect(hive_instance=bts)
+        sc2 = HiveConnect(steem_instance=bts)
         url = sc2.url_from_tx(tx)
         url_test = 'https://hiveconnect.com/sign/transfer?from=test&to=test1&amount=1.000+HIVE&memo=test'
         self.assertEqual(len(url), len(url_test))
@@ -63,7 +63,7 @@ class Testcases(unittest.TestCase):
 
     def test_login_url(self):
         bts = self.bts
-        sc2 = HiveConnect(hive_instance=bts)
+        sc2 = HiveConnect(steem_instance=bts)
         url = sc2.get_login_url("localhost", scope="login,vote")
         url_test = 'https://hiveconnect.com/oauth2/authorize?client_id=None&redirect_uri=localhost&scope=login,vote'
         self.assertEqual(len(url), len(url_test))

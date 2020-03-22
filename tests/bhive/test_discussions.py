@@ -15,7 +15,7 @@ from bhive.discussions import (
     Discussions_by_comments, Discussions_by_promoted, Discussions
 )
 from datetime import datetime
-from bhive.instance import set_shared_hive_instance
+from bhive.instance import set_shared_steem_instance
 from bhive.nodelist import NodeList
 
 wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
@@ -25,7 +25,7 @@ class Testcases(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         nodelist = NodeList()
-        nodelist.update_nodes(hive_instance=Hive(node=nodelist.get_nodes(exclude_limited=False, appbase=True), num_retries=10))
+        nodelist.update_nodes(steem_instance=Hive(node=nodelist.get_nodes(exclude_limited=False, appbase=True), num_retries=10))
         node_list = nodelist.get_nodes(exclude_limited=True)
       
         cls.bts = Hive(
@@ -37,7 +37,7 @@ class Testcases(unittest.TestCase):
         )
         # from getpass import getpass
         # self.bts.wallet.unlock(getpass())
-        set_shared_hive_instance(cls.bts)
+        set_shared_steem_instance(cls.bts)
         cls.bts.set_default_account("test")
 
     def test_trending(self):
@@ -45,7 +45,7 @@ class Testcases(unittest.TestCase):
         query = Query()
         query["limit"] = 10
         query["tag"] = "hive"
-        d = Discussions_by_trending(query, hive_instance=bts)
+        d = Discussions_by_trending(query, steem_instance=bts)
         self.assertEqual(len(d), 10)
 
     def test_comment_payout(self):
@@ -53,7 +53,7 @@ class Testcases(unittest.TestCase):
         query = Query()
         query["limit"] = 10
         query["tag"] = "hive"
-        d = Comment_discussions_by_payout(query, hive_instance=bts)
+        d = Comment_discussions_by_payout(query, steem_instance=bts)
         self.assertEqual(len(d), 10)
 
     def test_post_payout(self):
@@ -62,7 +62,7 @@ class Testcases(unittest.TestCase):
         query = Query()
         query["limit"] = 10
         query["tag"] = "hive"
-        d = Post_discussions_by_payout(query, hive_instance=bts)
+        d = Post_discussions_by_payout(query, steem_instance=bts)
         self.assertEqual(len(d), 10)
 
     def test_created(self):
@@ -70,7 +70,7 @@ class Testcases(unittest.TestCase):
         query = Query()
         query["limit"] = 10
         query["tag"] = "hive"
-        d = Discussions_by_created(query, hive_instance=bts)
+        d = Discussions_by_created(query, steem_instance=bts)
         self.assertEqual(len(d), 10)
 
     def test_active(self):
@@ -78,13 +78,13 @@ class Testcases(unittest.TestCase):
         query = Query()
         query["limit"] = 10
         query["tag"] = "hive"
-        d = Discussions_by_active(query, hive_instance=bts)
+        d = Discussions_by_active(query, steem_instance=bts)
         self.assertEqual(len(d), 10)
 
     def test_cashout(self):
         bts = self.bts
         query = Query(limit=10)
-        Discussions_by_cashout(query, hive_instance=bts)
+        Discussions_by_cashout(query, steem_instance=bts)
         # self.assertEqual(len(d), 10)
 
     def test_votes(self):
@@ -92,7 +92,7 @@ class Testcases(unittest.TestCase):
         query = Query()
         query["limit"] = 10
         query["tag"] = "hive"
-        d = Discussions_by_votes(query, hive_instance=bts)
+        d = Discussions_by_votes(query, steem_instance=bts)
         self.assertEqual(len(d), 10)
 
     def test_children(self):
@@ -100,7 +100,7 @@ class Testcases(unittest.TestCase):
         query = Query()
         query["limit"] = 10
         query["tag"] = "hive"
-        d = Discussions_by_children(query, hive_instance=bts)
+        d = Discussions_by_children(query, steem_instance=bts)
         self.assertEqual(len(d), 10)
 
     def test_feed(self):
@@ -108,7 +108,7 @@ class Testcases(unittest.TestCase):
         query = Query()
         query["limit"] = 10
         query["tag"] = "gtg"
-        d = Discussions_by_feed(query, hive_instance=bts)
+        d = Discussions_by_feed(query, steem_instance=bts)
         self.assertEqual(len(d), 10)
 
     def test_blog(self):
@@ -116,7 +116,7 @@ class Testcases(unittest.TestCase):
         query = Query()
         query["limit"] = 10
         query["tag"] = "gtg"
-        d = Discussions_by_blog(query, hive_instance=bts)
+        d = Discussions_by_blog(query, steem_instance=bts)
         self.assertEqual(len(d), 10)
 
     def test_comments(self):
@@ -125,7 +125,7 @@ class Testcases(unittest.TestCase):
         query["limit"] = 10
         query["filter_tags"] = ["gtg"]
         query["start_author"] = "gtg"
-        d = Discussions_by_comments(query, hive_instance=bts)
+        d = Discussions_by_comments(query, steem_instance=bts)
         self.assertEqual(len(d), 10)
 
     def test_promoted(self):
@@ -133,8 +133,8 @@ class Testcases(unittest.TestCase):
         query = Query()
         query["limit"] = 1
         query["tag"] = "hive"
-        d = Discussions_by_promoted(query, hive_instance=bts)
-        discussions = Discussions(hive_instance=bts)
+        d = Discussions_by_promoted(query, steem_instance=bts)
+        discussions = Discussions(steem_instance=bts)
         d2 = []
         for dd in discussions.get_discussions("promoted", query, limit=10):
             d2.append(dd)

@@ -5,7 +5,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 from builtins import str
 from builtins import object
-from bhive.instance import shared_hive_instance
+from bhive.instance import shared_steem_instance
 import random
 from bhivebase import memo as BtsMemo
 from bhivegraphenebase.account import PrivateKey, PublicKey
@@ -18,7 +18,7 @@ class Memo(object):
 
         :param Account from_account: Account that has sent the memo
         :param Account to_account: Account that has received the memo
-        :param Hive hive_instance: Hive instance
+        :param Hive steem_instance: Hive instance
 
         A memo is encrypted with a shared secret derived from a private key of
         the sender and a public key of the receiver. Due to the underlying
@@ -137,15 +137,15 @@ class Memo(object):
         self,
         from_account=None,
         to_account=None,
-        hive_instance=None
+        steem_instance=None
     ):
 
-        self.hive = hive_instance or shared_hive_instance()
+        self.hive = steem_instance or shared_steem_instance()
 
         if to_account:
-            self.to_account = Account(to_account, hive_instance=self.hive)
+            self.to_account = Account(to_account, steem_instance=self.hive)
         if from_account:
-            self.from_account = Account(from_account, hive_instance=self.hive)
+            self.from_account = Account(from_account, steem_instance=self.hive)
 
     def unlock_wallet(self, *args, **kwargs):
         """ Unlock the library internal wallet
@@ -220,8 +220,8 @@ class Memo(object):
 
         # We first try to decode assuming we received the memo
         if isinstance(memo, dict) and "to" in memo and "from" in memo and "memo" in memo:
-            memo_to = Account(memo["to"], hive_instance=self.hive)
-            memo_from = Account(memo["from"], hive_instance=self.hive)
+            memo_to = Account(memo["to"], steem_instance=self.hive)
+            memo_from = Account(memo["from"], steem_instance=self.hive)
             message = memo["memo"]
         else:
             memo_to = self.to_account

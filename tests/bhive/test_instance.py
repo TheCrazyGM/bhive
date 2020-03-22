@@ -14,7 +14,7 @@ from bhive import Hive
 from bhive.amount import Amount
 from bhive.witness import Witness
 from bhive.account import Account
-from bhive.instance import set_shared_hive_instance, shared_hive_instance, set_shared_config
+from bhive.instance import set_shared_steem_instance, shared_steem_instance, set_shared_config
 from bhive.blockchain import Blockchain
 from bhive.block import Block
 from bhive.market import Market
@@ -39,7 +39,7 @@ class Testcases(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.nodelist = NodeList()
-        cls.nodelist.update_nodes(hive_instance=Hive(node=cls.nodelist.get_nodes(exclude_limited=False), num_retries=10))
+        cls.nodelist.update_nodes(steem_instance=Hive(node=cls.nodelist.get_nodes(exclude_limited=False), num_retries=10))
         hv = Hive(node=cls.nodelist.get_nodes())
         hv.config.refreshBackup()
         hv.set_default_nodes(["xyz"])
@@ -51,8 +51,8 @@ class Testcases(unittest.TestCase):
             nobroadcast=True,
             num_retries=10
         )
-        set_shared_hive_instance(cls.bts)
-        acc = Account("bhive.app", hive_instance=cls.bts)
+        set_shared_steem_instance(cls.bts)
+        acc = Account("bhive.app", steem_instance=cls.bts)
         comment = acc.get_blog(limit=20)[-1]
         cls.authorperm = comment.authorperm
         votes = acc.get_account_votes()
@@ -70,18 +70,18 @@ class Testcases(unittest.TestCase):
     ])
     def test_account(self, node_param):
         if node_param == "instance":
-            set_shared_hive_instance(self.bts)
+            set_shared_steem_instance(self.bts)
             acc = Account("test")
             self.assertIn(acc.hive.rpc.url, self.urls)
             self.assertIn(acc["balance"].hive.rpc.url, self.urls)
             with self.assertRaises(
                 RPCConnection
             ):
-                Account("test", hive_instance=Hive(node="https://abc.d", autoconnect=False, num_retries=1))
+                Account("test", steem_instance=Hive(node="https://abc.d", autoconnect=False, num_retries=1))
         else:
-            set_shared_hive_instance(Hive(node="https://abc.d", autoconnect=False, num_retries=1))
+            set_shared_steem_instance(Hive(node="https://abc.d", autoconnect=False, num_retries=1))
             hv = self.bts
-            acc = Account("test", hive_instance=hv)
+            acc = Account("test", steem_instance=hv)
             self.assertIn(acc.hive.rpc.url, self.urls)
             self.assertIn(acc["balance"].hive.rpc.url, self.urls)
             with self.assertRaises(
@@ -96,17 +96,17 @@ class Testcases(unittest.TestCase):
     def test_amount(self, node_param):
         if node_param == "instance":
             hv = Hive(node="https://abc.d", autoconnect=False, num_retries=1)
-            set_shared_hive_instance(self.bts)
+            set_shared_steem_instance(self.bts)
             o = Amount("1 HBD")
             self.assertIn(o.hive.rpc.url, self.urls)
             with self.assertRaises(
                 RPCConnection
             ):
-                Amount("1 HBD", hive_instance=hv)
+                Amount("1 HBD", steem_instance=hv)
         else:
-            set_shared_hive_instance(Hive(node="https://abc.d", autoconnect=False, num_retries=1))
+            set_shared_steem_instance(Hive(node="https://abc.d", autoconnect=False, num_retries=1))
             hv = self.bts
-            o = Amount("1 HBD", hive_instance=hv)
+            o = Amount("1 HBD", steem_instance=hv)
             self.assertIn(o.hive.rpc.url, self.urls)
             with self.assertRaises(
                 RPCConnection
@@ -119,17 +119,17 @@ class Testcases(unittest.TestCase):
     ])
     def test_block(self, node_param):
         if node_param == "instance":
-            set_shared_hive_instance(self.bts)
+            set_shared_steem_instance(self.bts)
             o = Block(1)
             self.assertIn(o.hive.rpc.url, self.urls)
             with self.assertRaises(
                 RPCConnection
             ):
-                Block(1, hive_instance=Hive(node="https://abc.d", autoconnect=False, num_retries=1))
+                Block(1, steem_instance=Hive(node="https://abc.d", autoconnect=False, num_retries=1))
         else:
-            set_shared_hive_instance(Hive(node="https://abc.d", autoconnect=False, num_retries=1))
+            set_shared_steem_instance(Hive(node="https://abc.d", autoconnect=False, num_retries=1))
             hv = self.bts
-            o = Block(1, hive_instance=hv)
+            o = Block(1, steem_instance=hv)
             self.assertIn(o.hive.rpc.url, self.urls)
             with self.assertRaises(
                 RPCConnection
@@ -142,17 +142,17 @@ class Testcases(unittest.TestCase):
     ])
     def test_blockchain(self, node_param):
         if node_param == "instance":
-            set_shared_hive_instance(self.bts)
+            set_shared_steem_instance(self.bts)
             o = Blockchain()
             self.assertIn(o.hive.rpc.url, self.urls)
             with self.assertRaises(
                 RPCConnection
             ):
-                Blockchain(hive_instance=Hive(node="https://abc.d", autoconnect=False, num_retries=1))
+                Blockchain(steem_instance=Hive(node="https://abc.d", autoconnect=False, num_retries=1))
         else:
-            set_shared_hive_instance(Hive(node="https://abc.d", autoconnect=False, num_retries=1))
+            set_shared_steem_instance(Hive(node="https://abc.d", autoconnect=False, num_retries=1))
             hv = self.bts
-            o = Blockchain(hive_instance=hv)
+            o = Blockchain(steem_instance=hv)
             self.assertIn(o.hive.rpc.url, self.urls)
             with self.assertRaises(
                 RPCConnection
@@ -165,17 +165,17 @@ class Testcases(unittest.TestCase):
     ])
     def test_comment(self, node_param):
         if node_param == "instance":
-            set_shared_hive_instance(self.bts)
+            set_shared_steem_instance(self.bts)
             o = Comment(self.authorperm)
             self.assertIn(o.hive.rpc.url, self.urls)
             with self.assertRaises(
                 RPCConnection
             ):
-                Comment(self.authorperm, hive_instance=Hive(node="https://abc.d", autoconnect=False, num_retries=1))
+                Comment(self.authorperm, steem_instance=Hive(node="https://abc.d", autoconnect=False, num_retries=1))
         else:
-            set_shared_hive_instance(Hive(node="https://abc.d", autoconnect=False, num_retries=1))
+            set_shared_steem_instance(Hive(node="https://abc.d", autoconnect=False, num_retries=1))
             hv = self.bts
-            o = Comment(self.authorperm, hive_instance=hv)
+            o = Comment(self.authorperm, steem_instance=hv)
             self.assertIn(o.hive.rpc.url, self.urls)
             with self.assertRaises(
                 RPCConnection
@@ -188,17 +188,17 @@ class Testcases(unittest.TestCase):
     ])
     def test_market(self, node_param):
         if node_param == "instance":
-            set_shared_hive_instance(self.bts)
+            set_shared_steem_instance(self.bts)
             o = Market()
             self.assertIn(o.hive.rpc.url, self.urls)
             with self.assertRaises(
                 RPCConnection
             ):
-                Market(hive_instance=Hive(node="https://abc.d", autoconnect=False, num_retries=1))
+                Market(steem_instance=Hive(node="https://abc.d", autoconnect=False, num_retries=1))
         else:
-            set_shared_hive_instance(Hive(node="https://abc.d", autoconnect=False, num_retries=1))
+            set_shared_steem_instance(Hive(node="https://abc.d", autoconnect=False, num_retries=1))
             hv = self.bts
-            o = Market(hive_instance=hv)
+            o = Market(steem_instance=hv)
             self.assertIn(o.hive.rpc.url, self.urls)
             with self.assertRaises(
                 RPCConnection
@@ -211,17 +211,17 @@ class Testcases(unittest.TestCase):
     ])
     def test_price(self, node_param):
         if node_param == "instance":
-            set_shared_hive_instance(self.bts)
+            set_shared_steem_instance(self.bts)
             o = Price(10.0, "HIVE/HBD")
             self.assertIn(o.hive.rpc.url, self.urls)
             with self.assertRaises(
                 RPCConnection
             ):
-                Price(10.0, "HIVE/HBD", hive_instance=Hive(node="https://abc.d", autoconnect=False, num_retries=1))
+                Price(10.0, "HIVE/HBD", steem_instance=Hive(node="https://abc.d", autoconnect=False, num_retries=1))
         else:
-            set_shared_hive_instance(Hive(node="https://abc.d", autoconnect=False, num_retries=1))
+            set_shared_steem_instance(Hive(node="https://abc.d", autoconnect=False, num_retries=1))
             hv = self.bts
-            o = Price(10.0, "HIVE/HBD", hive_instance=hv)
+            o = Price(10.0, "HIVE/HBD", steem_instance=hv)
             self.assertIn(o.hive.rpc.url, self.urls)
             with self.assertRaises(
                 RPCConnection
@@ -234,17 +234,17 @@ class Testcases(unittest.TestCase):
     ])
     def test_vote(self, node_param):
         if node_param == "instance":
-            set_shared_hive_instance(self.bts)
+            set_shared_steem_instance(self.bts)
             o = Vote(self.authorpermvoter)
             self.assertIn(o.hive.rpc.url, self.urls)
             with self.assertRaises(
                 RPCConnection
             ):
-                Vote(self.authorpermvoter, hive_instance=Hive(node="https://abc.d", autoconnect=False, num_retries=1))
+                Vote(self.authorpermvoter, steem_instance=Hive(node="https://abc.d", autoconnect=False, num_retries=1))
         else:
-            set_shared_hive_instance(Hive(node="https://abc.d", autoconnect=False, num_retries=1))
+            set_shared_steem_instance(Hive(node="https://abc.d", autoconnect=False, num_retries=1))
             hv = self.bts
-            o = Vote(self.authorpermvoter, hive_instance=hv)
+            o = Vote(self.authorpermvoter, steem_instance=hv)
             self.assertIn(o.hive.rpc.url, self.urls)
             with self.assertRaises(
                 RPCConnection
@@ -257,18 +257,18 @@ class Testcases(unittest.TestCase):
     ])
     def test_wallet(self, node_param):
         if node_param == "instance":
-            set_shared_hive_instance(self.bts)
+            set_shared_steem_instance(self.bts)
             o = Wallet()
             self.assertIn(o.hive.rpc.url, self.urls)
             with self.assertRaises(
                 RPCConnection
             ):
-                o = Wallet(hive_instance=Hive(node="https://abc.d", autoconnect=False, num_retries=1))
+                o = Wallet(steem_instance=Hive(node="https://abc.d", autoconnect=False, num_retries=1))
                 o.hive.get_config()
         else:
-            set_shared_hive_instance(Hive(node="https://abc.d", autoconnect=False, num_retries=1))
+            set_shared_steem_instance(Hive(node="https://abc.d", autoconnect=False, num_retries=1))
             hv = self.bts
-            o = Wallet(hive_instance=hv)
+            o = Wallet(steem_instance=hv)
             self.assertIn(o.hive.rpc.url, self.urls)
             with self.assertRaises(
                 RPCConnection
@@ -282,17 +282,17 @@ class Testcases(unittest.TestCase):
     ])
     def test_witness(self, node_param):
         if node_param == "instance":
-            set_shared_hive_instance(self.bts)
+            set_shared_steem_instance(self.bts)
             o = Witness("gtg")
             self.assertIn(o.hive.rpc.url, self.urls)
             with self.assertRaises(
                 RPCConnection
             ):
-                Witness("gtg", hive_instance=Hive(node="https://abc.d", autoconnect=False, num_retries=1))
+                Witness("gtg", steem_instance=Hive(node="https://abc.d", autoconnect=False, num_retries=1))
         else:
-            set_shared_hive_instance(Hive(node="https://abc.d", autoconnect=False, num_retries=1))
+            set_shared_steem_instance(Hive(node="https://abc.d", autoconnect=False, num_retries=1))
             hv = self.bts
-            o = Witness("gtg", hive_instance=hv)
+            o = Witness("gtg", steem_instance=hv)
             self.assertIn(o.hive.rpc.url, self.urls)
             with self.assertRaises(
                 RPCConnection
@@ -305,18 +305,18 @@ class Testcases(unittest.TestCase):
     ])
     def test_transactionbuilder(self, node_param):
         if node_param == "instance":
-            set_shared_hive_instance(self.bts)
+            set_shared_steem_instance(self.bts)
             o = TransactionBuilder()
             self.assertIn(o.hive.rpc.url, self.urls)
             with self.assertRaises(
                 RPCConnection
             ):
-                o = TransactionBuilder(hive_instance=Hive(node="https://abc.d", autoconnect=False, num_retries=1))
+                o = TransactionBuilder(steem_instance=Hive(node="https://abc.d", autoconnect=False, num_retries=1))
                 o.hive.get_config()
         else:
-            set_shared_hive_instance(Hive(node="https://abc.d", autoconnect=False, num_retries=1))
+            set_shared_steem_instance(Hive(node="https://abc.d", autoconnect=False, num_retries=1))
             hv = self.bts
-            o = TransactionBuilder(hive_instance=hv)
+            o = TransactionBuilder(steem_instance=hv)
             self.assertIn(o.hive.rpc.url, self.urls)
             with self.assertRaises(
                 RPCConnection
@@ -328,9 +328,9 @@ class Testcases(unittest.TestCase):
         ("instance"),
         ("hive")
     ])
-    def test_hive(self, node_param):
+    def test_steem(self, node_param):
         if node_param == "instance":
-            set_shared_hive_instance(self.bts)
+            set_shared_steem_instance(self.bts)
             o = Hive(node=self.urls)
             o.get_config()
             self.assertIn(o.rpc.url, self.urls)
@@ -340,7 +340,7 @@ class Testcases(unittest.TestCase):
                 hv = Hive(node="https://abc.d", autoconnect=False, num_retries=1)
                 hv.get_config()
         else:
-            set_shared_hive_instance(Hive(node="https://abc.d", autoconnect=False, num_retries=1))
+            set_shared_steem_instance(Hive(node="https://abc.d", autoconnect=False, num_retries=1))
             hv = self.bts
             o = hv
             o.get_config()
@@ -348,11 +348,11 @@ class Testcases(unittest.TestCase):
             with self.assertRaises(
                 RPCConnection
             ):
-                hv = shared_hive_instance()
+                hv = shared_steem_instance()
                 hv.get_config()
 
     def test_config(self):
         set_shared_config({"node": self.urls})
-        set_shared_hive_instance(None)
-        o = shared_hive_instance()
+        set_shared_steem_instance(None)
+        o = shared_steem_instance()
         self.assertIn(o.rpc.url, self.urls)

@@ -4,7 +4,7 @@ import sys
 from bhive.hive import Hive
 from bhive.account import Account
 from bhive.blockchain import Blockchain
-from bhive.instance import set_shared_hive_instance, clear_cache
+from bhive.instance import set_shared_steem_instance, clear_cache
 from bhive.storage import configStorage as config
 from bhiveapi.graphenerpc import GrapheneRPC
 import logging
@@ -23,7 +23,7 @@ def profiling(node, name_list, shared_instance=True, clear_acc_cache=False, clea
         hv = None
     acc_dict = {}
     for name in name_list:
-        acc = Account(name, hive_instance=hv)
+        acc = Account(name, steem_instance=hv)
         acc_dict[name] = acc
         if clear_acc_cache:
             acc.clear_cache()
@@ -37,7 +37,7 @@ def profiling(node, name_list, shared_instance=True, clear_acc_cache=False, clea
 if __name__ == "__main__":
     hv = Hive()
     print("Shared instance: " + str(hv))
-    set_shared_hive_instance(hv)
+    set_shared_steem_instance(hv)
     b = Blockchain()
     account_list = []
     for a in b.get_all_accounts(limit=500):

@@ -10,7 +10,7 @@ from bhive import Hive, exceptions
 from bhive.comment import Comment, RecentReplies, RecentByPath
 from bhive.vote import Vote
 from bhive.account import Account
-from bhive.instance import set_shared_hive_instance
+from bhive.instance import set_shared_steem_instance
 from bhive.utils import resolve_authorperm
 from bhive.nodelist import NodeList
 
@@ -21,7 +21,7 @@ class Testcases(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         nodelist = NodeList()
-        nodelist.update_nodes(hive_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
+        nodelist.update_nodes(steem_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
         node_list = nodelist.get_nodes(exclude_limited=True)
 
         cls.bts = Hive(
@@ -39,7 +39,7 @@ class Testcases(unittest.TestCase):
             keys={"active": wif},
             num_retries=10
         )
-        acc = Account("bhive.app", hive_instance=cls.bts)
+        acc = Account("bhive.app", steem_instance=cls.bts)
         comment = acc.get_feed(limit=20)[-1]
         cls.authorperm = comment.authorperm
         [author, permlink] = resolve_authorperm(cls.authorperm)
@@ -49,7 +49,7 @@ class Testcases(unittest.TestCase):
         cls.title = comment.title
         # from getpass import getpass
         # self.bts.wallet.unlock(getpass())
-        # set_shared_hive_instance(cls.bts)
+        # set_shared_steem_instance(cls.bts)
         # cls.bts.set_default_account("test")
 
     def test_comment(self):
@@ -57,11 +57,11 @@ class Testcases(unittest.TestCase):
         with self.assertRaises(
             exceptions.ContentDoesNotExistsException
         ):
-            Comment("@abcdef/abcdef", hive_instance=bts)
+            Comment("@abcdef/abcdef", steem_instance=bts)
         title = ''
         cnt = 0
         while title == '' and cnt < 5:
-            c = Comment(self.authorperm, hive_instance=bts)
+            c = Comment(self.authorperm, steem_instance=bts)
             title = c.title
             cnt += 1
             if title == '':
@@ -96,7 +96,7 @@ class Testcases(unittest.TestCase):
         title = ''
         cnt = 0
         while title == '' and cnt < 5:
-            c = Comment({'author': self.author, 'permlink': self.permlink}, hive_instance=bts)
+            c = Comment({'author': self.author, 'permlink': self.permlink}, steem_instance=bts)
             c.refresh()
             title = c.title
             cnt += 1
@@ -115,7 +115,7 @@ class Testcases(unittest.TestCase):
 
     def test_vote(self):
         bts = self.bts
-        c = Comment(self.authorperm, hive_instance=bts)
+        c = Comment(self.authorperm, steem_instance=bts)
         bts.txbuffer.clear()
         tx = c.vote(100, account="test")
         self.assertEqual(
@@ -152,7 +152,7 @@ class Testcases(unittest.TestCase):
         else:
             content = bts.rpc.get_content(self.author, self.permlink)
 
-        c = Comment(self.authorperm, hive_instance=bts)
+        c = Comment(self.authorperm, steem_instance=bts)
         keys = list(content.keys())
         json_content = c.json()
         exclude_list = ["json_metadata", "reputation", "active_votes"]
@@ -168,7 +168,7 @@ class Testcases(unittest.TestCase):
     def test_rehive(self):
         bts = self.bts
         bts.txbuffer.clear()
-        c = Comment(self.authorperm, hive_instance=bts)
+        c = Comment(self.authorperm, steem_instance=bts)
         tx = c.rehive(account="test")
         self.assertEqual(
             (tx["operations"][0][0]),
@@ -178,7 +178,7 @@ class Testcases(unittest.TestCase):
     def test_reply(self):
         bts = self.bts
         bts.txbuffer.clear()
-        c = Comment(self.authorperm, hive_instance=bts)
+        c = Comment(self.authorperm, steem_instance=bts)
         tx = c.reply(body="Good post!", author="test")
         self.assertEqual(
             (tx["operations"][0][0]),
@@ -192,7 +192,7 @@ class Testcases(unittest.TestCase):
     def test_delete(self):
         bts = self.bts
         bts.txbuffer.clear()
-        c = Comment(self.authorperm, hive_instance=bts)
+        c = Comment(self.authorperm, steem_instance=bts)
         tx = c.delete(account="test")
         self.assertEqual(
             (tx["operations"][0][0]),
@@ -206,7 +206,7 @@ class Testcases(unittest.TestCase):
     def test_edit(self):
         bts = self.bts
         bts.txbuffer.clear()
-        c = Comment(self.authorperm, hive_instance=bts)
+        c = Comment(self.authorperm, steem_instance=bts)
         c.edit(c.body, replace=False)
         body = c.body + "test"
         tx = c.edit(body, replace=False)
@@ -222,7 +222,7 @@ class Testcases(unittest.TestCase):
     def test_edit_replace(self):
         bts = self.bts
         bts.txbuffer.clear()
-        c = Comment(self.authorperm, hive_instance=bts)
+        c = Comment(self.authorperm, steem_instance=bts)
         body = c.body + "test"
         tx = c.edit(body, meta=c["json_metadata"], replace=True)
         self.assertEqual(
@@ -237,12 +237,12 @@ class Testcases(unittest.TestCase):
 
     def test_recent_replies(self):
         bts = self.bts
-        r = RecentReplies(self.author, skip_own=True, hive_instance=bts)
+        r = RecentReplies(self.author, skip_own=True, steem_instance=bts)
         self.assertTrue(len(r) > 0)
         self.assertTrue(r[0] is not None)
 
     def test_recent_by_path(self):
         bts = self.bts
-        r = RecentByPath(path="hot", hive_instance=bts)
+        r = RecentByPath(path="hot", steem_instance=bts)
         self.assertTrue(len(r) > 0)
         self.assertTrue(r[0] is not None)

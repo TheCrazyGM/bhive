@@ -14,12 +14,12 @@ from pprint import pprint
 from bhive import Hive
 from bhive.amount import Amount
 from bhive.memo import Memo
-from bhive.version import version as bhive_version
+from bhive.version import version as bsteem_version
 from bhive.wallet import Wallet
 from bhive.witness import Witness
 from bhive.account import Account
 from bhivegraphenebase.account import PrivateKey
-from bhive.instance import set_shared_hive_instance, shared_hive_instance
+from bhive.instance import set_shared_steem_instance, shared_steem_instance
 from bhive.nodelist import NodeList
 # Py3 compatibility
 import sys
@@ -30,10 +30,10 @@ wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
 class Testcases(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        hv = shared_hive_instance()
+        hv = shared_steem_instance()
         hv.config.refreshBackup()
         nodelist = NodeList()
-        nodelist.update_nodes(hive_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
+        nodelist.update_nodes(steem_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
 
         cls.hv = Hive(
             node=nodelist.get_nodes(exclude_limited=True),
@@ -45,10 +45,10 @@ class Testcases(unittest.TestCase):
         )
 
         cls.hv.set_default_account("test")
-        set_shared_hive_instance(cls.hv)
+        set_shared_steem_instance(cls.hv)
         # self.hv.newWallet("TestingOneTwoThree")
 
-        cls.wallet = Wallet(hive_instance=cls.hv)
+        cls.wallet = Wallet(steem_instance=cls.hv)
         cls.wallet.wipe(True)
         cls.wallet.newWallet(pwd="TestingOneTwoThree")
         cls.wallet.unlock(pwd="TestingOneTwoThree")
@@ -56,7 +56,7 @@ class Testcases(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        hv = shared_hive_instance()
+        hv = shared_steem_instance()
         hv.config.recover_with_latest_backup()
 
     def test_set_default_account(self):

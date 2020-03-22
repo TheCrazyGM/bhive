@@ -5,7 +5,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 from builtins import str
 import json
-from bhive.instance import shared_hive_instance
+from bhive.instance import shared_steem_instance
 from bhivegraphenebase.py23 import bytes_types, integer_types, string_types, text_type
 from .account import Account
 from .amount import Amount
@@ -23,7 +23,7 @@ class Witness(BlockchainObject):
     """ Read data about a witness in the chain
 
         :param str account_name: Name of the witness
-        :param Hive hive_instance: Hive instance to use when
+        :param Hive steem_instance: Hive instance to use when
                accesing a RPC
 
         .. code-block:: python
@@ -40,11 +40,11 @@ class Witness(BlockchainObject):
         owner,
         full=False,
         lazy=False,
-        hive_instance=None
+        steem_instance=None
     ):
         self.full = full
         self.lazy = lazy
-        self.hive = hive_instance or shared_hive_instance()
+        self.hive = steem_instance or shared_steem_instance()
         if isinstance(owner, dict):
             owner = self._parse_json_data(owner)
         super(Witness, self).__init__(
@@ -52,7 +52,7 @@ class Witness(BlockchainObject):
             lazy=lazy,
             full=full,
             id_item="owner",
-            hive_instance=hive_instance
+            steem_instance=steem_instance
         )
 
     def refresh(self):
@@ -70,11 +70,11 @@ class Witness(BlockchainObject):
         if not witness:
             raise WitnessDoesNotExistsException(self.identifier)
         witness = self._parse_json_data(witness)
-        super(Witness, self).__init__(witness, id_item="owner", lazy=self.lazy, full=self.full, hive_instance=self.hive)
+        super(Witness, self).__init__(witness, id_item="owner", lazy=self.lazy, full=self.full, steem_instance=self.hive)
 
     def _parse_json_data(self, witness):
         parse_times = [
-            "created", "last_hbd_exchange_update", "hardfork_time_vote",
+            "created", "last_sbd_exchange_update", "hardfork_time_vote",
         ]
         for p in parse_times:
             if p in witness and isinstance(witness.get(p), string_types):
@@ -90,7 +90,7 @@ class Witness(BlockchainObject):
     def json(self):
         output = self.copy()
         parse_times = [
-            "created", "last_hbd_exchange_update", "hardfork_time_vote",
+            "created", "last_sbd_exchange_update", "hardfork_time_vote",
         ]
         for p in parse_times:
             if p in output:
@@ -109,7 +109,7 @@ class Witness(BlockchainObject):
 
     @property
     def account(self):
-        return Account(self["owner"], hive_instance=self.hive)
+        return Account(self["owner"], steem_instance=self.hive)
 
     @property
     def is_active(self):
@@ -127,30 +127,30 @@ class Witness(BlockchainObject):
             :param str account: (optional) the source account for the transfer
                 if not self["owner"]
         """
-        quote = quote if quote is not None else "1.000 %s" % (self.hive.hive_symbol)
+        quote = quote if quote is not None else "1.000 %s" % (self.hive.steem_symbol)
         if not account:
             account = self["owner"]
         if not account:
             raise ValueError("You need to provide an account")
 
-        account = Account(account, hive_instance=self.hive)
+        account = Account(account, steem_instance=self.hive)
         if isinstance(base, Amount):
-            base = Amount(base, hive_instance=self.hive)
+            base = Amount(base, steem_instance=self.hive)
         elif isinstance(base, string_types):
-            base = Amount(base, hive_instance=self.hive)
+            base = Amount(base, steem_instance=self.hive)
         else:
-            base = Amount(base, self.hive.hbd_symbol, hive_instance=self.hive)
+            base = Amount(base, self.hive.sbd_symbol, steem_instance=self.hive)
 
         if isinstance(quote, Amount):
-            quote = Amount(quote, hive_instance=self.hive)
+            quote = Amount(quote, steem_instance=self.hive)
         elif isinstance(quote, string_types):
-            quote = Amount(quote, hive_instance=self.hive)
+            quote = Amount(quote, steem_instance=self.hive)
         else:
-            quote = Amount(quote, self.hive.hive_symbol, hive_instance=self.hive)
+            quote = Amount(quote, self.hive.steem_symbol, steem_instance=self.hive)
 
-        if not base.symbol == self.hive.hbd_symbol:
+        if not base.symbol == self.hive.sbd_symbol:
             raise AssertionError()
-        if not quote.symbol == self.hive.hive_symbol:
+        if not quote.symbol == self.hive.steem_symbol:
             raise AssertionError()
 
         op = operations.Feed_publish(
@@ -177,7 +177,7 @@ class Witness(BlockchainObject):
                 {
                     "account_creation_fee": x,
                     "maximum_block_size": x,
-                    "hbd_interest_rate": x,
+                    "sbd_interest_rate": x,
                 }
 
         """
@@ -190,7 +190,7 @@ class WitnessesObject(list):
     def printAsTable(self, sort_key="votes", reverse=True, return_str=False, **kwargs):
         utc = pytz.timezone('UTC')
         no_feed = False
-        if len(self) > 0 and "hbd_exchange_rate" not in self[0]:
+        if len(self) > 0 and "sbd_exchange_rate" not in self[0]:
             table_header = ["Name", "Votes [PV]", "Disabled", "Missed", "Fee", "Size", "Version"]
             no_feed = True
         else:
@@ -198,15 +198,15 @@ class WitnessesObject(list):
         t = PrettyTable(table_header)
         t.align = "l"
         if sort_key == 'base':
-            sortedList = sorted(self, key=lambda self: self['hbd_exchange_rate']['base'], reverse=reverse)
+            sortedList = sorted(self, key=lambda self: self['sbd_exchange_rate']['base'], reverse=reverse)
         elif sort_key == 'quote':
-            sortedList = sorted(self, key=lambda self: self['hbd_exchange_rate']['quote'], reverse=reverse)
-        elif sort_key == 'last_hbd_exchange_update':
-            sortedList = sorted(self, key=lambda self: (utc.localize(datetime.utcnow()) - self['last_hbd_exchange_update']).total_seconds(), reverse=reverse)
+            sortedList = sorted(self, key=lambda self: self['sbd_exchange_rate']['quote'], reverse=reverse)
+        elif sort_key == 'last_sbd_exchange_update':
+            sortedList = sorted(self, key=lambda self: (utc.localize(datetime.utcnow()) - self['last_sbd_exchange_update']).total_seconds(), reverse=reverse)
         elif sort_key == 'account_creation_fee':
             sortedList = sorted(self, key=lambda self: self['props']['account_creation_fee'], reverse=reverse)
-        elif sort_key == 'hbd_interest_rate':
-            sortedList = sorted(self, key=lambda self: self['props']['hbd_interest_rate'], reverse=reverse)
+        elif sort_key == 'sbd_interest_rate':
+            sortedList = sorted(self, key=lambda self: self['props']['sbd_interest_rate'], reverse=reverse)
         elif sort_key == 'maximum_block_size':
             sortedList = sorted(self, key=lambda self: self['props']['maximum_block_size'], reverse=reverse)
         elif sort_key == 'votes':
@@ -227,17 +227,17 @@ class WitnessesObject(list):
                            str(witness['props']['maximum_block_size']),
                            witness['running_version']])
             else:
-                td = utc.localize(datetime.utcnow()) - witness['last_hbd_exchange_update']
+                td = utc.localize(datetime.utcnow()) - witness['last_sbd_exchange_update']
                 t.add_row([witness['owner'],
                            str(round(int(witness['votes']) / 1e15, 2)),
                            disabled,
                            str(witness['total_missed']),
-                           str(Amount(witness['hbd_exchange_rate']['base'], hive_instance=self.hive)),
-                           str(Amount(witness['hbd_exchange_rate']['quote'], hive_instance=self.hive)),
+                           str(Amount(witness['sbd_exchange_rate']['base'], steem_instance=self.hive)),
+                           str(Amount(witness['sbd_exchange_rate']['quote'], steem_instance=self.hive)),
                            str(td.days) + " days " + str(td.seconds // 3600) + ":" + str((td.seconds // 60) % 60),
                            str(witness['props']['account_creation_fee']),
                            str(witness['props']['maximum_block_size']),
-                           str(witness['props']['hbd_interest_rate'] / 100) + " %",
+                           str(witness['props']['sbd_interest_rate'] / 100) + " %",
                            witness['running_version']])
         if return_str:
             return t.get_string(**kwargs)
@@ -255,7 +255,7 @@ class WitnessesObject(list):
         if isinstance(item, Account):
             name = item["name"]
         elif self.hive:
-            account = Account(item, hive_instance=self.hive)
+            account = Account(item, steem_instance=self.hive)
             name = account["name"]
 
         return (
@@ -276,8 +276,8 @@ class GetWitnesses(WitnessesObject):
         :param list name_list: list of witneses to fetch
         :param int batch_limit: (optional) maximum number of witnesses
             to fetch per call, defaults to 100
-        :param Hive hive_instance: Hive() instance to use when
-            accessing a RPCcreator = Witness(creator, hive_instance=self)
+        :param Hive steem_instance: Hive() instance to use when
+            accessing a RPCcreator = Witness(creator, steem_instance=self)
 
         .. code-block:: python
 
@@ -287,8 +287,8 @@ class GetWitnesses(WitnessesObject):
             print(w[1].json())
 
     """
-    def __init__(self, name_list, batch_limit=100, lazy=False, full=True, hive_instance=None):
-        self.hive = hive_instance or shared_hive_instance()
+    def __init__(self, name_list, batch_limit=100, lazy=False, full=True, steem_instance=None):
+        self.hive = steem_instance or shared_steem_instance()
         if not self.hive.is_connected():
             return
         witnesses = []
@@ -304,7 +304,7 @@ class GetWitnesses(WitnessesObject):
         self.identifier = ""
         super(GetWitnesses, self).__init__(
             [
-                Witness(x, lazy=lazy, full=full, hive_instance=self.hive)
+                Witness(x, lazy=lazy, full=full, steem_instance=self.hive)
                 for x in witnesses
             ]
         )
@@ -313,7 +313,7 @@ class GetWitnesses(WitnessesObject):
 class Witnesses(WitnessesObject):
     """ Obtain a list of **active** witnesses and the current schedule
 
-        :param Hive hive_instance: Hive instance to use when
+        :param Hive steem_instance: Hive instance to use when
             accesing a RPC
 
         .. code-block:: python
@@ -323,8 +323,8 @@ class Witnesses(WitnessesObject):
            <Witnesses >
 
     """
-    def __init__(self, lazy=False, full=True, hive_instance=None):
-        self.hive = hive_instance or shared_hive_instance()
+    def __init__(self, lazy=False, full=True, steem_instance=None):
+        self.hive = steem_instance or shared_steem_instance()
         self.lazy = lazy
         self.full = full
         self.refresh()
@@ -343,7 +343,7 @@ class Witnesses(WitnessesObject):
         self.identifier = ""
         super(Witnesses, self).__init__(
             [
-                Witness(x, lazy=self.lazy, full=self.full, hive_instance=self.hive)
+                Witness(x, lazy=self.lazy, full=self.full, steem_instance=self.hive)
                 for x in self.active_witnessess
             ]
         )
@@ -353,7 +353,7 @@ class WitnessesVotedByAccount(WitnessesObject):
     """ Obtain a list of witnesses which have been voted by an account
 
         :param str account: Account name
-        :param Hive hive_instance: Hive instance to use when
+        :param Hive steem_instance: Hive instance to use when
             accesing a RPC
 
         .. code-block:: python
@@ -363,9 +363,9 @@ class WitnessesVotedByAccount(WitnessesObject):
            <WitnessesVotedByAccount gtg>
 
     """
-    def __init__(self, account, lazy=False, full=True, hive_instance=None):
-        self.hive = hive_instance or shared_hive_instance()
-        self.account = Account(account, full=True, hive_instance=self.hive)
+    def __init__(self, account, lazy=False, full=True, steem_instance=None):
+        self.hive = steem_instance or shared_steem_instance()
+        self.account = Account(account, full=True, steem_instance=self.hive)
         account_name = self.account["name"]
         self.identifier = account_name
         self.hive.rpc.set_next_node_on_empty_reply(False)
@@ -384,7 +384,7 @@ class WitnessesVotedByAccount(WitnessesObject):
 
         super(WitnessesVotedByAccount, self).__init__(
             [
-                Witness(x, lazy=lazy, full=full, hive_instance=self.hive)
+                Witness(x, lazy=lazy, full=full, steem_instance=self.hive)
                 for x in witnessess
             ]
         )
@@ -395,7 +395,7 @@ class WitnessesRankedByVote(WitnessesObject):
 
         :param str from_account: Witness name from which the lists starts (default = "")
         :param int limit: Limits the number of shown witnesses (default = 100)
-        :param Hive hive_instance: Hive instance to use when
+        :param Hive steem_instance: Hive instance to use when
             accesing a RPC
 
         .. code-block:: python
@@ -405,8 +405,8 @@ class WitnessesRankedByVote(WitnessesObject):
            <WitnessesRankedByVote >
 
     """
-    def __init__(self, from_account="", limit=100, lazy=False, full=False, hive_instance=None):
-        self.hive = hive_instance or shared_hive_instance()
+    def __init__(self, from_account="", limit=100, lazy=False, full=False, steem_instance=None):
+        self.hive = steem_instance or shared_steem_instance()
         witnessList = []
         last_limit = limit
         self.identifier = ""
@@ -419,7 +419,7 @@ class WitnessesRankedByVote(WitnessesObject):
         if self.hive.rpc.get_use_appbase() and not use_condenser and from_account == "":
             last_account = None
         elif self.hive.rpc.get_use_appbase() and not use_condenser:
-            last_account = Witness(from_account, hive_instance=self.hive)["votes"]
+            last_account = Witness(from_account, steem_instance=self.hive)["votes"]
         else:
             last_account = from_account
         if limit > query_limit:
@@ -448,7 +448,7 @@ class WitnessesRankedByVote(WitnessesObject):
             witnessess = witnessess[1:]
         if len(witnessess) > 0:
             for x in witnessess:
-                witnessList.append(Witness(x, lazy=lazy, full=full, hive_instance=self.hive))
+                witnessList.append(Witness(x, lazy=lazy, full=full, steem_instance=self.hive))
         if len(witnessList) == 0:
             return
         super(WitnessesRankedByVote, self).__init__(witnessList)
@@ -459,7 +459,7 @@ class ListWitnesses(WitnessesObject):
 
         :param str from_account: Witness name from which the lists starts (default = "")
         :param int limit: Limits the number of shown witnesses (default = 100)
-        :param Hive hive_instance: Hive instance to use when
+        :param Hive steem_instance: Hive instance to use when
             accesing a RPC
 
         .. code-block:: python
@@ -469,8 +469,8 @@ class ListWitnesses(WitnessesObject):
            <ListWitnesses gtg>
 
     """
-    def __init__(self, from_account="", limit=100, lazy=False, full=False, hive_instance=None):
-        self.hive = hive_instance or shared_hive_instance()
+    def __init__(self, from_account="", limit=100, lazy=False, full=False, steem_instance=None):
+        self.hive = steem_instance or shared_steem_instance()
         self.identifier = from_account
         self.hive.rpc.set_next_node_on_empty_reply(False)
         if self.hive.rpc.get_use_appbase():
@@ -481,7 +481,7 @@ class ListWitnesses(WitnessesObject):
             return
         super(ListWitnesses, self).__init__(
             [
-                Witness(x, lazy=lazy, full=full, hive_instance=self.hive)
+                Witness(x, lazy=lazy, full=full, steem_instance=self.hive)
                 for x in witnessess
             ]
         )

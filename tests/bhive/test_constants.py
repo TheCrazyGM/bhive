@@ -21,7 +21,7 @@ class Testcases(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         nodelist = NodeList()
-        nodelist.update_nodes(hive_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
+        nodelist.update_nodes(steem_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
         cls.appbase = Hive(
             node=nodelist.get_nodes(exclude_limited=True),
             nobroadcast=True,
@@ -33,45 +33,45 @@ class Testcases(unittest.TestCase):
 
     def test_constants(self):
         hv = self.appbase
-        hive_conf = hv.get_config()
-        if "HIVE_100_PERCENT" in hive_conf:
-            HIVE_100_PERCENT = hive_conf['HIVE_100_PERCENT']
+        steem_conf = hv.get_config()
+        if "HIVE_100_PERCENT" in steem_conf:
+            HIVE_100_PERCENT = steem_conf['HIVE_100_PERCENT']
         else:
-            HIVE_100_PERCENT = hive_conf['HIVEIT_100_PERCENT']
+            HIVE_100_PERCENT = steem_conf['HIVEIT_100_PERCENT']
         self.assertEqual(constants.HIVE_100_PERCENT, HIVE_100_PERCENT)
 
-        if "HIVE_1_PERCENT" in hive_conf:
-            HIVE_1_PERCENT = hive_conf['HIVE_1_PERCENT']
+        if "HIVE_1_PERCENT" in steem_conf:
+            HIVE_1_PERCENT = steem_conf['HIVE_1_PERCENT']
         else:
-            HIVE_1_PERCENT = hive_conf['HIVEIT_1_PERCENT']
+            HIVE_1_PERCENT = steem_conf['HIVEIT_1_PERCENT']
         self.assertEqual(constants.HIVE_1_PERCENT, HIVE_1_PERCENT)
 
-        if "HIVE_REVERSE_AUCTION_WINDOW_SECONDS" in hive_conf:
-            HIVE_REVERSE_AUCTION_WINDOW_SECONDS = hive_conf['HIVE_REVERSE_AUCTION_WINDOW_SECONDS']
-        elif "HIVE_REVERSE_AUCTION_WINDOW_SECONDS_HF6" in hive_conf:
-            HIVE_REVERSE_AUCTION_WINDOW_SECONDS = hive_conf['HIVE_REVERSE_AUCTION_WINDOW_SECONDS_HF6']
+        if "HIVE_REVERSE_AUCTION_WINDOW_SECONDS" in steem_conf:
+            HIVE_REVERSE_AUCTION_WINDOW_SECONDS = steem_conf['HIVE_REVERSE_AUCTION_WINDOW_SECONDS']
+        elif "HIVE_REVERSE_AUCTION_WINDOW_SECONDS_HF6" in steem_conf:
+            HIVE_REVERSE_AUCTION_WINDOW_SECONDS = steem_conf['HIVE_REVERSE_AUCTION_WINDOW_SECONDS_HF6']
         else:
-            HIVE_REVERSE_AUCTION_WINDOW_SECONDS = hive_conf['HIVEIT_REVERSE_AUCTION_WINDOW_SECONDS']
+            HIVE_REVERSE_AUCTION_WINDOW_SECONDS = steem_conf['HIVEIT_REVERSE_AUCTION_WINDOW_SECONDS']
         self.assertEqual(constants.HIVE_REVERSE_AUCTION_WINDOW_SECONDS_HF6, HIVE_REVERSE_AUCTION_WINDOW_SECONDS)
 
-        if "HIVE_REVERSE_AUCTION_WINDOW_SECONDS_HF20" in hive_conf:
-            self.assertEqual(constants.HIVE_REVERSE_AUCTION_WINDOW_SECONDS_HF20, hive_conf["HIVE_REVERSE_AUCTION_WINDOW_SECONDS_HF20"])
+        if "HIVE_REVERSE_AUCTION_WINDOW_SECONDS_HF20" in steem_conf:
+            self.assertEqual(constants.HIVE_REVERSE_AUCTION_WINDOW_SECONDS_HF20, steem_conf["HIVE_REVERSE_AUCTION_WINDOW_SECONDS_HF20"])
 
-        if "HIVE_VOTE_DUST_THRESHOLD" in hive_conf:
-            self.assertEqual(constants.HIVE_VOTE_DUST_THRESHOLD, hive_conf["HIVE_VOTE_DUST_THRESHOLD"])
+        if "HIVE_VOTE_DUST_THRESHOLD" in steem_conf:
+            self.assertEqual(constants.HIVE_VOTE_DUST_THRESHOLD, steem_conf["HIVE_VOTE_DUST_THRESHOLD"])
 
-        if "HIVE_VOTE_REGENERATION_SECONDS" in hive_conf:
-            HIVE_VOTE_REGENERATION_SECONDS = hive_conf['HIVE_VOTE_REGENERATION_SECONDS']
+        if "HIVE_VOTE_REGENERATION_SECONDS" in steem_conf:
+            HIVE_VOTE_REGENERATION_SECONDS = steem_conf['HIVE_VOTE_REGENERATION_SECONDS']
             self.assertEqual(constants.HIVE_VOTE_REGENERATION_SECONDS, HIVE_VOTE_REGENERATION_SECONDS)
-        elif "HIVE_VOTING_MANA_REGENERATION_SECONDS" in hive_conf:
-            HIVE_VOTING_MANA_REGENERATION_SECONDS = hive_conf["HIVE_VOTING_MANA_REGENERATION_SECONDS"]
+        elif "HIVE_VOTING_MANA_REGENERATION_SECONDS" in steem_conf:
+            HIVE_VOTING_MANA_REGENERATION_SECONDS = steem_conf["HIVE_VOTING_MANA_REGENERATION_SECONDS"]
             self.assertEqual(constants.HIVE_VOTING_MANA_REGENERATION_SECONDS, HIVE_VOTING_MANA_REGENERATION_SECONDS)
         else:
-            HIVE_VOTE_REGENERATION_SECONDS = hive_conf['HIVEIT_VOTE_REGENERATION_SECONDS']
+            HIVE_VOTE_REGENERATION_SECONDS = steem_conf['HIVEIT_VOTE_REGENERATION_SECONDS']
             self.assertEqual(constants.HIVE_VOTE_REGENERATION_SECONDS, HIVE_VOTE_REGENERATION_SECONDS)
 
-        if "HIVE_ROOT_POST_PARENT" in hive_conf:
-            HIVE_ROOT_POST_PARENT = hive_conf['HIVE_ROOT_POST_PARENT']
+        if "HIVE_ROOT_POST_PARENT" in steem_conf:
+            HIVE_ROOT_POST_PARENT = steem_conf['HIVE_ROOT_POST_PARENT']
         else:
-            HIVE_ROOT_POST_PARENT = hive_conf['HIVEIT_ROOT_POST_PARENT']
+            HIVE_ROOT_POST_PARENT = steem_conf['HIVEIT_ROOT_POST_PARENT']
         self.assertEqual(constants.HIVE_ROOT_POST_PARENT, HIVE_ROOT_POST_PARENT)

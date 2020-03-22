@@ -14,7 +14,7 @@ from bhive.account import Account
 from bhive.amount import Amount
 from bhivegraphenebase.account import PrivateKey
 from bhive.cli import cli, balance
-from bhive.instance import set_shared_hive_instance, shared_hive_instance
+from bhive.instance import set_shared_steem_instance, shared_steem_instance
 from bhivebase.operationids import getOperationNameForId
 from bhive.nodelist import NodeList
 
@@ -29,10 +29,10 @@ class Testcases(unittest.TestCase):
     def setUpClass(cls):
         nodelist = NodeList()
         nodelist.update_nodes()
-        nodelist.update_nodes(hive_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
+        nodelist.update_nodes(steem_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
         cls.node_list = nodelist.get_nodes(exclude_limited=True)
        
-        # hv = shared_hive_instance()
+        # hv = shared_steem_instance()
         # hv.config.refreshBackup()
         runner = CliRunner()
         result = runner.invoke(cli, ['-o', 'set', 'default_vote_weight', '100'])
@@ -59,7 +59,7 @@ class Testcases(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        hv = shared_hive_instance()
+        hv = shared_steem_instance()
         hv.config.recover_with_latest_backup()
 
     def test_balance(self):
@@ -338,7 +338,7 @@ class Testcases(unittest.TestCase):
 
     def test_witnessupdate(self):
         runner = CliRunner()
-        runner.invoke(cli, ['-ds', 'witnessupdate', 'gtg', '--maximum_block_size', 65000, '--account_creation_fee', 0.1, '--hbd_interest_rate', 0, '--url', 'https://google.de', '--signing_key', wif])
+        runner.invoke(cli, ['-ds', 'witnessupdate', 'gtg', '--maximum_block_size', 65000, '--account_creation_fee', 0.1, '--sbd_interest_rate', 0, '--url', 'https://google.de', '--signing_key', wif])
 
     def test_profile(self):
         runner = CliRunner()
@@ -350,8 +350,8 @@ class Testcases(unittest.TestCase):
     def test_claimreward(self):
         runner = CliRunner()
         result = runner.invoke(cli, ['-ds', 'claimreward'], input="test\n")
-        result = runner.invoke(cli, ['-ds', 'claimreward', '--claim_all_hive'], input="test\n")
-        result = runner.invoke(cli, ['-ds', 'claimreward', '--claim_all_hbd'], input="test\n")
+        result = runner.invoke(cli, ['-ds', 'claimreward', '--claim_all_steem'], input="test\n")
+        result = runner.invoke(cli, ['-ds', 'claimreward', '--claim_all_sbd'], input="test\n")
         result = runner.invoke(cli, ['-ds', 'claimreward', '--claim_all_vests'], input="test\n")
         self.assertEqual(result.exit_code, 0)
 

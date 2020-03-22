@@ -3,7 +3,7 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 from bhive import Hive
-from bhive.instance import set_shared_hive_instance
+from bhive.instance import set_shared_steem_instance
 from bhive.amount import Amount
 from bhive.price import Price, Order, FilledOrder
 from bhive.asset import Asset
@@ -15,13 +15,13 @@ class Testcases(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         nodelist = NodeList()
-        nodelist.update_nodes(hive_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
+        nodelist.update_nodes(steem_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
         hive = Hive(
             node=nodelist.get_nodes(exclude_limited=True),
             nobroadcast=True,
             num_retries=10
         )
-        set_shared_hive_instance(hive)
+        set_shared_steem_instance(hive)
 
     def test_init(self):
         # self.assertEqual(1, 1)

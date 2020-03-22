@@ -28,7 +28,7 @@ if __name__ == "__main__":
     else:
         witness = sys.argv[1]
     hv = Hive()
-    witness = Witness(witness, hive_instance=hv)
+    witness = Witness(witness, steem_instance=hv)
 
     witness_schedule = hv.get_witness_schedule()
     config = hv.get_config()
@@ -36,7 +36,7 @@ if __name__ == "__main__":
         lap_length = int(config["VIRTUAL_SCHEDULE_LAP_LENGTH2"])
     else:
         lap_length = int(config["HIVE_VIRTUAL_SCHEDULE_LAP_LENGTH2"])
-    witnesses = WitnessesRankedByVote(limit=250, hive_instance=hv)
+    witnesses = WitnessesRankedByVote(limit=250, steem_instance=hv)
     vote_sum = witnesses.get_votes_sum()
 
     virtual_time_to_block_num = int(witness_schedule["num_scheduled_witnesses"]) / (lap_length / (vote_sum + 1))

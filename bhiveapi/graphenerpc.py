@@ -25,7 +25,7 @@ from .rpcutils import (
     get_api_name, get_query
 )
 from .node import Nodes
-from bhivegraphenebase.version import version as bhive_version
+from bhivegraphenebase.version import version as bsteem_version
 from bhivegraphenebase.chains import known_chains
 if sys.version_info[0] < 3:
     from thread import interrupt_main
@@ -213,7 +213,7 @@ class GrapheneRPC(object):
                     self.ws = None
                     self.session = shared_session_instance()
                     self.current_rpc = self.rpc_methods["jsonrpc"]
-                    self.headers = {'User-Agent': 'bhive v%s' % (bhive_version),
+                    self.headers = {'User-Agent': 'bhive v%s' % (bsteem_version),
                                     'content-type': 'application/json; charset=utf-8'}
             try:
                 if self.ws:

@@ -10,7 +10,7 @@ import collections
 import hashlib
 from binascii import hexlify, unhexlify
 import requests
-from .instance import shared_hive_instance
+from .instance import shared_steem_instance
 from bhive.account import Account
 from bhivegraphenebase.py23 import integer_types, string_types, text_type, py23_bytes
 from bhivegraphenebase.account import PrivateKey
@@ -22,11 +22,11 @@ class ImageUploader(object):
         self,
         base_url="https://images.hive.blog",
         challenge="ImageSigningChallenge",
-        hive_instance=None,
+        steem_instance=None,
     ):
         self.challenge = challenge
         self.base_url = base_url
-        self.hive = hive_instance or shared_hive_instance()
+        self.hive = steem_instance or shared_steem_instance()
 
     def upload(self, image, account, image_name=None):
         """ Uploads an image
@@ -41,11 +41,11 @@ class ImageUploader(object):
                 from bhive import Hive
                 from bhive.imageuploader import ImageUploader
                 hv = Hive(keys=["5xxx"]) # private posting key
-                iu = ImageUploader(hive_instance=hv)
+                iu = ImageUploader(steem_instance=hv)
                 iu.upload("path/to/image.png", "account_name") # "private posting key belongs to account_name
 
         """
-        account = Account(account, hive_instance=self.hive)
+        account = Account(account, steem_instance=self.hive)
         if "posting" not in account:
             account.refresh()
         if "posting" not in account:

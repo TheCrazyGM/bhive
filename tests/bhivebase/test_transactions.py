@@ -82,7 +82,7 @@ class Testcases(unittest.TestCase):
         self.op = operations.Transfer(**{
             "from": "foo",
             "to": "baar",
-            "amount": Amount("111.110 HIVE", hive_instance=self.hv),
+            "amount": Amount("111.110 HIVE", steem_instance=self.hv),
             "memo": "Fooo",
             "prefix": default_prefix
         })
@@ -636,7 +636,7 @@ class Testcases(unittest.TestCase):
                 "props": {
                     "account_creation_fee": "10.000 HIVE",
                     "maximum_block_size": 1111111,
-                    "hbd_interest_rate": 1000
+                    "sbd_interest_rate": 1000
                 },
                 "fee":
                 "10.000 HIVE",
@@ -766,7 +766,7 @@ class Testcases(unittest.TestCase):
                 "piston",
                 "max_accepted_payout":
                 "1000000.000 HBD",
-                "percent_hive_dollars":
+                "percent_steem_dollars":
                 10000,
                 "allow_votes":
                 True,
@@ -872,8 +872,8 @@ class Testcases(unittest.TestCase):
             **{
                 "from": "alice",
                 "to": "bob",
-                "hbd_amount": {"amount": "1000", "precision": 3, "nai": "@@000000013"},
-                "hive_amount": {"amount": "0", "precision": 3, "nai": "@@000000021"},
+                "sbd_amount": {"amount": "1000", "precision": 3, "nai": "@@000000013"},
+                "steem_amount": {"amount": "0", "precision": 3, "nai": "@@000000021"},
                 "escrow_id": 23456789,
                 "agent": "charlie",
                 "fee": {"amount": "100", "precision": 3, "nai": "@@000000013"},
@@ -914,8 +914,8 @@ class Testcases(unittest.TestCase):
                 "to": "bob",
                 "who": "charlie",
                 "escrow_id": 72526562,
-                "hbd_amount": {"amount": "5000", "precision": 3, "nai": "@@000000013"},
-                "hive_amount": {"amount": "0", "precision": 3, "nai": "@@000000021"},
+                "sbd_amount": {"amount": "5000", "precision": 3, "nai": "@@000000013"},
+                "steem_amount": {"amount": "0", "precision": 3, "nai": "@@000000021"},
                 "prefix": default_prefix,
             })
 
@@ -961,8 +961,8 @@ class Testcases(unittest.TestCase):
         self.op = operations.Claim_reward_balance(
             **{
                 "account": "alice",
-                "reward_hive": {"amount": "17", "precision": 3, "nai": "@@000000021"},
-                "reward_hbd": {"amount": "11", "precision": 3, "nai": "@@000000013"},
+                "reward_steem": {"amount": "17", "precision": 3, "nai": "@@000000021"},
+                "reward_sbd": {"amount": "11", "precision": 3, "nai": "@@000000013"},
                 "reward_vests": {"amount": "185025103", "precision": 6, "nai": "@@000000037"},
                 "prefix": default_prefix,
             })

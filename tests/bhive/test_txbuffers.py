@@ -6,7 +6,7 @@ from builtins import super
 import unittest
 from parameterized import parameterized
 from bhive import Hive
-from bhive.instance import set_shared_hive_instance
+from bhive.instance import set_shared_steem_instance
 from bhive.transactionbuilder import TransactionBuilder
 from bhivebase.signedtransactions import Signed_Transaction
 from bhivebase.operations import Transfer
@@ -32,7 +32,7 @@ class Testcases(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         nodelist = NodeList()
-        nodelist.update_nodes(hive_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
+        nodelist.update_nodes(steem_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
         node_list = nodelist.get_nodes(exclude_limited=True)
         cls.hv = Hive(
             node=node_list,
@@ -46,18 +46,18 @@ class Testcases(unittest.TestCase):
             keys={"active": wif, "owner": wif, "memo": wif},
             num_retries=10
         )
-        set_shared_hive_instance(cls.hv)
+        set_shared_steem_instance(cls.hv)
         cls.hv.set_default_account("test")
 
     def test_emptyTransaction(self):
         hv = self.hv
-        tx = TransactionBuilder(hive_instance=hv)
+        tx = TransactionBuilder(steem_instance=hv)
         self.assertTrue(tx.is_empty())
         self.assertTrue(tx["ref_block_num"] is not None)
 
     def test_verify_transaction(self):
         hv = self.hv
-        block = Block(22005665, hive_instance=hv)
+        block = Block(22005665, steem_instance=hv)
         trx = block.transactions[28]
         signed_tx = Signed_Transaction(trx)
         key = signed_tx.verify(chain=hv.chain_params, recover_parameter=False)

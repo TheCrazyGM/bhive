@@ -55,7 +55,7 @@ def test_post(wls):
                 })
 
     privateWif = "5K..."
-    tx = TransactionBuilder(use_condenser_api=True, hive_instance=wls)
+    tx = TransactionBuilder(use_condenser_api=True, steem_instance=wls)
     tx.appendOps(op1)
     tx.appendWif(privateWif)
     tx.sign()

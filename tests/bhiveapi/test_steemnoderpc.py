@@ -17,7 +17,7 @@ from bhiveapi.hivenoderpc import HiveNodeRPC
 from bhiveapi.websocket import HiveWebsocket
 from bhiveapi import exceptions
 from bhiveapi.exceptions import NumRetriesReached, CallRetriesReached
-from bhive.instance import set_shared_hive_instance
+from bhive.instance import set_shared_steem_instance
 from bhive.nodelist import NodeList
 # Py3 compatibility
 import sys
@@ -31,11 +31,11 @@ class Testcases(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         nodelist = NodeList()
-        nodelist.update_nodes(hive_instance=Hive(node=nodelist.get_nodes(normal=True, appbase=True), num_retries=3))
+        nodelist.update_nodes(steem_instance=Hive(node=nodelist.get_nodes(normal=True, appbase=True), num_retries=3))
         cls.nodes = nodelist.get_nodes()
         if "https://api.hive.blog" in cls.nodes:
             cls.nodes.remove("https://api.hive.blog")
-        cls.nodes_hiveit = ["https://api.hive.blog"]
+        cls.nodes_steemit = ["https://api.hive.blog"]
 
         cls.appbase = Hive(
             node=cls.nodes,
@@ -43,10 +43,10 @@ class Testcases(unittest.TestCase):
             keys={"active": wif, "owner": wif, "memo": wif},
             num_retries=10
         )
-        cls.rpc = HiveNodeRPC(urls=cls.nodes_hiveit)
+        cls.rpc = HiveNodeRPC(urls=cls.nodes_steemit)
         # from getpass import getpass
         # self.bts.wallet.unlock(getpass())
-        set_shared_hive_instance(cls.nodes_hiveit)
+        set_shared_steem_instance(cls.nodes_steemit)
         cls.appbase.set_default_account("test")
 
     def get_reply(self, msg):
@@ -70,16 +70,16 @@ class Testcases(unittest.TestCase):
 
     def test_connect_test_node(self):
         rpc = self.rpc
-        self.assertIn(rpc.url, self.nodes + self.nodes_hiveit)
+        self.assertIn(rpc.url, self.nodes + self.nodes_steemit)
         rpc.rpcclose()
         rpc.rpcconnect()
-        self.assertIn(rpc.url, self.nodes + self.nodes_hiveit)
+        self.assertIn(rpc.url, self.nodes + self.nodes_steemit)
 
     def test_connect_test_node2(self):
         rpc = self.rpc
-        self.assertIn(rpc.url, self.nodes + self.nodes_hiveit)
+        self.assertIn(rpc.url, self.nodes + self.nodes_steemit)
         rpc.next()
-        self.assertIn(rpc.url, self.nodes + self.nodes_hiveit)
+        self.assertIn(rpc.url, self.nodes + self.nodes_steemit)
 
     def test_connect_test_str_list(self):
         str_list = ""
@@ -87,9 +87,9 @@ class Testcases(unittest.TestCase):
             str_list += node + ";"
         str_list = str_list[:-1]
         rpc = HiveNodeRPC(urls=str_list)
-        self.assertIn(rpc.url, self.nodes + self.nodes_hiveit)
+        self.assertIn(rpc.url, self.nodes + self.nodes_steemit)
         rpc.next()
-        self.assertIn(rpc.url, self.nodes + self.nodes_hiveit)
+        self.assertIn(rpc.url, self.nodes + self.nodes_steemit)
 
     def test_connect_test_str_list2(self):
         str_list = ""
@@ -97,9 +97,9 @@ class Testcases(unittest.TestCase):
             str_list += node + ","
         str_list = str_list[:-1]
         rpc = HiveNodeRPC(urls=str_list)
-        self.assertIn(rpc.url, self.nodes + self.nodes_hiveit)
+        self.assertIn(rpc.url, self.nodes + self.nodes_steemit)
         rpc.next()
-        self.assertIn(rpc.url, self.nodes + self.nodes_hiveit)
+        self.assertIn(rpc.url, self.nodes + self.nodes_steemit)
 
     def test_server_error(self):
         rpc = self.rpc
@@ -178,7 +178,7 @@ class Testcases(unittest.TestCase):
             HiveNodeRPC(urls=nodes, num_retries=0, num_retries_call=0, timeout=1)
 
     def test_error_handling(self):
-        rpc = HiveNodeRPC(urls=self.nodes_hiveit, num_retries=2, num_retries_call=3)
+        rpc = HiveNodeRPC(urls=self.nodes_steemit, num_retries=2, num_retries_call=3)
         with self.assertRaises(
             exceptions.NoMethodWithName
         ):
@@ -189,7 +189,7 @@ class Testcases(unittest.TestCase):
             rpc.get_accounts("test")
 
     def test_error_handling_appbase(self):
-        rpc = HiveNodeRPC(urls=self.nodes_hiveit, num_retries=2, num_retries_call=3)
+        rpc = HiveNodeRPC(urls=self.nodes_steemit, num_retries=2, num_retries_call=3)
         with self.assertRaises(
             exceptions.NoMethodWithName
         ):

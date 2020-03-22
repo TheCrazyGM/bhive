@@ -16,7 +16,7 @@ class Block(BlockchainObject):
     """ Read a single block from the chain
 
         :param int block: block number
-        :param Hive hive_instance: Hive
+        :param Hive steem_instance: Hive
             instance
         :param bool lazy: Use lazy loading
         :param bool only_ops: Includes only operations, when set to True (default: False)
@@ -49,12 +49,12 @@ class Block(BlockchainObject):
         only_virtual_ops=False,
         full=True,
         lazy=False,
-        hive_instance=None
+        steem_instance=None
     ):
         """ Initilize a block
 
             :param int block: block number
-            :param Hive hive_instance: Hive
+            :param Hive steem_instance: Hive
                 instance
             :param bool lazy: Use lazy loading
             :param bool only_ops: Includes only operations, when set to True (default: False)
@@ -73,7 +73,7 @@ class Block(BlockchainObject):
             block,
             lazy=lazy,
             full=full,
-            hive_instance=hive_instance
+            steem_instance=steem_instance
         )
 
     def _parse_json_data(self, block):
@@ -157,7 +157,7 @@ class Block(BlockchainObject):
         if not block:
             raise BlockDoesNotExistsException("output: %s of identifier %s" % (str(block), str(self.identifier)))
         block = self._parse_json_data(block)
-        super(Block, self).__init__(block, lazy=self.lazy, full=self.full, hive_instance=self.hive)
+        super(Block, self).__init__(block, lazy=self.lazy, full=self.full, steem_instance=self.hive)
 
     @property
     def block_num(self):
@@ -284,7 +284,7 @@ class BlockHeader(BlockchainObject):
     """ Read a single block header from the chain
 
         :param int block: block number
-        :param Hive hive_instance: Hive
+        :param Hive steem_instance: Hive
             instance
         :param bool lazy: Use lazy loading
 
@@ -303,12 +303,12 @@ class BlockHeader(BlockchainObject):
         block,
         full=True,
         lazy=False,
-        hive_instance=None
+        steem_instance=None
     ):
         """ Initilize a block
 
             :param int block: block number
-            :param Hive hive_instance: Hive
+            :param Hive steem_instance: Hive
                 instance
             :param bool lazy: Use lazy loading
 
@@ -321,7 +321,7 @@ class BlockHeader(BlockchainObject):
             block,
             lazy=lazy,
             full=full,
-            hive_instance=hive_instance
+            steem_instance=steem_instance
         )
 
     def refresh(self):
@@ -342,7 +342,7 @@ class BlockHeader(BlockchainObject):
         block = self._parse_json_data(block)
         super(BlockHeader, self).__init__(
             block, lazy=self.lazy, full=self.full,
-            hive_instance=self.hive
+            steem_instance=self.hive
         )
 
     def time(self):

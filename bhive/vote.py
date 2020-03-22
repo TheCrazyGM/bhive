@@ -11,7 +11,7 @@ import logging
 from prettytable import PrettyTable
 from datetime import datetime, date
 from bhivegraphenebase.py23 import integer_types, string_types, text_type
-from .instance import shared_hive_instance
+from .instance import shared_steem_instance
 from .account import Account
 from .exceptions import VoteDoesNotExistsException
 from .utils import resolve_authorperm, resolve_authorpermvoter, construct_authorpermvoter, construct_authorperm, formatTimeString, addTzInfo, reputation_to_score
@@ -26,14 +26,14 @@ class Vote(BlockchainObject):
     """ Read data about a Vote in the chain
 
         :param str authorperm: perm link to post/comment
-        :param Hive hive_instance: Hive() instance to use when accesing a RPC
+        :param Hive steem_instance: Hive() instance to use when accesing a RPC
 
         .. code-block:: python
 
            >>> from bhive.vote import Vote
            >>> from bhive import Hive
            >>> hv = Hive()
-           >>> v = Vote("@gtg/hive-pressure-4-need-for-speed|gandalf", hive_instance=hv)
+           >>> v = Vote("@gtg/hive-pressure-4-need-for-speed|gandalf", steem_instance=hv)
 
     """
     type_id = 11
@@ -44,11 +44,11 @@ class Vote(BlockchainObject):
         authorperm=None,
         full=False,
         lazy=False,
-        hive_instance=None
+        steem_instance=None
     ):
         self.full = full
         self.lazy = lazy
-        self.hive = hive_instance or shared_hive_instance()
+        self.hive = steem_instance or shared_steem_instance()
         if isinstance(voter, string_types) and authorperm is not None:
             [author, permlink] = resolve_authorperm(authorperm)
             self["voter"] = voter
@@ -86,7 +86,7 @@ class Vote(BlockchainObject):
             id_item="authorpermvoter",
             lazy=lazy,
             full=full,
-            hive_instance=hive_instance
+            steem_instance=steem_instance
         )
 
     def refresh(self):
@@ -115,7 +115,7 @@ class Vote(BlockchainObject):
             raise VoteDoesNotExistsException(self.identifier)
         vote = self._parse_json_data(vote)
         vote["authorpermvoter"] = construct_authorpermvoter(author, permlink, voter)
-        super(Vote, self).__init__(vote, id_item="authorpermvoter", lazy=self.lazy, full=self.full, hive_instance=self.hive)
+        super(Vote, self).__init__(vote, id_item="authorpermvoter", lazy=self.lazy, full=self.full, steem_instance=self.hive)
 
     def _parse_json_data(self, vote):
         parse_int = [
@@ -190,7 +190,7 @@ class Vote(BlockchainObject):
 
     @property
     def hbd(self):
-        return self.hive.rshares_to_hbd(int(self.get("rshares", 0)))
+        return self.hive.rshares_to_sbd(int(self.get("rshares", 0)))
 
     @property
     def rshares(self):
@@ -338,10 +338,10 @@ class ActiveVotes(VotesObject):
     """ Obtain a list of votes for a post
 
         :param str authorperm: authorperm link
-        :param Hive hive_instance: Hive() instance to use when accesing a RPC
+        :param Hive steem_instance: Hive() instance to use when accesing a RPC
     """
-    def __init__(self, authorperm, lazy=False, full=False, hive_instance=None):
-        self.hive = hive_instance or shared_hive_instance()
+    def __init__(self, authorperm, lazy=False, full=False, steem_instance=None):
+        self.hive = steem_instance or shared_steem_instance()
         votes = None
         if not self.hive.is_connected():
             return None
@@ -381,7 +381,7 @@ class ActiveVotes(VotesObject):
         self.identifier = authorperm
         super(ActiveVotes, self).__init__(
             [
-                Vote(x, authorperm=authorperm, lazy=lazy, full=full, hive_instance=self.hive)
+                Vote(x, authorperm=authorperm, lazy=lazy, full=full, steem_instance=self.hive)
                 for x in votes
             ]
         )
@@ -392,13 +392,13 @@ class AccountVotes(VotesObject):
         Lists the last 100+ votes on the given account.
 
         :param str account: Account name
-        :param Hive hive_instance: Hive() instance to use when accesing a RPC
+        :param Hive steem_instance: Hive() instance to use when accesing a RPC
     """
-    def __init__(self, account, start=None, stop=None, lazy=False, full=False, hive_instance=None):
-        self.hive = hive_instance or shared_hive_instance()
+    def __init__(self, account, start=None, stop=None, lazy=False, full=False, steem_instance=None):
+        self.hive = steem_instance or shared_steem_instance()
         start = addTzInfo(start)
         stop = addTzInfo(stop)
-        account = Account(account, hive_instance=self.hive)
+        account = Account(account, steem_instance=self.hive)
         votes = account.get_account_votes()
         self.identifier = account["name"]
         vote_list = []
@@ -413,6 +413,6 @@ class AccountVotes(VotesObject):
             else:
                 d_time = addTzInfo(datetime(1970, 1, 1, 0, 0, 0))
             if (start is None or d_time >= start) and (stop is None or d_time <= stop):
-                vote_list.append(Vote(x, authorperm=account["name"], lazy=lazy, full=full, hive_instance=self.hive))
+                vote_list.append(Vote(x, authorperm=account["name"], lazy=lazy, full=full, steem_instance=self.hive))
 
         super(AccountVotes, self).__init__(vote_list)

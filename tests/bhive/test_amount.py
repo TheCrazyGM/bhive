@@ -9,7 +9,7 @@ from bhive import Hive
 from bhive.amount import Amount
 from bhive.asset import Asset
 from bhive.nodelist import NodeList
-from bhive.instance import set_shared_hive_instance, SharedInstance
+from bhive.instance import set_shared_steem_instance, SharedInstance
 from decimal import Decimal
 
 
@@ -17,7 +17,7 @@ class Testcases(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         nodelist = NodeList()
-        nodelist.update_nodes(hive_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
+        nodelist.update_nodes(steem_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
         cls.bts = Hive(
             node=nodelist.get_nodes(exclude_limited=True),
             nobroadcast=True,
@@ -29,7 +29,7 @@ class Testcases(unittest.TestCase):
             use_condenser=False,
             num_retries=10
         )
-        set_shared_hive_instance(cls.bts)
+        set_shared_steem_instance(cls.bts)
         cls.asset = Asset("HBD")
         cls.symbol = cls.asset["symbol"]
         cls.precision = cls.asset["precision"]
@@ -44,54 +44,54 @@ class Testcases(unittest.TestCase):
     def test_init(self):
         hv = self.bts
         # String init
-        asset = Asset("HBD", hive_instance=hv)
+        asset = Asset("HBD", steem_instance=hv)
         symbol = asset["symbol"]
         precision = asset["precision"]
-        amount = Amount("1 {}".format(symbol), hive_instance=hv)
+        amount = Amount("1 {}".format(symbol), steem_instance=hv)
         self.dotest(amount, 1, symbol)
 
         # Amount init
-        amount = Amount(amount, hive_instance=hv)
+        amount = Amount(amount, steem_instance=hv)
         self.dotest(amount, 1, symbol)
 
         # blockchain dict init
         amount = Amount({
             "amount": 1 * 10 ** precision,
             "asset_id": asset["id"]
-        }, hive_instance=hv)
+        }, steem_instance=hv)
         self.dotest(amount, 1, symbol)
 
         # API dict init
         amount = Amount({
             "amount": 1.3 * 10 ** precision,
             "asset": asset["id"]
-        }, hive_instance=hv)
+        }, steem_instance=hv)
         self.dotest(amount, 1.3, symbol)
 
         # Asset as symbol
-        amount = Amount(1.3, Asset("HBD"), hive_instance=hv)
+        amount = Amount(1.3, Asset("HBD"), steem_instance=hv)
         self.dotest(amount, 1.3, symbol)
 
         # Asset as symbol
-        amount = Amount(1.3, symbol, hive_instance=hv)
+        amount = Amount(1.3, symbol, steem_instance=hv)
         self.dotest(amount, 1.3, symbol)
 
         # keyword inits
-        amount = Amount(amount=1.3, asset=Asset("HBD", hive_instance=hv), hive_instance=hv)
+        amount = Amount(amount=1.3, asset=Asset("HBD", steem_instance=hv), steem_instance=hv)
         self.dotest(amount, 1.3, symbol)
         
-        amount = Amount(amount=1.3001, asset=Asset("HBD", hive_instance=hv), hive_instance=hv)
+        amount = Amount(amount=1.3001, asset=Asset("HBD", steem_instance=hv), steem_instance=hv)
         self.dotest(amount, 1.3001, symbol)        
 
-        amount = Amount(amount=1.3001, asset=Asset("HBD", hive_instance=hv), fixed_point_arithmetic=True, hive_instance=hv)
+        amount = Amount(amount=1.3001, asset=Asset("HBD", steem_instance=hv), fixed_point_arithmetic=True, steem_instance=hv)
         self.dotest(amount, 1.3, symbol)   
 
         # keyword inits
-        amount = Amount(amount=1.3, asset=dict(Asset("HBD", hive_instance=hv)), hive_instance=hv)
+        amount = Amount(amount=1.3, asset=dict(Asset("HBD", steem_instance=hv)), steem_instance=hv)
         self.dotest(amount, 1.3, symbol)
 
         # keyword inits
-        amount = Amount(amount=1.3, asset=symbol, hive_instance=hv)
+        amount = Amount(amount=1.3, asset=symbol, steem_instance=hv)
         self.dotest(amount, 1.3, symbol)
 
     def test_copy(self):
@@ -112,8 +112,8 @@ class Testcases(unittest.TestCase):
             (1.0, self.symbol))
 
     def test_json_appbase(self):
-        asset = Asset("HBD", hive_instance=self.bts)
-        amount = Amount("1", asset, new_appbase_format=False, hive_instance=self.bts)
+        asset = Asset("HBD", steem_instance=self.bts)
+        amount = Amount("1", asset, new_appbase_format=False, steem_instance=self.bts)
         if self.bts.rpc.get_use_appbase():
             self.assertEqual(
                 amount.json(),
@@ -122,8 +122,8 @@ class Testcases(unittest.TestCase):
             self.assertEqual(amount.json(), "1.000 HBD")
 
     def test_json_appbase2(self):
-        asset = Asset("HBD", hive_instance=self.bts)
-        amount = Amount("1", asset, new_appbase_format=True, hive_instance=self.bts)
+        asset = Asset("HBD", steem_instance=self.bts)
+        amount = Amount("1", asset, new_appbase_format=True, steem_instance=self.bts)
         if self.bts.rpc.get_use_appbase():
             self.assertEqual(
                 amount.json(),

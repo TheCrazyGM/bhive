@@ -17,79 +17,79 @@ logging.basicConfig(level=logging.INFO)
 
 if __name__ == "__main__":
     hv = Hive("https://api.hive.blog")
-    bhive_acc = Account("thecrazygm", hive_instance=hv)
+    bsteem_acc = Account("thecrazygm", steem_instance=hv)
     hv2 = hiveHive(nodes=["https://api.hive.blog"])
-    hive_acc = hiveAccount("thecrazygm", hived_instance=hv2)
+    steem_acc = hiveAccount("thecrazygm", hived_instance=hv2)
 
     # profile
-    print("bhive_acc.profile  {}".format(bhive_acc.profile))
-    print("hive_acc.profile {}".format(hive_acc.profile))
+    print("bsteem_acc.profile  {}".format(bsteem_acc.profile))
+    print("steem_acc.profile {}".format(steem_acc.profile))
     # hp
-    print("bhive_acc.hp  {}".format(bhive_acc.hp))
-    print("hive_acc.hp {}".format(hive_acc.hp))
+    print("bsteem_acc.hp  {}".format(bsteem_acc.hp))
+    print("steem_acc.hp {}".format(steem_acc.hp))
     # rep
-    print("bhive_acc.rep  {}".format(bhive_acc.rep))
-    print("hive_acc.rep {}".format(hive_acc.rep))
+    print("bsteem_acc.rep  {}".format(bsteem_acc.rep))
+    print("steem_acc.rep {}".format(steem_acc.rep))
     # balances
-    print("bhive_acc.balances  {}".format(bhive_acc.balances))
-    print("hive_acc.balances {}".format(hive_acc.balances))
+    print("bsteem_acc.balances  {}".format(bsteem_acc.balances))
+    print("steem_acc.balances {}".format(steem_acc.balances))
     # get_balances()
-    print("bhive_acc.get_balances()  {}".format(bhive_acc.get_balances()))
-    print("hive_acc.get_balances() {}".format(hive_acc.get_balances()))
+    print("bsteem_acc.get_balances()  {}".format(bsteem_acc.get_balances()))
+    print("steem_acc.get_balances() {}".format(steem_acc.get_balances()))
     # reputation()
-    print("bhive_acc.get_reputation()  {}".format(bhive_acc.get_reputation()))
-    print("hive_acc.reputation() {}".format(hive_acc.reputation()))
+    print("bsteem_acc.get_reputation()  {}".format(bsteem_acc.get_reputation()))
+    print("steem_acc.reputation() {}".format(steem_acc.reputation()))
     # voting_power()
-    print("bhive_acc.get_voting_power()  {}".format(bhive_acc.get_voting_power()))
-    print("hive_acc.voting_power() {}".format(hive_acc.voting_power()))
+    print("bsteem_acc.get_voting_power()  {}".format(bsteem_acc.get_voting_power()))
+    print("steem_acc.voting_power() {}".format(steem_acc.voting_power()))
     # get_followers()
-    print("bhive_acc.get_followers()  {}".format(bhive_acc.get_followers()))
-    print("hive_acc.get_followers() {}".format(hive_acc.get_followers()))
+    print("bsteem_acc.get_followers()  {}".format(bsteem_acc.get_followers()))
+    print("steem_acc.get_followers() {}".format(steem_acc.get_followers()))
     # get_following()
-    print("bhive_acc.get_following()  {}".format(bhive_acc.get_following()))
-    print("hive_acc.get_following() {}".format(hive_acc.get_following()))
+    print("bsteem_acc.get_following()  {}".format(bsteem_acc.get_following()))
+    print("steem_acc.get_following() {}".format(steem_acc.get_following()))
     # has_voted()
-    print("bhive_acc.has_voted()  {}".format(bhive_acc.has_voted("@thecrazygm/api-methods-list-for-appbase")))
-    print("hive_acc.has_voted() {}".format(hive_acc.has_voted(hivePost("@thecrazygm/api-methods-list-for-appbase"))))
+    print("bsteem_acc.has_voted()  {}".format(bsteem_acc.has_voted("@thecrazygm/api-methods-list-for-appbase")))
+    print("steem_acc.has_voted() {}".format(steem_acc.has_voted(hivePost("@thecrazygm/api-methods-list-for-appbase"))))
     # curation_stats()
-    print("bhive_acc.curation_stats()  {}".format(bhive_acc.curation_stats()))
-    print("hive_acc.curation_stats() {}".format(hive_acc.curation_stats()))
+    print("bsteem_acc.curation_stats()  {}".format(bsteem_acc.curation_stats()))
+    print("steem_acc.curation_stats() {}".format(steem_acc.curation_stats()))
     # virtual_op_count
-    print("bhive_acc.virtual_op_count()  {}".format(bhive_acc.virtual_op_count()))
-    print("hive_acc.virtual_op_count() {}".format(hive_acc.virtual_op_count()))
+    print("bsteem_acc.virtual_op_count()  {}".format(bsteem_acc.virtual_op_count()))
+    print("steem_acc.virtual_op_count() {}".format(steem_acc.virtual_op_count()))
     # get_account_votes
-    print("bhive_acc.get_account_votes()  {}".format(bhive_acc.get_account_votes()))
-    print("hive_acc.get_account_votes() {}".format(hive_acc.get_account_votes()))
+    print("bsteem_acc.get_account_votes()  {}".format(bsteem_acc.get_account_votes()))
+    print("steem_acc.get_account_votes() {}".format(steem_acc.get_account_votes()))
     # get_withdraw_routes
-    print("bhive_acc.get_withdraw_routes()  {}".format(bhive_acc.get_withdraw_routes()))
-    print("hive_acc.get_withdraw_routes() {}".format(hive_acc.get_withdraw_routes()))
+    print("bsteem_acc.get_withdraw_routes()  {}".format(bsteem_acc.get_withdraw_routes()))
+    print("steem_acc.get_withdraw_routes() {}".format(steem_acc.get_withdraw_routes()))
     # get_conversion_requests
-    print("bhive_acc.get_conversion_requests()  {}".format(bhive_acc.get_conversion_requests()))
-    print("hive_acc.get_conversion_requests() {}".format(hive_acc.get_conversion_requests()))
+    print("bsteem_acc.get_conversion_requests()  {}".format(bsteem_acc.get_conversion_requests()))
+    print("steem_acc.get_conversion_requests() {}".format(steem_acc.get_conversion_requests()))
     # export
     # history
-    bhive_hist = []
-    for h in bhive_acc.history(only_ops=["transfer"]):
-        bhive_hist.append(h)
-        if len(bhive_hist) >= 10:
+    bsteem_hist = []
+    for h in bsteem_acc.history(only_ops=["transfer"]):
+        bsteem_hist.append(h)
+        if len(bsteem_hist) >= 10:
             break
-    hive_hist = []
-    for h in hive_acc.history(filter_by="transfer", start=0):
-        hive_hist.append(h)
-        if len(hive_hist) >= 10:
+    steem_hist = []
+    for h in steem_acc.history(filter_by="transfer", start=0):
+        steem_hist.append(h)
+        if len(steem_hist) >= 10:
             break
-    print("bhive_acc.history()  {}".format(bhive_hist))
-    print("hive_acc.history() {}".format(hive_hist))
+    print("bsteem_acc.history()  {}".format(bsteem_hist))
+    print("steem_acc.history() {}".format(steem_hist))
     # history_reverse
-    bhive_hist = []
-    for h in bhive_acc.history_reverse(only_ops=["transfer"]):
-        bhive_hist.append(h)
-        if len(bhive_hist) >= 10:
+    bsteem_hist = []
+    for h in bsteem_acc.history_reverse(only_ops=["transfer"]):
+        bsteem_hist.append(h)
+        if len(bsteem_hist) >= 10:
             break
-    hive_hist = []
-    for h in hive_acc.history_reverse(filter_by="transfer"):
-        hive_hist.append(h)
-        if len(hive_hist) >= 10:
+    steem_hist = []
+    for h in steem_acc.history_reverse(filter_by="transfer"):
+        steem_hist.append(h)
+        if len(steem_hist) >= 10:
             break
-    print("bhive_acc.history_reverse()  {}".format(bhive_hist))
-    print("hive_acc.history_reverse() {}".format(hive_hist))
+    print("bsteem_acc.history_reverse()  {}".format(bsteem_hist))
+    print("steem_acc.history_reverse() {}".format(steem_hist))

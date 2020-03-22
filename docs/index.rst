@@ -66,7 +66,7 @@ Quickstart
    from bhive import Hive
    hive = Hive()
    hive.wallet.unlock("wallet-passphrase")
-   account = Account("test", hive_instance=hive)
+   account = Account("test", steem_instance=hive)
    account.transfer("<to>", "<amount>", "<asset>", "<memo>")
 
 .. code-block:: python

@@ -61,7 +61,7 @@ class Transaction(Benchmark):
         self.op = operations.Transfer(**{
             "from": "foo",
             "to": "baar",
-            "amount": Amount("111.110 HIVE", hive_instance=self.hv),
+            "amount": Amount("111.110 HIVE", steem_instance=self.hv),
             "memo": "Fooo",
             "prefix": self.default_prefix
         })
@@ -352,7 +352,7 @@ class Transaction(Benchmark):
                 "props": {
                     "account_creation_fee": "10.000 HIVE",
                     "maximum_block_size": 1111111,
-                    "hbd_interest_rate": 1000
+                    "sbd_interest_rate": 1000
                 },
                 "fee":
                 "10.000 HIVE",
@@ -401,7 +401,7 @@ class Transaction(Benchmark):
                 "piston",
                 "max_accepted_payout":
                 "1000000.000 HBD",
-                "percent_hive_dollars":
+                "percent_steem_dollars":
                 10000,
                 "allow_votes":
                 True,

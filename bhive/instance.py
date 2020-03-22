@@ -13,7 +13,7 @@ class SharedInstance(object):
     config = {}
 
 
-def shared_hive_instance():
+def shared_steem_instance():
     """ This method will initialize ``SharedInstance.instance`` and return it.
         The purpose of this method is to have offer single default
         hive instance that can be reused by multiple classes.
@@ -21,11 +21,11 @@ def shared_hive_instance():
         .. code-block:: python
 
             from bhive.account import Account
-            from bhive.instance import shared_hive_instance
+            from bhive.instance import shared_steem_instance
 
             account = Account("test")
             # is equivalent with
-            account = Account("test", hive_instance=shared_hive_instance())
+            account = Account("test", steem_instance=shared_steem_instance())
 
     """
     if not SharedInstance.instance:
@@ -34,14 +34,14 @@ def shared_hive_instance():
     return SharedInstance.instance
 
 
-def set_shared_hive_instance(hive_instance):
+def set_shared_steem_instance(steem_instance):
     """ This method allows us to override default hive instance for all users of
         ``SharedInstance.instance``.
 
-        :param Hive hive_instance: Hive instance
+        :param Hive steem_instance: Hive instance
     """
     clear_cache()
-    SharedInstance.instance = hive_instance
+    SharedInstance.instance = steem_instance
 
 
 def clear_cache():
@@ -53,7 +53,7 @@ def clear_cache():
 
 def set_shared_config(config):
     """ This allows to set a config that will be used when calling
-        ``shared_hive_instance`` and allows to define the configuration
+        ``shared_steem_instance`` and allows to define the configuration
         without requiring to actually create an instance
     """
     if not isinstance(config, dict):
