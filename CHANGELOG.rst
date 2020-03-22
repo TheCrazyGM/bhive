@@ -1,5 +1,10 @@
 Changelog
 =========
+0.23.1
+------
+* Reset all symbols back to steem/sbd for bhive.account
+* Fiex tests to for more accuracy with hive (many fail due to symbols)
+
 0.23.0
 ------
 * Mass rename from steem to hive 
