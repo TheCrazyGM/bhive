@@ -17,7 +17,7 @@ from bhiveapi.hivenoderpc import HiveNodeRPC
 from bhiveapi.websocket import HiveWebsocket
 from bhiveapi import exceptions
 from bhiveapi.exceptions import NumRetriesReached, CallRetriesReached
-from bhive.instance import set_shared_steem_instance
+from bhive.instance import set_shared_hive_instance
 from bhive.nodelist import NodeList
 # Py3 compatibility
 import sys
@@ -31,7 +31,7 @@ class Testcases(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         nodelist = NodeList()
-        nodelist.update_nodes(steem_instance=Hive(node=nodelist.get_nodes(normal=True, appbase=True), num_retries=3))
+        nodelist.update_nodes(hive_instance=Hive(node=nodelist.get_nodes(normal=True, appbase=True), num_retries=3))
         cls.nodes = nodelist.get_nodes()
         if "https://api.hive.blog" in cls.nodes:
             cls.nodes.remove("https://api.hive.blog")
@@ -46,7 +46,7 @@ class Testcases(unittest.TestCase):
         cls.rpc = HiveNodeRPC(urls=cls.nodes_steemit)
         # from getpass import getpass
         # self.bts.wallet.unlock(getpass())
-        set_shared_steem_instance(cls.nodes_steemit)
+        set_shared_hive_instance(cls.nodes_steemit)
         cls.appbase.set_default_account("test")
 
     def get_reply(self, msg):

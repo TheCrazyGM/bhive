@@ -8,7 +8,7 @@ from parameterized import parameterized
 from pprint import pprint
 from bhive import Hive
 from bhive.witness import Witness, Witnesses, WitnessesVotedByAccount, WitnessesRankedByVote
-from bhive.instance import set_shared_steem_instance
+from bhive.instance import set_shared_hive_instance
 from bhive.nodelist import NodeList
 
 wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
@@ -18,7 +18,7 @@ class Testcases(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         nodelist = NodeList()
-        nodelist.update_nodes(steem_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
+        nodelist.update_nodes(hive_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
         cls.bts = Hive(
             node=nodelist.get_nodes(exclude_limited=True),
             nobroadcast=True,
@@ -26,7 +26,7 @@ class Testcases(unittest.TestCase):
             keys={"active": wif},
             num_retries=10
         )
-        cls.hiveio = Hive(
+        cls.bhive.app = Hive(
             node="https://api.hive.blog",
             nobroadcast=True,
             unsigned=True,
@@ -35,20 +35,20 @@ class Testcases(unittest.TestCase):
         )
         # from getpass import getpass
         # self.bts.wallet.unlock(getpass())
-        set_shared_steem_instance(cls.bts)
+        set_shared_hive_instance(cls.bts)
         cls.bts.set_default_account("test")
 
     @parameterized.expand([
         ("normal"),
-        ("hiveio"),
+        ("bhive.app"),
     ])
     def test_feed_publish(self, node_param):
         if node_param == "normal":
             bts = self.bts
         else:
-            bts = self.hiveio
+            bts = self.bhive.app
         bts.txbuffer.clear()
-        w = Witness("gtg", steem_instance=bts)
+        w = Witness("gtg", hive_instance=bts)
         tx = w.feed_publish("4 HBD", "1 HIVE")
         self.assertEqual(
             (tx["operations"][0][0]),
@@ -61,15 +61,15 @@ class Testcases(unittest.TestCase):
 
     @parameterized.expand([
         ("normal"),
-        ("hiveio"),
+        ("bhive.app"),
     ])
     def test_update(self, node_param):
         if node_param == "normal":
             bts = self.bts
         else:
-            bts = self.hiveio
+            bts = self.bhive.app
         bts.txbuffer.clear()
-        w = Witness("gtg", steem_instance=bts)
+        w = Witness("gtg", hive_instance=bts)
         props = {"account_creation_fee": "0.1 HIVE",
                  "maximum_block_size": 32000,
                  "sbd_interest_rate": 0}
@@ -82,55 +82,55 @@ class Testcases(unittest.TestCase):
 
     @parameterized.expand([
         ("normal"),
-        ("hiveio"),
+        ("bhive.app"),
     ])
     def test_witnesses(self, node_param):
         if node_param == "normal":
             bts = self.bts
         else:
-            bts = self.hiveio
-        w = Witnesses(steem_instance=bts)
+            bts = self.bhive.app
+        w = Witnesses(hive_instance=bts)
         w.printAsTable()
         self.assertTrue(len(w) > 0)
         self.assertTrue(isinstance(w[0], Witness))
 
     @parameterized.expand([
         ("normal"),
-        ("hiveio"),
+        ("bhive.app"),
     ])
     def test_WitnessesVotedByAccount(self, node_param):
         if node_param == "normal":
             bts = self.bts
         else:
-            bts = self.hiveio
-        w = WitnessesVotedByAccount("gtg", steem_instance=bts)
+            bts = self.bhive.app
+        w = WitnessesVotedByAccount("gtg", hive_instance=bts)
         w.printAsTable()
         self.assertTrue(len(w) > 0)
         self.assertTrue(isinstance(w[0], Witness))
 
     @parameterized.expand([
         ("normal"),
-        ("hiveio"),
+        ("bhive.app"),
     ])
     def test_WitnessesRankedByVote(self, node_param):
         if node_param == "normal":
             bts = self.bts
         else:
-            bts = self.hiveio
-        w = WitnessesRankedByVote(steem_instance=bts)
+            bts = self.bhive.app
+        w = WitnessesRankedByVote(hive_instance=bts)
         w.printAsTable()
         self.assertTrue(len(w) > 0)
         self.assertTrue(isinstance(w[0], Witness))
 
     @parameterized.expand([
         ("normal"),
-        ("hiveio"),
+        ("bhive.app"),
     ])
     def test_export(self, node_param):
         if node_param == "normal":
             bts = self.bts
         else:
-            bts = self.hiveio
+            bts = self.bhive.app
         owner = "gtg"
         if bts.rpc.get_use_appbase():
             witness = bts.rpc.find_witnesses({'owners': [owner]}, api="database")['witnesses']
@@ -139,7 +139,7 @@ class Testcases(unittest.TestCase):
         else:
             witness = bts.rpc.get_witness_by_account(owner)
 
-        w = Witness(owner, steem_instance=bts)
+        w = Witness(owner, hive_instance=bts)
         keys = list(witness.keys())
         json_witness = w.json()
         exclude_list = ['votes', 'virtual_last_update', 'virtual_scheduled_time']

@@ -18,7 +18,7 @@ logging.basicConfig(level=logging.INFO)
 
 
 def stream_votes(hv, threading, thread_num):
-    b = Blockchain(steem_instance=hv)
+    b = Blockchain(hive_instance=hv)
     opcount = 0
     start_time = time.time()
     for op in b.stream(start=23483000, stop=23483200, threading=threading, thread_num=thread_num,

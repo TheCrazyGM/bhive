@@ -14,7 +14,7 @@ from bhive.account import Account
 from bhive.amount import Amount
 from bhivegraphenebase.account import PrivateKey
 from bhive.cli import cli, balance
-from bhive.instance import set_shared_steem_instance, shared_steem_instance
+from bhive.instance import set_shared_hive_instance, shared_hive_instance
 from bhivebase.operationids import getOperationNameForId
 from bhive.nodelist import NodeList
 
@@ -29,10 +29,10 @@ class Testcases(unittest.TestCase):
     def setUpClass(cls):
         nodelist = NodeList()
         nodelist.update_nodes()
-        nodelist.update_nodes(steem_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
+        nodelist.update_nodes(hive_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
         cls.node_list = nodelist.get_nodes(exclude_limited=True)
        
-        # hv = shared_steem_instance()
+        # hv = shared_hive_instance()
         # hv.config.refreshBackup()
         runner = CliRunner()
         result = runner.invoke(cli, ['-o', 'set', 'default_vote_weight', '100'])
@@ -59,7 +59,7 @@ class Testcases(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        hv = shared_steem_instance()
+        hv = shared_hive_instance()
         hv.config.recover_with_latest_backup()
 
     def test_balance(self):
@@ -154,14 +154,14 @@ class Testcases(unittest.TestCase):
 
     def test_upvote(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['-ds', 'upvote', '@hiveio/announcing-the-launch-of-hive-blockchain'], input="test\n")
+        result = runner.invoke(cli, ['-ds', 'upvote', '@bhive.app/announcing-the-launch-of-hive-blockchain'], input="test\n")
         self.assertEqual(result.exit_code, 0)
-        result = runner.invoke(cli, ['-ds', 'upvote', '--weight', '100', '@hiveio/announcing-the-launch-of-hive-blockchain'], input="test\n")
+        result = runner.invoke(cli, ['-ds', 'upvote', '--weight', '100', '@bhive.app/announcing-the-launch-of-hive-blockchain'], input="test\n")
         self.assertEqual(result.exit_code, 0)
 
     def test_downvote(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['-ds', 'downvote', '--weight', '100', '@hiveio/announcing-the-launch-of-hive-blockchain'], input="test\n")
+        result = runner.invoke(cli, ['-ds', 'downvote', '--weight', '100', '@bhive.app/announcing-the-launch-of-hive-blockchain'], input="test\n")
         self.assertEqual(result.exit_code, 0)
 
     def test_transfer(self):
@@ -315,7 +315,7 @@ class Testcases(unittest.TestCase):
 
     def test_rehive(self):
         runner = CliRunner()
-        result = runner.invoke(cli, ['-dso', 'rehive', '@hiveio/announcing-the-launch-of-hive-blockchain'], input="test\n")
+        result = runner.invoke(cli, ['-dso', 'rehive', '@bhive.app/announcing-the-launch-of-hive-blockchain'], input="test\n")
         self.assertEqual(result.exit_code, 0)
 
     def test_follow_unfollow(self):

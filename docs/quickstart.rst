@@ -7,13 +7,13 @@ The hive object is the connection to the Hive blockchain.
 By creating this object different options can be set.
 
 .. note:: All init methods of bhive classes can be given
-          the ``steem_instance=`` parameter to assure that
+          the ``hive_instance=`` parameter to assure that
           all objects use the same hive object. When the
-          ``steem_instance=`` parameter is not used, the 
-          hive object is taken from get_shared_steem_instance().
+          ``hive_instance=`` parameter is not used, the 
+          hive object is taken from get_shared_hive_instance().
 
-          :func:`bhive.instance.shared_steem_instance` returns a global instance of hive.
-          It can be set by :func:`bhive.instance.set_shared_steem_instance` otherwise it is created
+          :func:`bhive.instance.shared_hive_instance` returns a global instance of hive.
+          It can be set by :func:`bhive.instance.set_shared_hive_instance` otherwise it is created
           on the first call.
 
 .. code-block:: python
@@ -21,15 +21,15 @@ By creating this object different options can be set.
    from bhive import Hive
    from bhive.account import Account
    hv = Hive()
-   account = Account("test", steem_instance=hv)
+   account = Account("test", hive_instance=hv)
 
 .. code-block:: python
 
    from bhive import Hive
    from bhive.account import Account
-   from bhive.instance import set_shared_steem_instance
+   from bhive.instance import set_shared_hive_instance
    hv = Hive()
-   set_shared_steem_instance(hv)
+   set_shared_hive_instance(hv)
    account = Account("test")
 
 Wallet and Keys
@@ -79,7 +79,7 @@ Using the keys in the wallet
    from bhive import Hive
    hive = Hive()
    hive.wallet.unlock("wallet-passphrase")
-   account = Account("test", steem_instance=hive)
+   account = Account("test", hive_instance=hive)
    account.transfer("<to>", "<amount>", "<asset>", "<memo>")
 
 Private keys can also set temporary
@@ -89,7 +89,7 @@ Private keys can also set temporary
 
    from bhive import Hive
    hive = Hive(keys=["xxxxxxxxx"])
-   account = Account("test", steem_instance=hive)
+   account = Account("test", hive_instance=hive)
    account.transfer("<to>", "<amount>", "<asset>", "<memo>")
 
 Receiving information about blocks, accounts, votes, comments, market and witness
@@ -170,8 +170,8 @@ Sending a Transfer
    from bhive import Hive
    hive = Hive()
    hive.wallet.unlock("wallet-passphrase")
-   account = Account("test", steem_instance=hive)
-   account.transfer("null", 1, "HBD", "test")
+   account = Account("test", hive_instance=hive)
+   account.transfer("null", 1, "SBD", "test")
 
 Upvote a post
 
@@ -181,7 +181,7 @@ Upvote a post
    from bhive import Hive
    hive = Hive()
    hive.wallet.unlock("wallet-passphrase")
-   comment = Comment("@gtg/ffdhu-gtg-witness-log", steem_instance=hive)
+   comment = Comment("@gtg/ffdhu-gtg-witness-log", hive_instance=hive)
    comment.upvote(weight=10, voter="test")
 
 Publish a post to the blockchain
@@ -200,7 +200,7 @@ Sell HIVE on the market
    from bhive.market import Market
    from bhive import Hive
    hive.wallet.unlock("wallet-passphrase")
-   market = Market("HBD:HIVE", steem_instance=hive)
+   market = Market("HBD:HIVE", hive_instance=hive)
    print(market.ticker())
    market.hive.wallet.unlock("wallet-passphrase")
    print(market.sell(300, 100))  # sell 100 HIVE for 300 HIVE/HBD

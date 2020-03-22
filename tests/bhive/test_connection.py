@@ -1,7 +1,7 @@
 import unittest
 from bhive import Hive
 from bhive.account import Account
-from bhive.instance import set_shared_steem_instance, SharedInstance
+from bhive.instance import set_shared_hive_instance, SharedInstance
 from bhive.blockchainobject import BlockchainObject
 from bhive.nodelist import NodeList
 
@@ -13,7 +13,7 @@ class Testcases(unittest.TestCase):
 
     def test_hv1hv2(self):
         nodelist = NodeList()
-        nodelist.update_nodes(steem_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
+        nodelist.update_nodes(hive_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
         b1 = Hive(
             node="https://api.hive.blog",
             nobroadcast=True,
@@ -31,12 +31,12 @@ class Testcases(unittest.TestCase):
 
     def test_default_connection(self):
         nodelist = NodeList()
-        nodelist.update_nodes(steem_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
+        nodelist.update_nodes(hive_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
 
         b2 = Hive(
             node=nodelist.get_nodes(exclude_limited=True),
             nobroadcast=True,
         )
-        set_shared_steem_instance(b2)
+        set_shared_hive_instance(b2)
         bts = Account("bhive")
         self.assertEqual(bts.hive.prefix, "STM")

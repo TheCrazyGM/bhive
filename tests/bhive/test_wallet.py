@@ -12,7 +12,7 @@ from bhive.account import Account
 from bhive.amount import Amount
 from bhive.asset import Asset
 from bhive.wallet import Wallet
-from bhive.instance import set_shared_steem_instance, shared_steem_instance
+from bhive.instance import set_shared_hive_instance, shared_hive_instance
 from bhive.nodelist import NodeList
 
 wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
@@ -21,10 +21,10 @@ wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
 class Testcases(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        hv = shared_steem_instance()
+        hv = shared_hive_instance()
         hv.config.refreshBackup()
         nodelist = NodeList()
-        nodelist.update_nodes(steem_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
+        nodelist.update_nodes(hive_instance=Hive(node=nodelist.get_nodes(exclude_limited=False), num_retries=10))
 
         cls.hv = Hive(
             node=nodelist.get_nodes(exclude_limited=True),
@@ -35,10 +35,10 @@ class Testcases(unittest.TestCase):
             # Overwrite wallet to use this list of wifs only
         )
         cls.hv.set_default_account("test")
-        set_shared_steem_instance(cls.hv)
+        set_shared_hive_instance(cls.hv)
         # self.hv.newWallet("TestingOneTwoThree")
 
-        cls.wallet = Wallet(steem_instance=cls.hv)
+        cls.wallet = Wallet(hive_instance=cls.hv)
         cls.wallet.wipe(True)
         cls.wallet.newWallet(pwd="TestingOneTwoThree")
         cls.wallet.unlock(pwd="TestingOneTwoThree")
@@ -46,7 +46,7 @@ class Testcases(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        hv = shared_steem_instance()
+        hv = shared_hive_instance()
         hv.config.recover_with_latest_backup()
 
     def test_wallet_lock(self):

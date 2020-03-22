@@ -203,13 +203,13 @@ class Hive(object):
         # txbuffers/propbuffer are initialized and cleared
         self.clear()
 
-        self.wallet = Wallet(steem_instance=self, **kwargs)
+        self.wallet = Wallet(hive_instance=self, **kwargs)
 
         # set hiveconnect
         if self.hiveconnect is not None and not isinstance(self.hiveconnect, HiveConnect):
             raise ValueError("hiveconnect musst be HiveConnect object")
         if self.hiveconnect is None and self.use_sc2:
-            self.hiveconnect = HiveConnect(steem_instance=self, **kwargs)
+            self.hiveconnect = HiveConnect(hive_instance=self, **kwargs)
         elif self.hiveconnect is not None and not self.use_sc2:
             self.use_sc2 = True
 
@@ -430,9 +430,9 @@ class Hive(object):
             return None
         a = Price(
             None,
-            base=Amount(median_price['base'], steem_instance=self),
-            quote=Amount(median_price['quote'], steem_instance=self),
-            steem_instance=self
+            base=Amount(median_price['base'], hive_instance=self),
+            quote=Amount(median_price['quote'], hive_instance=self),
+            hive_instance=self
         )
         return a.as_base(self.sbd_symbol)
 
@@ -484,7 +484,7 @@ class Hive(object):
         params = self.get_resource_params()
         config = self.get_config()
         dyn_param = self.get_dynamic_global_properties()
-        rc_regen = int(Amount(dyn_param["total_vesting_shares"], steem_instance=self)) / (HIVE_RC_REGEN_TIME / config["HIVE_BLOCK_INTERVAL"])
+        rc_regen = int(Amount(dyn_param["total_vesting_shares"], hive_instance=self)) / (HIVE_RC_REGEN_TIME / config["HIVE_BLOCK_INTERVAL"])
         total_cost = 0
         if rc_regen == 0:
             return total_cost
@@ -521,14 +521,14 @@ class Hive(object):
         """ Returns the current rshares to HBD ratio
         """
         reward_fund = self.get_reward_funds(use_stored_data=use_stored_data)
-        reward_balance = float(Amount(reward_fund["reward_balance"], steem_instance=self))
+        reward_balance = float(Amount(reward_fund["reward_balance"], hive_instance=self))
         recent_claims = float(reward_fund["recent_claims"]) + not_broadcasted_vote_rshares
 
         fund_per_share = reward_balance / (recent_claims)
         median_price = self.get_median_price(use_stored_data=use_stored_data)
         if median_price is None:
             return 0
-        HBD_price = float(median_price * (Amount(1, self.steem_symbol, steem_instance=self)))
+        HBD_price = float(median_price * (Amount(1, self.steem_symbol, hive_instance=self)))
         return fund_per_share * HBD_price
 
     def get_steem_per_mvest(self, time_stamp=None, use_stored_data=True):
@@ -556,8 +556,8 @@ class Hive(object):
         global_properties = self.get_dynamic_global_properties(use_stored_data=use_stored_data)
 
         return (
-            float(Amount(global_properties['total_vesting_fund_steem'], steem_instance=self)) /
-            (float(Amount(global_properties['total_vesting_shares'], steem_instance=self)) / 1e6)
+            float(Amount(global_properties['total_vesting_fund_steem'], hive_instance=self)) /
+            (float(Amount(global_properties['total_vesting_shares'], hive_instance=self)) / 1e6)
         )
 
     def vests_to_hp(self, vests, timestamp=None, use_stored_data=True):
@@ -663,11 +663,11 @@ class Hive(object):
 
         """
         if isinstance(hbd, Amount):
-            hbd = Amount(hbd, steem_instance=self)
+            hbd = Amount(hbd, hive_instance=self)
         elif isinstance(hbd, string_types):
-            hbd = Amount(hbd, steem_instance=self)
+            hbd = Amount(hbd, hive_instance=self)
         else:
-            hbd = Amount(hbd, self.sbd_symbol, steem_instance=self)
+            hbd = Amount(hbd, self.sbd_symbol, hive_instance=self)
         if hbd['symbol'] != self.sbd_symbol:
             raise AssertionError('Should input HBD, not any other asset!')
 
@@ -681,7 +681,7 @@ class Hive(object):
         reward_fund = self.get_reward_funds(use_stored_data=use_stored_data)
         median_price = self.get_median_price(use_stored_data=use_stored_data)
         recent_claims = int(reward_fund["recent_claims"])
-        reward_balance = Amount(reward_fund["reward_balance"], steem_instance=self)
+        reward_balance = Amount(reward_fund["reward_balance"], hive_instance=self)
         reward_pool_sbd = median_price * reward_balance
         if hbd > reward_pool_sbd:
             raise ValueError('Provided more HBD than available in the reward pool.')
@@ -749,11 +749,11 @@ class Hive(object):
 
         """
         if isinstance(hbd, Amount):
-            hbd = Amount(hbd, steem_instance=self)
+            hbd = Amount(hbd, hive_instance=self)
         elif isinstance(hbd, string_types):
-            hbd = Amount(hbd, steem_instance=self)
+            hbd = Amount(hbd, hive_instance=self)
         else:
-            hbd = Amount(hbd, self.sbd_symbol, steem_instance=self)
+            hbd = Amount(hbd, self.sbd_symbol, hive_instance=self)
         if hbd['symbol'] != self.sbd_symbol:
             raise AssertionError()
         rshares = self.sbd_to_rshares(hbd, not_broadcasted_vote=not_broadcasted_vote, use_stored_data=use_stored_data)
@@ -831,7 +831,7 @@ class Hive(object):
     def set_default_account(self, account):
         """ Set the default account to be used
         """
-        Account(account, steem_instance=self)
+        Account(account, hive_instance=self)
         config["default_account"] = account
 
     def set_password_storage(self, password_storage):
@@ -969,7 +969,7 @@ class Hive(object):
 
         """
         if tx:
-            txbuffer = TransactionBuilder(tx, steem_instance=self)
+            txbuffer = TransactionBuilder(tx, hive_instance=self)
         else:
             txbuffer = self.txbuffer
         txbuffer.appendWif(wifs)
@@ -985,7 +985,7 @@ class Hive(object):
         """
         if tx:
             # If tx is provided, we broadcast the tx
-            return TransactionBuilder(tx, steem_instance=self).broadcast()
+            return TransactionBuilder(tx, hive_instance=self).broadcast()
         else:
             return self.txbuffer.broadcast()
 
@@ -1036,7 +1036,7 @@ class Hive(object):
         """
         builder = TransactionBuilder(
             *args,
-            steem_instance=self,
+            hive_instance=self,
             **kwargs
         )
         self._txbuffers.append(builder)
@@ -1069,9 +1069,9 @@ class Hive(object):
             raise ValueError(
                 "Not creator account given. Define it with " +
                 "creator=x, or set the default_account using bhivepy")
-        creator = Account(creator, steem_instance=self)
+        creator = Account(creator, hive_instance=self)
         op = {
-            "fee": Amount(fee, steem_instance=self),
+            "fee": Amount(fee, hive_instance=self),
             "creator": creator["name"],
             "prefix": self.prefix,
         }
@@ -1172,12 +1172,12 @@ class Hive(object):
             )
 
         try:
-            Account(account_name, steem_instance=self)
+            Account(account_name, hive_instance=self)
             raise AccountExistsException
         except AccountDoesNotExistsException:
             pass
 
-        creator = Account(creator, steem_instance=self)
+        creator = Account(creator, hive_instance=self)
 
         " Generate new keys from password"
         from bhivegraphenebase.account import PasswordKey
@@ -1239,17 +1239,17 @@ class Hive(object):
             posting_key_authority.append([k, 1])
 
         for k in additional_owner_accounts:
-            addaccount = Account(k, steem_instance=self)
+            addaccount = Account(k, hive_instance=self)
             owner_accounts_authority.append([addaccount["name"], 1])
         for k in additional_active_accounts:
-            addaccount = Account(k, steem_instance=self)
+            addaccount = Account(k, hive_instance=self)
             active_accounts_authority.append([addaccount["name"], 1])
         for k in additional_posting_accounts:
-            addaccount = Account(k, steem_instance=self)
+            addaccount = Account(k, hive_instance=self)
             posting_accounts_authority.append([addaccount["name"], 1])
         if combine_with_claim_account:
             op = {
-                "fee": Amount(fee, steem_instance=self),
+                "fee": Amount(fee, hive_instance=self),
                 "creator": creator["name"],
                 "prefix": self.prefix,
             }
@@ -1368,12 +1368,12 @@ class Hive(object):
             )
 
         try:
-            Account(account_name, steem_instance=self)
+            Account(account_name, hive_instance=self)
             raise AccountExistsException
         except AccountDoesNotExistsException:
             pass
 
-        creator = Account(creator, steem_instance=self)
+        creator = Account(creator, hive_instance=self)
 
         " Generate new keys from password"
         from bhivegraphenebase.account import PasswordKey
@@ -1435,20 +1435,20 @@ class Hive(object):
             posting_key_authority.append([k, 1])
 
         for k in additional_owner_accounts:
-            addaccount = Account(k, steem_instance=self)
+            addaccount = Account(k, hive_instance=self)
             owner_accounts_authority.append([addaccount["name"], 1])
         for k in additional_active_accounts:
-            addaccount = Account(k, steem_instance=self)
+            addaccount = Account(k, hive_instance=self)
             active_accounts_authority.append([addaccount["name"], 1])
         for k in additional_posting_accounts:
-            addaccount = Account(k, steem_instance=self)
+            addaccount = Account(k, hive_instance=self)
             posting_accounts_authority.append([addaccount["name"], 1])
 
         props = self.get_chain_properties()
         if self.hardfork >= 20:
-            required_fee_steem = Amount(props["account_creation_fee"], steem_instance=self)
+            required_fee_steem = Amount(props["account_creation_fee"], hive_instance=self)
         else:
-            required_fee_steem = Amount(props["account_creation_fee"], steem_instance=self) * 30
+            required_fee_steem = Amount(props["account_creation_fee"], hive_instance=self) * 30
         op = {
             "fee": required_fee_steem,
             "creator": creator["name"],
@@ -1494,7 +1494,7 @@ class Hive(object):
 
         """
 
-        owner = Account(owner, steem_instance=self)
+        owner = Account(owner, hive_instance=self)
 
         try:
             PrivateKey(wif, prefix=self.prefix)
@@ -1505,7 +1505,7 @@ class Hive(object):
             props_list.append([k, props[k]])
 
         op = operations.Witness_set_properties({"owner": owner["name"], "props": props_list, "prefix": self.prefix})
-        tb = TransactionBuilder(use_condenser_api=use_condenser_api, steem_instance=self)
+        tb = TransactionBuilder(use_condenser_api=use_condenser_api, hive_instance=self)
         tb.appendOps([op])
         tb.appendWif(wif)
         tb.sign()
@@ -1533,21 +1533,21 @@ class Hive(object):
         if not account:
             raise ValueError("You need to provide an account")
 
-        account = Account(account, steem_instance=self)
+        account = Account(account, hive_instance=self)
 
         try:
             PublicKey(signing_key, prefix=self.prefix)
         except Exception as e:
             raise e
         if "account_creation_fee" in props:
-            props["account_creation_fee"] = Amount(props["account_creation_fee"], steem_instance=self)
+            props["account_creation_fee"] = Amount(props["account_creation_fee"], hive_instance=self)
         op = operations.Witness_update(
             **{
                 "owner": account["name"],
                 "url": url,
                 "block_signing_key": signing_key,
                 "props": props,
-                "fee": Amount(0, self.steem_symbol, steem_instance=self),
+                "fee": Amount(0, self.steem_symbol, hive_instance=self),
                 "prefix": self.prefix,
             })
         return self.finalizeOp(op, account, "active", **kwargs)
@@ -1566,7 +1566,7 @@ class Hive(object):
         if not account:
             raise ValueError("You need to provide an account")
 
-        account = Account(account, steem_instance=self)
+        account = Account(account, hive_instance=self)
         if not isinstance(proposal_ids, list):
             proposal_ids = [proposal_ids]
 
@@ -1627,7 +1627,7 @@ class Hive(object):
             account = required_posting_auths[0]
         else:
             raise Exception("At least one account needs to be specified")
-        account = Account(account, full=False, steem_instance=self)
+        account = Account(account, full=False, hive_instance=self)
         op = operations.Custom_json(
             **{
                 "json": json_data,
@@ -1741,7 +1741,7 @@ class Hive(object):
             author = config["default_account"]
         if not author:
             raise ValueError("You need to provide an account")
-        account = Account(author, steem_instance=self)
+        account = Account(author, hive_instance=self)
         # deal with the category and tags
         if isinstance(tags, str):
             tags = list(set([_f for _f in (re.split("[W_]", tags)) if _f]))
@@ -1862,7 +1862,7 @@ class Hive(object):
                 account = self.config["default_account"]
         if not account:
             raise ValueError("You need to provide an account")
-        account = Account(account, steem_instance=self)
+        account = Account(account, hive_instance=self)
 
         [post_author, post_permlink] = resolve_authorperm(identifier)
 
@@ -1908,7 +1908,7 @@ class Hive(object):
             account = config["default_account"]
         if not account:
             raise ValueError("You need to provide an account")
-        account = Account(account, steem_instance=self)
+        account = Account(account, hive_instance=self)
         author, permlink = resolve_authorperm(identifier)
         op = self._build_comment_options_op(author, permlink, options,
                                             beneficiaries)

@@ -21,7 +21,7 @@ from .exceptions import (
     WalletLocked,
     OfflineHasNoRPCException
 )
-from bhive.instance import shared_steem_instance
+from bhive.instance import shared_hive_instance
 log = logging.getLogger(__name__)
 
 
@@ -34,7 +34,7 @@ class TransactionBuilder(dict):
         :param dict tx: transaction (Optional). If not set, the new transaction is created.
         :param int expiration: Delay in seconds until transactions are supposed
             to expire *(optional)* (default is 30)
-        :param Hive steem_instance: If not set, shared_steem_instance() is used
+        :param Hive hive_instance: If not set, shared_hive_instance() is used
 
         .. testcode::
 
@@ -43,7 +43,7 @@ class TransactionBuilder(dict):
            from bhive import Hive
            wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
            hv = Hive(nobroadcast=True, keys={'active': wif})
-           tx = TransactionBuilder(steem_instance=hv)
+           tx = TransactionBuilder(hive_instance=hv)
            transfer = {"from": "test", "to": "test1", "amount": "1 HIVE", "memo": ""}
            tx.appendOps(Transfer(transfer))
            tx.appendSigner("test", "active") # or tx.appendWif(wif)
@@ -55,10 +55,10 @@ class TransactionBuilder(dict):
         self,
         tx={},
         use_condenser_api=True,
-        steem_instance=None,
+        hive_instance=None,
         **kwargs
     ):
-        self.hive = steem_instance or shared_steem_instance()
+        self.hive = hive_instance or shared_hive_instance()
         self.clear()
         if tx and isinstance(tx, dict):
             super(TransactionBuilder, self).__init__(tx)
@@ -150,13 +150,13 @@ class TransactionBuilder(dict):
             return
         if permission not in ["active", "owner", "posting"]:
             raise AssertionError("Invalid permission")
-        account = Account(account, steem_instance=self.hive)
+        account = Account(account, hive_instance=self.hive)
         if permission not in account:
-            account = Account(account, steem_instance=self.hive, lazy=False, full=True)
+            account = Account(account, hive_instance=self.hive, lazy=False, full=True)
             account.clear_cache()
             account.refresh()
         if permission not in account:
-            account = Account(account, steem_instance=self.hive)
+            account = Account(account, hive_instance=self.hive)
         if permission not in account:
             raise AssertionError("Could not access permission")
 
@@ -186,7 +186,7 @@ class TransactionBuilder(dict):
                 # go one level deeper
                 for authority in account[perm]["account_auths"]:
                     auth_account = Account(
-                        authority[0], steem_instance=self.hive)
+                        authority[0], hive_instance=self.hive)
                     r.extend(fetchkeys(auth_account, perm, level + 1))
 
             return r
@@ -458,7 +458,7 @@ class TransactionBuilder(dict):
                 str(account)
             ]
         else:
-            accountObj = Account(account, steem_instance=self.hive)
+            accountObj = Account(account, hive_instance=self.hive)
             authority = accountObj[permission]
             # We add a required_authorities to be able to identify
             # how to sign later. This is an array, because we
@@ -467,7 +467,7 @@ class TransactionBuilder(dict):
                 accountObj["name"]: authority
             }})
             for account_auth in authority["account_auths"]:
-                account_auth_account = Account(account_auth[0], steem_instance=self.hive)
+                account_auth_account = Account(account_auth[0], hive_instance=self.hive)
                 self["required_authorities"].update({
                     account_auth[0]: account_auth_account.get(permission)
                 })
@@ -478,7 +478,7 @@ class TransactionBuilder(dict):
             ]
             # Add one recursion of keys from account_auths:
             for account_auth in authority["account_auths"]:
-                account_auth_account = Account(account_auth[0], steem_instance=self.hive)
+                account_auth_account = Account(account_auth[0], hive_instance=self.hive)
                 self["missing_signatures"].extend(
                     [x[0] for x in account_auth_account[permission]["key_auths"]]
                 )

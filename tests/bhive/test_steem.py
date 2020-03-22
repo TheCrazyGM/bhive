@@ -19,7 +19,7 @@ from bhive.wallet import Wallet
 from bhive.witness import Witness
 from bhive.account import Account
 from bhivegraphenebase.account import PrivateKey
-from bhive.instance import set_shared_steem_instance
+from bhive.instance import set_shared_hive_instance
 from bhive.nodelist import NodeList
 # Py3 compatibility
 import sys
@@ -32,7 +32,7 @@ class Testcases(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.nodelist = NodeList()
-        cls.nodelist.update_nodes(steem_instance=Hive(node=cls.nodelist.get_nodes(exclude_limited=False), num_retries=10))
+        cls.nodelist.update_nodes(hive_instance=Hive(node=cls.nodelist.get_nodes(exclude_limited=False), num_retries=10))
         cls.bts = Hive(
             node=cls.nodelist.get_nodes(exclude_limited=True),
             nobroadcast=True,
@@ -40,14 +40,14 @@ class Testcases(unittest.TestCase):
             data_refresh_time_seconds=900,
             keys={"active": wif, "owner": wif, "memo": wif},
             num_retries=10)
-        cls.account = Account("test", full=True, steem_instance=cls.bts)
+        cls.account = Account("test", full=True, hive_instance=cls.bts)
 
     def test_transfer(self):
         bts = self.bts
         acc = self.account
         acc.hive.txbuffer.clear()
         tx = acc.transfer(
-            "test", 1.33, "HBD", memo="Foobar", account="test1")
+            "test", 1.33, "SBD", memo="Foobar", account="test1")
         self.assertEqual(
             tx["operations"][0][0],
             "transfer"
@@ -58,7 +58,7 @@ class Testcases(unittest.TestCase):
         self.assertEqual(op["memo"], "Foobar")
         self.assertEqual(op["from"], "test1")
         self.assertEqual(op["to"], "test")
-        amount = Amount(op["amount"], steem_instance=bts)
+        amount = Amount(op["amount"], hive_instance=bts)
         self.assertEqual(float(amount), 1.33)
 
     def test_create_account(self):
@@ -204,9 +204,9 @@ class Testcases(unittest.TestCase):
         tx1 = bts.new_tx()
         tx2 = bts.new_tx()
 
-        acc.transfer("test1", 1, "HIVE", append_to=tx1)
-        acc.transfer("test1", 2, "HIVE", append_to=tx2)
-        acc.transfer("test1", 3, "HIVE", append_to=tx1)
+        acc.transfer("test1", 1, "STEEM", append_to=tx1)
+        acc.transfer("test1", 2, "STEEM", append_to=tx2)
+        acc.transfer("test1", 3, "STEEM", append_to=tx1)
         tx1 = tx1.json()
         tx2 = tx2.json()
         ops1 = tx1["operations"]

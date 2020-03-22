@@ -20,7 +20,7 @@ one comment operation from each sender.
   from bhive import Hive
   from bhive.account import Account
   from bhive.comment import Comment
-  from bhive.instance import set_shared_steem_instance
+  from bhive.instance import set_shared_hive_instance
 
   # not a real working key
   wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
@@ -31,7 +31,7 @@ one comment operation from each sender.
       keys=[wif],
   )
   # Set hv as shared instance
-  set_shared_steem_instance(hv)
+  set_shared_hive_instance(hv)
 
   # Account and Comment will use now hv
   account = Account("test")
@@ -39,9 +39,9 @@ one comment operation from each sender.
   # Post
   c = Comment("@gtg/witness-gtg-log")
 
-  account.transfer("test1", 1, "HIVE")
-  account.transfer("test2", 1, "HIVE")
-  account.transfer("test3", 1, "HBD")
+  account.transfer("test1", 1, "STEEM")
+  account.transfer("test2", 1, "STEEM")
+  account.transfer("test3", 1, "SBD")
   # Upvote post with 25%
   c.upvote(25, voter=account)
 
@@ -58,7 +58,7 @@ When using  `nobroadcast=True` the transaction is not broadcasted but printed.
   from pprint import pprint
   from bhive import Hive
   from bhive.account import Account
-  from bhive.instance import set_shared_steem_instance
+  from bhive.instance import set_shared_hive_instance
 
   # Only for testing not a real working key
   wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
@@ -69,12 +69,12 @@ When using  `nobroadcast=True` the transaction is not broadcasted but printed.
       keys=[wif],
   )
   # Set testnet as shared instance
-  set_shared_steem_instance(testnet)
+  set_shared_hive_instance(testnet)
 
   # Account will use now testnet
   account = Account("test")
 
-  pprint(account.transfer("test1", 1, "HIVE"))
+  pprint(account.transfer("test1", 1, "STEEM"))
 
 When executing the script above, the output will be similar to the following:
 
@@ -140,7 +140,7 @@ Simple Sell Script
     # Sell and buy calls always refer to the *quote*
     #
     market = Market("HBD:HIVE",
-        steem_instance=hive
+        hive_instance=hive
     )
 
     #
@@ -192,7 +192,7 @@ Sell at a timely rate
         # Sell and buy calls always refer to the *quote*
         #
         market = Market("HIVE:HBD",
-            steem_instance=hive
+            hive_instance=hive
         )
 
         sell()
@@ -277,7 +277,7 @@ Example with one operation with and without the wallet:
     hv = Hive()
     # Uncomment the following when using a wallet:
     # hv.wallet.unlock("secret_password")
-    tx = TransactionBuilder(steem_instance=hv)
+    tx = TransactionBuilder(hive_instance=hv)
     op = operations.Transfer(**{"from": 'user_a',
                                 "to": 'user_b',
                                 "amount": '1.000 HBD',
@@ -299,7 +299,7 @@ Example with signing and broadcasting two operations:
     hv = Hive()
     # Uncomment the following when using a wallet:
     # hv.wallet.unlock("secret_password")
-    tx = TransactionBuilder(steem_instance=hv)
+    tx = TransactionBuilder(hive_instance=hv)
     ops = []
     op = operations.Transfer(**{"from": 'user_a',
                                 "to": 'user_b',

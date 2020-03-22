@@ -38,7 +38,7 @@ from timeit import default_timer as timer
 class BhiveTest(object):
 
     def setup(self):
-        self.prefix = u"HIVE"
+        self.prefix = u"STEEM"
         self.default_prefix = u"STM"
         self.wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
         self.ref_block_num = 34294
@@ -63,7 +63,7 @@ class BhiveTest(object):
 class HiveTest(object):
 
     def setup(self):
-        self.prefix = u"HIVE"
+        self.prefix = u"STEEM"
         self.default_prefix = u"STM"
         self.wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
         self.ref_block_num = 34294
@@ -103,7 +103,7 @@ if __name__ == "__main__":
         opBhive = operations.Transfer(**{
             "from": "foo",
             "to": "baar",
-            "amount": Amount("111.110 HIVE", steem_instance=Hive(offline=True)),
+            "amount": Amount("111.110 HIVE", hive_instance=Hive(offline=True)),
             "memo": "Fooo"
         })
 

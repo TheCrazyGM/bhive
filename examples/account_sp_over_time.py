@@ -3,7 +3,7 @@ import sys
 import datetime as dt
 from bhive.amount import Amount
 from bhive.utils import parse_time, formatTimeString, addTzInfo
-from bhive.instance import set_shared_steem_instance
+from bhive.instance import set_shared_hive_instance
 from bhive import Hive
 from bhive.snapshot import AccountSnapshot
 import matplotlib as mpl

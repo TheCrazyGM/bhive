@@ -38,7 +38,7 @@ if __name__ == "__main__":
                               'to': 'thecrazygm',
                               'amount': "0.001 HBD",
                               'memo': ""})
-    tb = TransactionBuilder(steem_instance=hv)
+    tb = TransactionBuilder(hive_instance=hv)
 
     tb.appendOps([op])
     tb.appendWif(wif)

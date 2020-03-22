@@ -9,7 +9,7 @@ import logging
 from binascii import hexlify, unhexlify
 from bhivegraphenebase.ecdsasig import verify_message, sign_message
 from bhivegraphenebase.account import PublicKey
-from bhive.instance import shared_steem_instance
+from bhive.instance import shared_hive_instance
 from bhive.account import Account
 from .exceptions import InvalidMessageSignature
 from .storage import configStorage as config
@@ -46,8 +46,8 @@ timestamp={meta[timestamp]}
 
 class Message(object):
 
-    def __init__(self, message, steem_instance=None):
-        self.hive = steem_instance or shared_steem_instance()
+    def __init__(self, message, hive_instance=None):
+        self.hive = hive_instance or shared_hive_instance()
         self.message = message
 
     def sign(self, account=None, **kwargs):
@@ -66,7 +66,7 @@ class Message(object):
             raise ValueError("You need to provide an account")
 
         # Data for message
-        account = Account(account, steem_instance=self.hive)
+        account = Account(account, hive_instance=self.hive)
         info = self.hive.info()
         meta = dict(
             timestamp=info["time"],
@@ -128,7 +128,7 @@ class Message(object):
         # Load account from blockchain
         account = Account(
             meta.get("account"),
-            steem_instance=self.hive)
+            hive_instance=self.hive)
 
         # Test if memo key is the same as on the blockchain
         if not account["memo_key"] == meta["memokey"]:

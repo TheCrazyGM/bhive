@@ -13,7 +13,7 @@ except ImportError:
 import requests
 from .storage import configStorage as config
 from six import PY2
-from bhive.instance import shared_steem_instance
+from bhive.instance import shared_hive_instance
 from bhive.amount import Amount
 
 
@@ -33,7 +33,7 @@ class HiveConnect(object):
             sc2 = HiveConnect(client_id="bhive.app")
             hive = Hive(hiveconnect=sc2)
             hive.wallet.unlock("supersecret-passphrase")
-            post = Comment("author/permlink", steem_instance=hive)
+            post = Comment("author/permlink", hive_instance=hive)
             post.upvote(voter="test")  # replace "test" with your account
 
         Examples for creating hiveconnect v2 urls for broadcasting in browser:
@@ -45,9 +45,9 @@ class HiveConnect(object):
             from bhive.hiveconnect import HiveConnect
             from pprint import pprint
             hive = Hive(nobroadcast=True, unsigned=True)
-            sc2 = HiveConnect(steem_instance=hive)
-            acc = Account("test", steem_instance=hive)
-            pprint(sc2.url_from_tx(acc.transfer("test1", 1, "HIVE", "test")))
+            sc2 = HiveConnect(hive_instance=hive)
+            acc = Account("test", hive_instance=hive)
+            pprint(sc2.url_from_tx(acc.transfer("test1", 1, "STEEM", "test")))
 
         .. testcode::
 
@@ -61,8 +61,8 @@ class HiveConnect(object):
             from bhive.hiveconnect import HiveConnect
             from pprint import pprint
             hv = Hive(nobroadcast=True, unsigned=True)
-            sc2 = HiveConnect(steem_instance=hv)
-            tx = TransactionBuilder(steem_instance=hv)
+            sc2 = HiveConnect(hive_instance=hv)
+            tx = TransactionBuilder(hive_instance=hv)
             op = operations.Transfer(**{"from": 'test',
                                         "to": 'test1',
                                         "amount": '1.000 HIVE',
@@ -76,8 +76,8 @@ class HiveConnect(object):
 
     """
 
-    def __init__(self, steem_instance=None, *args, **kwargs):
-        self.hive = steem_instance or shared_steem_instance()
+    def __init__(self, hive_instance=None, *args, **kwargs):
+        self.hive = hive_instance or shared_hive_instance()
         self.access_token = None
         self.get_refresh_token = kwargs.get("get_refresh_token", False)
         self.hot_sign_redirect_uri = kwargs.get("hot_sign_redirect_uri", config["hot_sign_redirect_uri"])
@@ -256,7 +256,7 @@ class HiveConnect(object):
                 value = params[key]
                 if isinstance(value, list) and len(value) == 3:
                     try:
-                        amount = Amount(value, steem_instance=self.hive)
+                        amount = Amount(value, hive_instance=self.hive)
                         params[key] = str(amount)
                     except:
                         amount = None

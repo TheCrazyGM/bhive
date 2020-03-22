@@ -33,7 +33,7 @@ class Benchmark(object):
 
 class Transaction(Benchmark):
     def setup(self):
-        self.prefix = u"HIVE"
+        self.prefix = u"STEEM"
         self.default_prefix = u"STM"
         self.wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
         self.ref_block_num = 34294
@@ -61,7 +61,7 @@ class Transaction(Benchmark):
         self.op = operations.Transfer(**{
             "from": "foo",
             "to": "baar",
-            "amount": Amount("111.110 HIVE", steem_instance=self.hv),
+            "amount": Amount("111.110 HIVE", hive_instance=self.hv),
             "memo": "Fooo",
             "prefix": self.default_prefix
         })

@@ -14,7 +14,7 @@ class Asset(BlockchainObject):
         :param str Asset: Symbol name or object id of an asset
         :param bool lazy: Lazy loading
         :param bool full: Also obtain bitasset-data and dynamic asset dat
-        :param Hive steem_instance: Hive
+        :param Hive hive_instance: Hive
             instance
         :returns: All data of an asset
 
@@ -29,14 +29,14 @@ class Asset(BlockchainObject):
         asset,
         lazy=False,
         full=False,
-        steem_instance=None
+        hive_instance=None
     ):
         self.full = full
         super(Asset, self).__init__(
             asset,
             lazy=lazy,
             full=full,
-            steem_instance=steem_instance
+            hive_instance=hive_instance
         )
         # self.refresh()
 

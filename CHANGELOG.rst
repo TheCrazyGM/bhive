@@ -3,6 +3,7 @@ Changelog
 0.23.0
 ------
 * Mass rename from steem to hive 
+* Reset symbols to steem/sbd for now
 
 0.21.1
 ------
@@ -412,7 +413,7 @@ Changelog
 0.19.34
 -------
 * Several bug fixes (including issue #17)
-* missing steem_instance fixed
+* missing hive_instance fixed
 * update_account_profile fixed
 * update_account_metadata added
 

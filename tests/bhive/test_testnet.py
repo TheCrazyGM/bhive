@@ -20,7 +20,7 @@ from bhiveapi import exceptions
 from bhive.amount import Amount
 from bhive.witness import Witness
 from bhive.account import Account
-from bhive.instance import set_shared_steem_instance, shared_steem_instance
+from bhive.instance import set_shared_hive_instance, shared_hive_instance
 from bhive.blockchain import Blockchain
 from bhive.block import Block
 from bhive.memo import Memo
@@ -41,7 +41,7 @@ class Testcases(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         nodelist = NodeList()
-        # hv = shared_steem_instance()
+        # hv = shared_hive_instance()
         # hv.config.refreshBackup()
         # nodes = nodelist.get_testnet()
         cls.nodes = nodelist.get_nodes()
@@ -90,7 +90,7 @@ class Testcases(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        hv = shared_steem_instance()
+        hv = shared_hive_instance()
         hv.config.recover_with_latest_backup()
 
     def test_wallet_keys(self):
@@ -119,9 +119,9 @@ class Testcases(unittest.TestCase):
         bts.wallet.unlock("123")
         # bts.wallet.addPrivateKey(self.active_key)
         # bts.prefix ="STX"
-        acc = Account("bhive", steem_instance=bts)
+        acc = Account("bhive", hive_instance=bts)
         tx = acc.transfer(
-            "bhive1", 1.33, "HBD", memo="Foobar")
+            "bhive1", 1.33, "SBD", memo="Foobar")
         self.assertEqual(
             tx["operations"][0][0],
             "transfer"
@@ -131,7 +131,7 @@ class Testcases(unittest.TestCase):
         self.assertIn("memo", op)
         self.assertEqual(op["from"], "bhive")
         self.assertEqual(op["to"], "bhive1")
-        amount = Amount(op["amount"], steem_instance=bts)
+        amount = Amount(op["amount"], hive_instance=bts)
         self.assertEqual(float(amount), 1.33)
         bts.nobroadcast = True
 
@@ -139,9 +139,9 @@ class Testcases(unittest.TestCase):
         bts = self.bts
         bts.nobroadcast = False
         bts.wallet.unlock("123")
-        acc = Account("bhive", steem_instance=bts)
+        acc = Account("bhive", hive_instance=bts)
         tx = acc.transfer(
-            "bhive1", 1.33, "HBD", memo="#Foobar")
+            "bhive1", 1.33, "SBD", memo="#Foobar")
         self.assertEqual(
             tx["operations"][0][0],
             "transfer"
@@ -149,23 +149,23 @@ class Testcases(unittest.TestCase):
         op = tx["operations"][0][1]
         self.assertIn("memo", op)
         self.assertIn("#", op["memo"])
-        m = Memo(from_account=op["from"], to_account=op["to"], steem_instance=bts)
+        m = Memo(from_account=op["from"], to_account=op["to"], hive_instance=bts)
         memo = m.decrypt(op["memo"])
         self.assertEqual(memo, "Foobar")
 
         self.assertEqual(op["from"], "bhive")
         self.assertEqual(op["to"], "bhive1")
-        amount = Amount(op["amount"], steem_instance=bts)
+        amount = Amount(op["amount"], hive_instance=bts)
         self.assertEqual(float(amount), 1.33)
         bts.nobroadcast = True
 
     def test_transfer_1of1(self):
         hive = self.bts
         hive.nobroadcast = False
-        tx = TransactionBuilder(use_condenser_api=True, steem_instance=hive)
+        tx = TransactionBuilder(use_condenser_api=True, hive_instance=hive)
         tx.appendOps(Transfer(**{"from": 'bhive',
                                  "to": 'bhive1',
-                                 "amount": Amount("0.01 HIVE", steem_instance=hive),
+                                 "amount": Amount("0.01 HIVE", hive_instance=hive),
                                  "memo": '1 of 1 transaction'}))
         self.assertEqual(
             tx["operations"][0]["type"],
@@ -182,10 +182,10 @@ class Testcases(unittest.TestCase):
         # Send a 2 of 2 transaction from elf which needs bhive4's cosign to send funds
         hive = self.bts
         hive.nobroadcast = False
-        tx = TransactionBuilder(use_condenser_api=True, steem_instance=hive)
+        tx = TransactionBuilder(use_condenser_api=True, hive_instance=hive)
         tx.appendOps(Transfer(**{"from": 'bhive5',
                                  "to": 'bhive1',
-                                 "amount": Amount("0.01 HIVE", steem_instance=hive),
+                                 "amount": Amount("0.01 HIVE", hive_instance=hive),
                                  "memo": '2 of 2 simple transaction'}))
 
         tx.appendWif(self.active_private_key_of_bhive5)
@@ -206,10 +206,10 @@ class Testcases(unittest.TestCase):
         hive.nobroadcast = False
         hive.wallet.unlock("123")
 
-        tx = TransactionBuilder(use_condenser_api=True, steem_instance=hive)
+        tx = TransactionBuilder(use_condenser_api=True, hive_instance=hive)
         tx.appendOps(Transfer(**{"from": 'bhive5',
                                  "to": 'bhive1',
-                                 "amount": Amount("0.01 HIVE", steem_instance=hive),
+                                 "amount": Amount("0.01 HIVE", hive_instance=hive),
                                  "memo": '2 of 2 serialized/deserialized transaction'}))
 
         tx.appendSigner("bhive5", "active")
@@ -228,10 +228,10 @@ class Testcases(unittest.TestCase):
         # hive.wallet.removeAccount("bhive4")
         hive.wallet.removePrivateKeyFromPublicKey(str(PublicKey(self.active_private_key_of_bhive4, prefix=core_unit)))
 
-        tx = TransactionBuilder(use_condenser_api=True, steem_instance=hive)
+        tx = TransactionBuilder(use_condenser_api=True, hive_instance=hive)
         tx.appendOps(Transfer(**{"from": 'bhive5',
                                  "to": 'bhive1',
-                                 "amount": Amount("0.01 HIVE", steem_instance=hive),
+                                 "amount": Amount("0.01 HIVE", hive_instance=hive),
                                  "memo": '2 of 2 serialized/deserialized transaction'}))
 
         tx.appendSigner("bhive5", "active")
@@ -243,7 +243,7 @@ class Testcases(unittest.TestCase):
         hive.wallet.removePrivateKeyFromPublicKey(str(PublicKey(self.active_private_key_of_bhive5, prefix=core_unit)))
         tx_json = tx.json()
         del tx
-        new_tx = TransactionBuilder(tx=tx_json, steem_instance=hive)
+        new_tx = TransactionBuilder(tx=tx_json, hive_instance=hive)
         self.assertEqual(len(new_tx['signatures']), 1)
         hive.wallet.addPrivateKey(self.active_private_key_of_bhive4)
         new_tx.appendMissingSignatures()
@@ -262,10 +262,10 @@ class Testcases(unittest.TestCase):
         # hive.wallet.removeAccount("bhive4")
         hive.wallet.removePrivateKeyFromPublicKey(str(PublicKey(self.active_private_key_of_bhive4, prefix=core_unit)))
 
-        tx = TransactionBuilder(use_condenser_api=True, steem_instance=hive)
+        tx = TransactionBuilder(use_condenser_api=True, hive_instance=hive)
         tx.appendOps(Transfer(**{"from": 'bhive5',
                                  "to": 'bhive',
-                                 "amount": Amount("0.01 HIVE", steem_instance=hive),
+                                 "amount": Amount("0.01 HIVE", hive_instance=hive),
                                  "memo": '2 of 2 serialized/deserialized transaction'}))
 
         tx.appendSigner("bhive5", "active")
@@ -296,10 +296,10 @@ class Testcases(unittest.TestCase):
             expiration=360,
         )
 
-        tx = TransactionBuilder(use_condenser_api=True, steem_instance=hive)
+        tx = TransactionBuilder(use_condenser_api=True, hive_instance=hive)
         tx.appendOps(Transfer(**{"from": 'bhive5',
                                  "to": 'bhive',
-                                 "amount": Amount("0.01 HIVE", steem_instance=hive),
+                                 "amount": Amount("0.01 HIVE", hive_instance=hive),
                                  "memo": '2 of 2 serialized/deserialized transaction'}))
 
         tx.appendSigner("bhive5", "active")
@@ -317,7 +317,7 @@ class Testcases(unittest.TestCase):
             keys=[self.active_private_key_of_bhive4],
             expiration=360,
         )
-        new_tx = TransactionBuilder(tx=tx_json, steem_instance=hive)
+        new_tx = TransactionBuilder(tx=tx_json, hive_instance=hive)
         new_tx.appendMissingSignatures()
         new_tx.sign(reconstruct_tx=False)
         self.assertEqual(len(new_tx['signatures']), 2)
@@ -326,12 +326,12 @@ class Testcases(unittest.TestCase):
     def test_verifyAuthority(self):
         hv = self.bts
         hv.wallet.unlock("123")
-        tx = TransactionBuilder(use_condenser_api=True, steem_instance=hv)
+        tx = TransactionBuilder(use_condenser_api=True, hive_instance=hv)
         tx.appendOps(Transfer(**{"from": "bhive",
                                  "to": "bhive1",
-                                 "amount": Amount("1.300 HBD", steem_instance=hv),
+                                 "amount": Amount("1.300 HBD", hive_instance=hv),
                                  "memo": "Foobar"}))
-        account = Account("bhive", steem_instance=hv)
+        account = Account("bhive", hive_instance=hv)
         tx.appendSigner(account, "active")
         self.assertTrue(len(tx.wifs) > 0)
         tx.sign()
@@ -414,10 +414,10 @@ class Testcases(unittest.TestCase):
         tx1 = bts.new_tx()
         tx2 = bts.new_tx()
 
-        acc = Account("bhive", steem_instance=bts)
-        acc.transfer("bhive1", 1, "HIVE", append_to=tx1)
-        acc.transfer("bhive1", 2, "HIVE", append_to=tx2)
-        acc.transfer("bhive1", 3, "HIVE", append_to=tx1)
+        acc = Account("bhive", hive_instance=bts)
+        acc.transfer("bhive1", 1, "STEEM", append_to=tx1)
+        acc.transfer("bhive1", 2, "STEEM", append_to=tx2)
+        acc.transfer("bhive1", 3, "STEEM", append_to=tx1)
         tx1 = tx1.json()
         tx2 = tx2.json()
         ops1 = tx1["operations"]
@@ -447,7 +447,7 @@ class Testcases(unittest.TestCase):
     def test_allow(self):
         bts = self.bts
         self.assertIn(bts.prefix, "STX")
-        acc = Account("bhive", steem_instance=bts)
+        acc = Account("bhive", hive_instance=bts)
         self.assertIn(acc.hive.prefix, "STX")
         tx = acc.allow(
             "STX55VCzsb47NZwWe5F3qyQKedX9iHBHMVVFSc96PDvV7wuj7W86n",
@@ -469,7 +469,7 @@ class Testcases(unittest.TestCase):
 
     def test_disallow(self):
         bts = self.bts
-        acc = Account("bhive", steem_instance=bts)
+        acc = Account("bhive", hive_instance=bts)
         if sys.version > '3':
             _assertRaisesRegex = self.assertRaisesRegex
         else:
@@ -493,7 +493,7 @@ class Testcases(unittest.TestCase):
         bts = self.bts
         bts.wallet.unlock("123")
         self.assertEqual(bts.prefix, "STX")
-        acc = Account("bhive", steem_instance=bts)
+        acc = Account("bhive", hive_instance=bts)
         tx = acc.update_memo_key("STX55VCzsb47NZwWe5F3qyQKedX9iHBHMVVFSc96PDvV7wuj7W86n")
         self.assertEqual(
             (tx["operations"][0][0]),
@@ -506,7 +506,7 @@ class Testcases(unittest.TestCase):
 
     def test_approvewitness(self):
         bts = self.bts
-        w = Account("bhive", steem_instance=bts)
+        w = Account("bhive", hive_instance=bts)
         tx = w.approvewitness("bhive1")
         self.assertEqual(
             (tx["operations"][0][0]),
@@ -523,10 +523,10 @@ class Testcases(unittest.TestCase):
                     nobroadcast=True,
                     expiration=120,
                     num_retries=10)
-        tx = TransactionBuilder(use_condenser_api=True, steem_instance=hv)
+        tx = TransactionBuilder(use_condenser_api=True, hive_instance=hv)
         tx.appendOps(Transfer(**{"from": "bhive",
                                  "to": "bhive1",
-                                 "amount": Amount("1 HIVE", steem_instance=hv),
+                                 "amount": Amount("1 HIVE", hive_instance=hv),
                                  "memo": ""}))
         with self.assertRaises(
             MissingKeyError
@@ -547,12 +547,12 @@ class Testcases(unittest.TestCase):
                     nobroadcast=True,
                     expiration=120,
                     num_retries=10)
-        tx = TransactionBuilder(use_condenser_api=True, steem_instance=hv)
+        tx = TransactionBuilder(use_condenser_api=True, hive_instance=hv)
         tx.appendOps(Transfer(**{"from": "bhive",
                                  "to": "bhive1",
-                                 "amount": Amount("1 HIVE", steem_instance=hv),
+                                 "amount": Amount("1 HIVE", hive_instance=hv),
                                  "memo": ""}))
-        account = Account("bhive", steem_instance=hv)
+        account = Account("bhive", hive_instance=hv)
         with self.assertRaises(
             AssertionError
         ):
@@ -569,12 +569,12 @@ class Testcases(unittest.TestCase):
                     nobroadcast=True,
                     expiration=120,
                     num_retries=10)
-        tx = TransactionBuilder(use_condenser_api=True, steem_instance=hv)
+        tx = TransactionBuilder(use_condenser_api=True, hive_instance=hv)
         tx.appendOps(Transfer(**{"from": "bhive",
                                  "to": "bhive1",
-                                 "amount": Amount("1 HIVE", steem_instance=hv),
+                                 "amount": Amount("1 HIVE", hive_instance=hv),
                                  "memo": ""}))
-        account = Account("bhive2", steem_instance=hv)
+        account = Account("bhive2", hive_instance=hv)
         tx.appendSigner(account, "active")
         tx.appendWif(self.posting_key)
         self.assertTrue(len(tx.wifs) > 0)
@@ -593,10 +593,10 @@ class Testcases(unittest.TestCase):
                     expiration=120,
                     num_retries=10)
 
-        tx = TransactionBuilder(use_condenser_api=True, expiration=10, steem_instance=hv)
+        tx = TransactionBuilder(use_condenser_api=True, expiration=10, hive_instance=hv)
         tx.appendOps(Transfer(**{"from": "bhive",
                                  "to": "bhive1",
-                                 "amount": Amount("1 HIVE", steem_instance=hv),
+                                 "amount": Amount("1 HIVE", hive_instance=hv),
                                  "memo": ""}))
         tx.appendSigner("bhive", "active")
         tx.sign()
@@ -606,16 +606,16 @@ class Testcases(unittest.TestCase):
         hv = self.bts
         opTransfer = Transfer(**{"from": "bhive",
                                  "to": "bhive1",
-                                 "amount": Amount("1 HIVE", steem_instance=hv),
+                                 "amount": Amount("1 HIVE", hive_instance=hv),
                                  "memo": ""})
-        tx1 = TransactionBuilder(use_condenser_api=True, steem_instance=hv)
+        tx1 = TransactionBuilder(use_condenser_api=True, hive_instance=hv)
         tx1.appendOps(opTransfer)
-        tx = TransactionBuilder(tx1, steem_instance=hv)
+        tx = TransactionBuilder(tx1, hive_instance=hv)
         self.assertFalse(tx.is_empty())
         self.assertTrue(len(tx.list_operations()) == 1)
         self.assertTrue(repr(tx) is not None)
         self.assertTrue(str(tx) is not None)
-        account = Account("bhive", steem_instance=hv)
+        account = Account("bhive", hive_instance=hv)
         tx.appendSigner(account, "active")
         self.assertTrue(len(tx.wifs) > 0)
         tx.sign()
@@ -629,7 +629,7 @@ class Testcases(unittest.TestCase):
                     nobroadcast=True,
                     expiration=120,
                     num_retries=10)
-        account = Account("bhive", steem_instance=hv)
+        account = Account("bhive", hive_instance=hv)
         account.follow("bhive1")
 
     def test_follow_posting_key(self):
@@ -639,5 +639,5 @@ class Testcases(unittest.TestCase):
                     nobroadcast=True,
                     expiration=120,
                     num_retries=10)
-        account = Account("bhive", steem_instance=hv)
+        account = Account("bhive", hive_instance=hv)
         account.follow("bhive1")

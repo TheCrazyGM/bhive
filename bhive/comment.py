@@ -10,7 +10,7 @@ import logging
 import pytz
 import math
 from datetime import datetime, date, time
-from .instance import shared_steem_instance
+from .instance import shared_hive_instance
 from .account import Account
 from .amount import Amount
 from .price import Price
@@ -29,7 +29,7 @@ class Comment(BlockchainObject):
         :param str authorperm: identifier to post/comment in the form of
             ``@author/permlink``
         :param boolean use_tags_api: when set to False, list_comments from the database_api is used
-        :param Hive steem_instance: :class:`bhive.hive.Hive` instance to use when accessing a RPC
+        :param Hive hive_instance: :class:`bhive.hive.Hive` instance to use when accessing a RPC
 
 
         .. code-block:: python
@@ -38,7 +38,7 @@ class Comment(BlockchainObject):
         >>> from bhive.account import Account
         >>> from bhive import Hive
         >>> hv = Hive()
-        >>> acc = Account("gtg", steem_instance=hv)
+        >>> acc = Account("gtg", hive_instance=hv)
         >>> authorperm = acc.get_blog(limit=1)[0]["authorperm"]
         >>> c = Comment(authorperm)
         >>> postdate = c["created"]
@@ -53,12 +53,12 @@ class Comment(BlockchainObject):
         use_tags_api=True,
         full=True,
         lazy=False,
-        steem_instance=None
+        hive_instance=None
     ):
         self.full = full
         self.lazy = lazy
         self.use_tags_api = use_tags_api
-        self.hive = steem_instance or shared_steem_instance()
+        self.hive = hive_instance or shared_hive_instance()
         if isinstance(authorperm, string_types) and authorperm != "":
             [author, permlink] = resolve_authorperm(authorperm)
             self["id"] = 0
@@ -73,7 +73,7 @@ class Comment(BlockchainObject):
             id_item="authorperm",
             lazy=lazy,
             full=full,
-            steem_instance=steem_instance
+            hive_instance=hive_instance
         )
 
     def _parse_json_data(self, comment):
@@ -95,7 +95,7 @@ class Comment(BlockchainObject):
         ]
         for p in sbd_amounts:
             if p in comment and isinstance(comment.get(p), (string_types, list, dict)):
-                comment[p] = Amount(comment.get(p, "0.000 %s" % (self.hive.sbd_symbol)), steem_instance=self.hive)
+                comment[p] = Amount(comment.get(p, "0.000 %s" % (self.hive.sbd_symbol)), hive_instance=self.hive)
 
         # turn json_metadata into python dict
         meta_str = comment.get("json_metadata", "{}")
@@ -165,7 +165,7 @@ class Comment(BlockchainObject):
             raise ContentDoesNotExistsException(self.identifier)
         content = self._parse_json_data(content)
         content["authorperm"] = construct_authorperm(content['author'], content['permlink'])
-        super(Comment, self).__init__(content, id_item="authorperm", lazy=self.lazy, full=self.full, steem_instance=self.hive)
+        super(Comment, self).__init__(content, id_item="authorperm", lazy=self.lazy, full=self.full, hive_instance=self.hive)
 
     def json(self):
         output = self.copy()
@@ -300,18 +300,18 @@ class Comment(BlockchainObject):
     def reward(self):
         """ Return the estimated total HBD reward.
         """
-        a_zero = Amount(0, self.hive.sbd_symbol, steem_instance=self.hive)
-        author = Amount(self.get("total_payout_value", a_zero), steem_instance=self.hive)
-        curator = Amount(self.get("curator_payout_value", a_zero), steem_instance=self.hive)
-        pending = Amount(self.get("pending_payout_value", a_zero), steem_instance=self.hive)
+        a_zero = Amount(0, self.hive.sbd_symbol, hive_instance=self.hive)
+        author = Amount(self.get("total_payout_value", a_zero), hive_instance=self.hive)
+        curator = Amount(self.get("curator_payout_value", a_zero), hive_instance=self.hive)
+        pending = Amount(self.get("pending_payout_value", a_zero), hive_instance=self.hive)
         return author + curator + pending
 
     def is_pending(self):
         """ Returns if the payout is pending (the post/comment
             is younger than 7 days)
         """
-        a_zero = Amount(0, self.hive.sbd_symbol, steem_instance=self.hive)
-        total = Amount(self.get("total_payout_value", a_zero), steem_instance=self.hive)
+        a_zero = Amount(0, self.hive.sbd_symbol, hive_instance=self.hive)
+        total = Amount(self.get("total_payout_value", a_zero), hive_instance=self.hive)
         post_age_days = self.time_elapsed().total_seconds() / 60 / 60 / 24
         return post_age_days < 7.0 and float(total) == 0
 
@@ -390,9 +390,9 @@ class Comment(BlockchainObject):
         """
         specific_vote = None
         if voter is None:
-            voter = Account(self["author"], steem_instance=self.hive)
+            voter = Account(self["author"], hive_instance=self.hive)
         else:
-            voter = Account(voter, steem_instance=self.hive)
+            voter = Account(voter, hive_instance=self.hive)
         if "active_votes" in self:
             for vote in self["active_votes"]:
                 if voter["name"] == vote["voter"]:
@@ -438,12 +438,12 @@ class Comment(BlockchainObject):
 
         """
         if self.is_pending():
-            total_payout = Amount(self["pending_payout_value"], steem_instance=self.hive)
+            total_payout = Amount(self["pending_payout_value"], hive_instance=self.hive)
             author_payout = self.get_author_rewards()["total_payout_HBD"]
             curator_payout = total_payout - author_payout
         else:
-            author_payout = Amount(self["total_payout_value"], steem_instance=self.hive)
-            curator_payout = Amount(self["curator_payout_value"], steem_instance=self.hive)
+            author_payout = Amount(self["total_payout_value"], hive_instance=self.hive)
+            curator_payout = Amount(self["curator_payout_value"], hive_instance=self.hive)
             total_payout = author_payout + curator_payout
         return {"total_payout": total_payout, "author_payout": author_payout, "curator_payout": curator_payout}
 
@@ -462,13 +462,13 @@ class Comment(BlockchainObject):
         """
         if not self.is_pending():
             return {'pending_rewards': False,
-                    "payout_HP": Amount(0, self.hive.steem_symbol, steem_instance=self.hive),
-                    "payout_HBD": Amount(0, self.hive.sbd_symbol, steem_instance=self.hive),
-                    "total_payout_HBD": Amount(self["total_payout_value"], steem_instance=self.hive)}
+                    "payout_HP": Amount(0, self.hive.steem_symbol, hive_instance=self.hive),
+                    "payout_HBD": Amount(0, self.hive.sbd_symbol, hive_instance=self.hive),
+                    "total_payout_HBD": Amount(self["total_payout_value"], hive_instance=self.hive)}
 
         median_hist = self.hive.get_current_median_history()
         if median_hist is not None:
-            median_price = Price(median_hist, steem_instance=self.hive)
+            median_price = Price(median_hist, hive_instance=self.hive)
         beneficiaries_pct = self.get_beneficiaries_pct()
         curation_tokens = self.reward * 0.25
         author_tokens = self.reward - curation_tokens
@@ -517,7 +517,7 @@ class Comment(BlockchainObject):
         """
         median_hist = self.hive.get_current_median_history()
         if median_hist is not None:
-            median_price = Price(median_hist, steem_instance=self.hive)
+            median_price = Price(median_hist, hive_instance=self.hive)
         pending_rewards = False
         if "active_votes" in self:
             active_votes_list = self["active_votes"]
@@ -531,17 +531,17 @@ class Comment(BlockchainObject):
                 total_vote_weight += vote["weight"]
             
         if not self["allow_curation_rewards"] or not self.is_pending():
-            max_rewards = Amount(0, self.hive.steem_symbol, steem_instance=self.hive)
+            max_rewards = Amount(0, self.hive.steem_symbol, hive_instance=self.hive)
             unclaimed_rewards = max_rewards.copy()
         else:
             if pending_payout_value is None and "pending_payout_value" in self:
-                pending_payout_value = Amount(self["pending_payout_value"], steem_instance=self.hive)
+                pending_payout_value = Amount(self["pending_payout_value"], hive_instance=self.hive)
             elif pending_payout_value is None:
                 pending_payout_value = 0
             elif isinstance(pending_payout_value, (float, integer_types)):
-                pending_payout_value = Amount(pending_payout_value, self.hive.sbd_symbol, steem_instance=self.hive)
+                pending_payout_value = Amount(pending_payout_value, self.hive.sbd_symbol, hive_instance=self.hive)
             elif isinstance(pending_payout_value, str):
-                pending_payout_value = Amount(pending_payout_value, steem_instance=self.hive)
+                pending_payout_value = Amount(pending_payout_value, hive_instance=self.hive)
             if pending_payout_HBD or median_hist is None:
                 max_rewards = (pending_payout_value * 0.25)
             else:
@@ -601,7 +601,7 @@ class Comment(BlockchainObject):
             content_replies = self.hive.rpc.get_content_replies(post_author, post_permlink, api="tags")
         if raw_data:
             return content_replies
-        return [Comment(c, steem_instance=self.hive) for c in content_replies]
+        return [Comment(c, hive_instance=self.hive) for c in content_replies]
 
     def get_all_replies(self, parent=None):
         """ Returns all content replies
@@ -622,7 +622,7 @@ class Comment(BlockchainObject):
         if children is None:
             children = self
         while children["depth"] > 0:
-            children = Comment(construct_authorperm(children["parent_author"], children["parent_permlink"]), steem_instance=self.hive)
+            children = Comment(construct_authorperm(children["parent_author"], children["parent_permlink"]), hive_instance=self.hive)
         return children
 
     def get_votes(self, raw_data=False):
@@ -630,7 +630,7 @@ class Comment(BlockchainObject):
         if raw_data and "active_votes" in self:
             return self["active_votes"]
         from .vote import ActiveVotes
-        return ActiveVotes(self, lazy=False, steem_instance=self.hive)
+        return ActiveVotes(self, lazy=False, hive_instance=self.hive)
 
     def upvote(self, weight=+100, voter=None):
         """ Upvote the post
@@ -762,7 +762,7 @@ class Comment(BlockchainObject):
                 account = self.hive.config["default_account"]
         if not account:
             raise ValueError("You need to provide an account")
-        account = Account(account, steem_instance=self.hive)
+        account = Account(account, hive_instance=self.hive)
         if not identifier:
             post_author = self["author"]
             post_permlink = self["permlink"]
@@ -785,7 +785,7 @@ class Comment(BlockchainObject):
             account = self.hive.configStorage.get("default_account")
         if not account:
             raise ValueError("You need to provide an account")
-        account = Account(account, steem_instance=self.hive)
+        account = Account(account, hive_instance=self.hive)
         if identifier is None:
             identifier = self.identifier
         author, permlink = resolve_authorperm(identifier)
@@ -806,10 +806,10 @@ class RecentReplies(list):
         :param str author: author
         :param bool skip_own: (optional) Skip replies of the author to him/herself.
             Default: True
-        :param Hive steem_instance: Hive() instance to use when accesing a RPC
+        :param Hive hive_instance: Hive() instance to use when accesing a RPC
     """
-    def __init__(self, author, skip_own=True, lazy=False, full=True, steem_instance=None):
-        self.hive = steem_instance or shared_steem_instance()
+    def __init__(self, author, skip_own=True, lazy=False, full=True, hive_instance=None):
+        self.hive = hive_instance or shared_hive_instance()
         if not self.hive.is_connected():
             return None
         self.hive.rpc.set_next_node_on_empty_reply(True)
@@ -820,7 +820,7 @@ class RecentReplies(list):
             post = state["content"][reply]
             if skip_own and post["author"] == author:
                 continue
-            comments.append(Comment(post, lazy=lazy, full=full, steem_instance=self.hive))
+            comments.append(Comment(post, lazy=lazy, full=full, hive_instance=self.hive))
         super(RecentReplies, self).__init__(comments)
 
 
@@ -828,10 +828,10 @@ class RecentByPath(list):
     """ Obtain a list of votes for an account
 
         :param str account: Account name
-        :param Hive steem_instance: Hive() instance to use when accesing a RPC
+        :param Hive hive_instance: Hive() instance to use when accesing a RPC
     """
-    def __init__(self, path="promoted", category=None, lazy=False, full=True, steem_instance=None):
-        self.hive = steem_instance or shared_steem_instance()
+    def __init__(self, path="promoted", category=None, lazy=False, full=True, hive_instance=None):
+        self.hive = hive_instance or shared_hive_instance()
         if not self.hive.is_connected():
             return None
         self.hive.rpc.set_next_node_on_empty_reply(True)
@@ -841,5 +841,5 @@ class RecentByPath(list):
         for reply in replies:
             post = state["content"][reply]
             if category is None or (category is not None and post["category"] == category):
-                comments.append(Comment(post, lazy=lazy, full=full, steem_instance=self.hive))
+                comments.append(Comment(post, lazy=lazy, full=full, hive_instance=self.hive))
         super(RecentByPath, self).__init__(comments)

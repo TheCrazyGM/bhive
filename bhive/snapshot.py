@@ -16,7 +16,7 @@ from bhive.utils import formatTimeString, formatTimedelta, remove_from_dict, rep
 from bhive.amount import Amount
 from bhive.account import Account
 from bhive.vote import Vote
-from bhive.instance import shared_steem_instance
+from bhive.instance import shared_hive_instance
 from bhive.constants import HIVE_VOTE_REGENERATION_SECONDS, HIVE_1_PERCENT, HIVE_100_PERCENT
 
 log = logging.getLogger(__name__)
@@ -26,21 +26,21 @@ class AccountSnapshot(list):
     """ This class allows to easily access Account history
 
         :param str account_name: Name of the account
-        :param Hive steem_instance: Hive
+        :param Hive hive_instance: Hive
                instance
     """
-    def __init__(self, account, account_history=[], steem_instance=None):
-        self.hive = steem_instance or shared_steem_instance()
-        self.account = Account(account, steem_instance=self.hive)
+    def __init__(self, account, account_history=[], hive_instance=None):
+        self.hive = hive_instance or shared_hive_instance()
+        self.account = Account(account, hive_instance=self.hive)
         self.reset()
         super(AccountSnapshot, self).__init__(account_history)
 
     def reset(self):
         """ Resets the arrays not the stored account history
         """
-        self.own_vests = [Amount(0, self.hive.vests_symbol, steem_instance=self.hive)]
-        self.own_steem = [Amount(0, self.hive.steem_symbol, steem_instance=self.hive)]
-        self.own_sbd = [Amount(0, self.hive.sbd_symbol, steem_instance=self.hive)]
+        self.own_vests = [Amount(0, self.hive.vests_symbol, hive_instance=self.hive)]
+        self.own_steem = [Amount(0, self.hive.steem_symbol, hive_instance=self.hive)]
+        self.own_sbd = [Amount(0, self.hive.sbd_symbol, hive_instance=self.hive)]
         self.delegated_vests_in = [{}]
         self.delegated_vests_out = [{}]
         self.timestamps = [addTzInfo(datetime(1970, 1, 1, 0, 0, 0, 0))]
@@ -274,8 +274,8 @@ class AccountSnapshot(list):
         ts = parse_time(op['timestamp'])
 
         if op['type'] == "account_create":
-            fee_steem = Amount(op['fee'], steem_instance=self.hive).amount
-            fee_vests = self.hive.hp_to_vests(Amount(op['fee'], steem_instance=self.hive).amount, timestamp=ts)
+            fee_steem = Amount(op['fee'], hive_instance=self.hive).amount
+            fee_vests = self.hive.hp_to_vests(Amount(op['fee'], hive_instance=self.hive).amount, timestamp=ts)
             # print(fee_vests)
             if op['new_account_name'] == self.account["name"]:
                 self.update(ts, fee_vests, 0, 0)
@@ -285,12 +285,12 @@ class AccountSnapshot(list):
                 return
 
         elif op['type'] == "account_create_with_delegation":
-            fee_steem = Amount(op['fee'], steem_instance=self.hive).amount
-            fee_vests = self.hive.hp_to_vests(Amount(op['fee'], steem_instance=self.hive).amount, timestamp=ts)
+            fee_steem = Amount(op['fee'], hive_instance=self.hive).amount
+            fee_vests = self.hive.hp_to_vests(Amount(op['fee'], hive_instance=self.hive).amount, timestamp=ts)
             if op['new_account_name'] == self.account["name"]:
-                if Amount(op['delegation'], steem_instance=self.hive).amount > 0:
+                if Amount(op['delegation'], hive_instance=self.hive).amount > 0:
                     delegation = {'account': op['creator'], 'amount':
-                                  Amount(op['delegation'], steem_instance=self.hive)}
+                                  Amount(op['delegation'], hive_instance=self.hive)}
                 else:
                     delegation = None
                 self.update(ts, fee_vests, delegation, 0)
@@ -298,12 +298,12 @@ class AccountSnapshot(list):
 
             if op['creator'] == self.account["name"]:
                 delegation = {'account': op['new_account_name'], 'amount':
-                              Amount(op['delegation'], steem_instance=self.hive)}
+                              Amount(op['delegation'], hive_instance=self.hive)}
                 self.update(ts, 0, 0, delegation, fee_steem * (-1), 0)
                 return
 
         elif op['type'] == "delegate_vesting_shares":
-            vests = Amount(op['vesting_shares'], steem_instance=self.hive)
+            vests = Amount(op['vesting_shares'], hive_instance=self.hive)
             # print(op)
             if op['delegator'] == self.account["name"]:
                 delegation = {'account': op['delegatee'], 'amount': vests}
@@ -315,7 +315,7 @@ class AccountSnapshot(list):
                 return
 
         elif op['type'] == "transfer":
-            amount = Amount(op['amount'], steem_instance=self.hive)
+            amount = Amount(op['amount'], hive_instance=self.hive)
             # print(op)
             if op['from'] == self.account["name"]:
                 if amount.symbol == self.hive.steem_symbol:
@@ -332,8 +332,8 @@ class AccountSnapshot(list):
             return
 
         elif op['type'] == "fill_order":
-            current_pays = Amount(op["current_pays"], steem_instance=self.hive)
-            open_pays = Amount(op["open_pays"], steem_instance=self.hive)
+            current_pays = Amount(op["current_pays"], hive_instance=self.hive)
+            open_pays = Amount(op["open_pays"], hive_instance=self.hive)
             if op["current_owner"] == self.account["name"]:
                 if current_pays.symbol == self.hive.steem_symbol:
                     self.update(ts, 0, 0, 0, current_pays * (-1), open_pays)
@@ -348,7 +348,7 @@ class AccountSnapshot(list):
             return
 
         elif op['type'] == "transfer_to_vesting":
-            hive = Amount(op['amount'], steem_instance=self.hive)
+            hive = Amount(op['amount'], hive_instance=self.hive)
             vests = self.hive.hp_to_vests(hive.amount, timestamp=ts)
             if op['from'] == self.account["name"] and op['to'] == self.account["name"]:
                 self.update(ts, vests, 0, 0, hive * (-1), 0)  # power up from and to given account
@@ -360,26 +360,26 @@ class AccountSnapshot(list):
 
         elif op['type'] == "fill_vesting_withdraw":
             # print(op)
-            vests = Amount(op['withdrawn'], steem_instance=self.hive)
+            vests = Amount(op['withdrawn'], hive_instance=self.hive)
             self.update(ts, vests * (-1), 0, 0)
             return
 
         elif op['type'] == "return_vesting_delegation":
             delegation = {'account': None, 'amount':
-                          Amount(op['vesting_shares'], steem_instance=self.hive)}
+                          Amount(op['vesting_shares'], hive_instance=self.hive)}
             self.update(ts, 0, 0, delegation)
             return
 
         elif op['type'] == "claim_reward_balance":
-            vests = Amount(op['reward_vests'], steem_instance=self.hive)
-            hive = Amount(op['reward_steem'], steem_instance=self.hive)
-            hbd = Amount(op['reward_sbd'], steem_instance=self.hive)
+            vests = Amount(op['reward_vests'], hive_instance=self.hive)
+            hive = Amount(op['reward_steem'], hive_instance=self.hive)
+            hbd = Amount(op['reward_sbd'], hive_instance=self.hive)
             self.update(ts, vests, 0, 0, hive, hbd)
             return
 
         elif op['type'] == "curation_reward":
             if "curation_reward" in only_ops or enable_rewards:
-                vests = Amount(op['reward'], steem_instance=self.hive)
+                vests = Amount(op['reward'], hive_instance=self.hive)
             if "curation_reward" in only_ops:
                 self.update(ts, vests, 0, 0)
             if enable_rewards:
@@ -389,9 +389,9 @@ class AccountSnapshot(list):
         elif op['type'] == "author_reward":
             if "author_reward" in only_ops or enable_rewards:
                 # print(op)
-                vests = Amount(op['vesting_payout'], steem_instance=self.hive)
-                hive = Amount(op['steem_payout'], steem_instance=self.hive)
-                hbd = Amount(op['sbd_payout'], steem_instance=self.hive)
+                vests = Amount(op['vesting_payout'], hive_instance=self.hive)
+                hive = Amount(op['steem_payout'], hive_instance=self.hive)
+                hbd = Amount(op['sbd_payout'], hive_instance=self.hive)
             if "author_reward" in only_ops:
                 self.update(ts, vests, 0, 0, hive, hbd)
             if enable_rewards:
@@ -399,33 +399,33 @@ class AccountSnapshot(list):
             return
 
         elif op['type'] == "producer_reward":
-            vests = Amount(op['vesting_shares'], steem_instance=self.hive)
+            vests = Amount(op['vesting_shares'], hive_instance=self.hive)
             self.update(ts, vests, 0, 0)
             return
 
         elif op['type'] == "comment_benefactor_reward":
             if op['benefactor'] == self.account["name"]:
                 if "reward" in op:
-                    vests = Amount(op['reward'], steem_instance=self.hive)
+                    vests = Amount(op['reward'], hive_instance=self.hive)
                     self.update(ts, vests, 0, 0)
                 else:
-                    vests = Amount(op['vesting_payout'], steem_instance=self.hive)
-                    hive = Amount(op['steem_payout'], steem_instance=self.hive)
-                    hbd = Amount(op['sbd_payout'], steem_instance=self.hive)
+                    vests = Amount(op['vesting_payout'], hive_instance=self.hive)
+                    hive = Amount(op['steem_payout'], hive_instance=self.hive)
+                    hbd = Amount(op['sbd_payout'], hive_instance=self.hive)
                     self.update(ts, vests, 0, 0, hive, hbd)
                 return
             else:
                 return
 
         elif op['type'] == "fill_convert_request":
-            amount_in = Amount(op["amount_in"], steem_instance=self.hive)
-            amount_out = Amount(op["amount_out"], steem_instance=self.hive)
+            amount_in = Amount(op["amount_in"], hive_instance=self.hive)
+            amount_out = Amount(op["amount_out"], hive_instance=self.hive)
             if op["owner"] == self.account["name"]:
                 self.update(ts, 0, 0, 0, amount_out, amount_in * (-1))
             return
 
         elif op['type'] == "interest":
-            interest = Amount(op["interest"], steem_instance=self.hive)
+            interest = Amount(op["interest"], hive_instance=self.hive)
             self.update(ts, 0, 0, 0, 0, interest)
             return
 

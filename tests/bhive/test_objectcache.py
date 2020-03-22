@@ -7,7 +7,7 @@ from builtins import str
 import time
 import unittest
 from bhive import Hive, exceptions
-from bhive.instance import set_shared_steem_instance
+from bhive.instance import set_shared_hive_instance
 from bhive.blockchainobject import ObjectCache
 from bhive.account import Account
 from bhive.nodelist import NodeList

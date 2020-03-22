@@ -11,7 +11,7 @@ import requests
 import struct
 from datetime import datetime
 from binascii import hexlify
-from .instance import shared_steem_instance
+from .instance import shared_hive_instance
 from .account import Account
 from bhivegraphenebase.py23 import py23_bytes
 from bhivegraphenebase.ecdsasig import sign_message
@@ -22,7 +22,7 @@ except ImportError:
 
 
 class Conveyor(object):
-    """ Class to access hiveio Conveyor instances:
+    """ Class to access bhive.app Conveyor instances:
         https://gitlab.syncad.com/hive-group//conveyor
 
         Description from the official documentation:
@@ -47,16 +47,16 @@ class Conveyor(object):
     """
 
     def __init__(self, url="https://conveyor.hive.blog",
-                 steem_instance=None):
+                 hive_instance=None):
         """ Initialize a Conveyor instance
             :param str url: (optional) URL to the Conveyor API, defaults to
                 https://conveyor.hive.blog
-            :param bhive.hive.Hive steem_instance: Hive instance
+            :param bhive.hive.Hive hive_instance: Hive instance
 
         """
 
         self.url = url
-        self.hive = steem_instance or shared_steem_instance()
+        self.hive = hive_instance or shared_hive_instance()
         self.id = 0
         self.ENCODING = 'utf-8'
         self.TIMEFORMAT = '%Y-%m-%dT%H:%M:%S.%f'
@@ -127,11 +127,11 @@ class Conveyor(object):
             :params dict params: request parameters as `dict`
 
         """
-        account = Account(account, steem_instance=self.hive)
+        account = Account(account, hive_instance=self.hive)
         if signing_account is None:
             signer = account
         else:
-            signer = Account(signing_account, steem_instance=self.hive)
+            signer = Account(signing_account, hive_instance=self.hive)
         if "posting" not in signer:
             signer.refresh()
         if "posting" not in signer:
@@ -157,11 +157,11 @@ class Conveyor(object):
                 from bhive import Hive
                 from bhive.conveyor import Conveyor
                 s = Hive(keys=["5JPOSTINGKEY"])
-                c = Conveyor(steem_instance=s)
+                c = Conveyor(hive_instance=s)
                 print(c.get_user_data('accountname'))
 
         """
-        account = Account(account, steem_instance=self.hive)
+        account = Account(account, hive_instance=self.hive)
         user_data = self._conveyor_method(account, signing_account,
                                           "conveyor.get_user_data",
                                           [account['name']])
@@ -186,7 +186,7 @@ class Conveyor(object):
                 from bhive import Hive
                 from bhive.conveyor import Conveyor
                 s = Hive(keys=["5JADMINPOSTINGKEY"])
-                c = Conveyor(steem_instance=s)
+                c = Conveyor(hive_instance=s)
                 userdata = {'email': 'foo@bar.com', 'phone':'+123456789'}
                 c.set_user_data('accountname', userdata, 'adminaccountname')
 
@@ -210,11 +210,11 @@ class Conveyor(object):
                 from bhive import Hive
                 from bhive.conveyor import Conveyor
                 s = Hive(keys=["5JPOSTINGKEY"])
-                c = Conveyor(steem_instance=s)
+                c = Conveyor(hive_instance=s)
                 print(c.get_feature_flags('accountname'))
 
         """
-        account = Account(account, steem_instance=self.hive)
+        account = Account(account, hive_instance=self.hive)
         feature_flags = self._conveyor_method(account, signing_account,
                                               "conveyor.get_feature_flags",
                                               [account['name']])
@@ -239,11 +239,11 @@ class Conveyor(object):
                 from bhive import Hive
                 from bhive.conveyor import Conveyor
                 s = Hive(keys=["5JPOSTINGKEY"])
-                c = Conveyor(steem_instance=s)
+                c = Conveyor(hive_instance=s)
                 print(c.get_feature_flag('accountname', 'accepted_tos'))
 
         """
-        account = Account(account, steem_instance=self.hive)
+        account = Account(account, hive_instance=self.hive)
         return self._conveyor_method(account, signing_account,
                                      "conveyor.get_feature_flag",
                                      [account['name'], flag])
@@ -256,7 +256,7 @@ class Conveyor(object):
             :param str body: draft post body
 
         """
-        account = Account(account, steem_instance=self.hive)
+        account = Account(account, hive_instance=self.hive)
         draft = {'title': title, 'body': body}
         return self._conveyor_method(account, None,
                                      "conveyor.save_draft",
@@ -279,7 +279,7 @@ class Conveyor(object):
                 }
 
         """
-        account = Account(account, steem_instance=self.hive)
+        account = Account(account, hive_instance=self.hive)
         return self._conveyor_method(account, None,
                                      "conveyor.list_drafts",
                                      [account['name']])
@@ -292,7 +292,7 @@ class Conveyor(object):
                 `list_drafts`
 
         """
-        account = Account(account, steem_instance=self.hive)
+        account = Account(account, hive_instance=self.hive)
         return self._conveyor_method(account, None,
                                      "conveyor.remove_draft",
                                      [account['name'], uuid])

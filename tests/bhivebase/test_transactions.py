@@ -31,7 +31,7 @@ from bhive.hive import Hive
 
 TEST_AGAINST_CLI_WALLET = False
 
-prefix = u"HIVE"
+prefix = u"STEEM"
 default_prefix = u"STM"
 wif = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
 ref_block_num = 34294
@@ -82,7 +82,7 @@ class Testcases(unittest.TestCase):
         self.op = operations.Transfer(**{
             "from": "foo",
             "to": "baar",
-            "amount": Amount("111.110 HIVE", steem_instance=self.hv),
+            "amount": Amount("111.110 HIVE", hive_instance=self.hv),
             "memo": "Fooo",
             "prefix": default_prefix
         })
@@ -992,7 +992,7 @@ class Testcases(unittest.TestCase):
             **{
                 "fee": {"amount": "3000", "precision": 3, "nai": "@@000000021"},
                 "delegation": {"amount": "0", "precision": 6, "nai": "@@000000037"},
-                "creator": "hiveio",
+                "creator": "bhive.app",
                 "new_account_name": "alice",
                 "owner": {
                     "weight_threshold": 1,
@@ -1051,10 +1051,10 @@ class Testcases(unittest.TestCase):
                     },
             "seller": "1.2.29",
             "amount_to_sell": {"amount": 100000,
-                               "asset_id": "HBD"
+                               "asset_id": "SBD"
                                },
             "min_to_receive": {"amount": 10000,
-                               "asset_id": "HBD"
+                               "asset_id": "SBD"
                                },
             "expiration": "2016-05-18T09:22:05",
             "fill_or_kill": False,
@@ -1072,11 +1072,11 @@ class Testcases(unittest.TestCase):
         from_account_id = "test"
         to_account_id = "test1"
         amount = 1000000
-        asset_id = "HBD"
+        asset_id = "SBD"
         message = "abcdefgABCDEFG0123456789"
         nonce = "5862723643998573708"
 
-        fee = objects.Asset(amount=0, asset_id="HBD")
+        fee = objects.Asset(amount=0, asset_id="SBD")
         amount = objects.Asset(amount=int(amount), asset_id=asset_id)
         encrypted_memo = memo.encode_memo(
             account.PrivateKey(wif),

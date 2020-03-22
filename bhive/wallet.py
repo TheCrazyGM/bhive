@@ -9,7 +9,7 @@ import os
 import hashlib
 from bhivegraphenebase import bip38
 from bhivegraphenebase.account import PrivateKey
-from bhive.instance import shared_steem_instance
+from bhive.instance import shared_hive_instance
 from .account import Account
 from .aes import AESCipher
 from .exceptions import (
@@ -112,8 +112,8 @@ class Wallet(object):
     token = {}
     keyMap = {}  # wif pairs to force certain keys
 
-    def __init__(self, steem_instance=None, *args, **kwargs):
-        self.hive = steem_instance or shared_steem_instance()
+    def __init__(self, hive_instance=None, *args, **kwargs):
+        self.hive = hive_instance or shared_hive_instance()
 
         # Compatibility after name change from wif->keys
         if "wif" in kwargs and "keys" not in kwargs:
@@ -629,7 +629,7 @@ class Wallet(object):
         """
         for name in self.getAccountsFromPublicKey(pub):
             try:
-                account = Account(name, steem_instance=self.hive)
+                account = Account(name, hive_instance=self.hive)
             except AccountDoesNotExistsException:
                 continue
             yield {"name": account["name"],
@@ -648,7 +648,7 @@ class Wallet(object):
             return {"name": None, "type": None, "pubkey": pub}
         else:
             try:
-                account = Account(name, steem_instance=self.hive)
+                account = Account(name, hive_instance=self.hive)
             except:
                 return
             return {"name": account["name"],

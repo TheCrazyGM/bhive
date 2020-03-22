@@ -17,7 +17,7 @@ logging.basicConfig(level=logging.INFO)
 
 if __name__ == "__main__":
     hv = Hive("https://api.hive.blog")
-    bsteem_acc = Account("thecrazygm", steem_instance=hv)
+    bsteem_acc = Account("thecrazygm", hive_instance=hv)
     hv2 = hiveHive(nodes=["https://api.hive.blog"])
     steem_acc = hiveAccount("thecrazygm", hived_instance=hv2)
 

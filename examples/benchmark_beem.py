@@ -36,9 +36,9 @@ if __name__ == "__main__":
         max_batch_size = None
         threading = True
         thread_num = 16
-    blockchain = Blockchain(steem_instance=hv)
+    blockchain = Blockchain(hive_instance=hv)
     last_block_id = 19273700
-    last_block = Block(last_block_id, steem_instance=hv)
+    last_block = Block(last_block_id, hive_instance=hv)
     startTime = datetime.now()
 
     stopTime = last_block.time() + timedelta(seconds=how_many_hours * 60 * 60)
