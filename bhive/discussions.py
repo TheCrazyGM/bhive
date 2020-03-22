@@ -573,7 +573,7 @@ class Discussions_by_comments(list):
         .. testcode::
 
             from bhive.discussions import Query, Discussions_by_comments
-            q = Query(limit=10, start_author="hiveio", start_permlink="firstpost")
+            q = Query(limit=10, start_author="bhive.app", start_permlink="firstpost")
             for h in Discussions_by_comments(q):
                 print(h)
 
@@ -635,7 +635,7 @@ class Replies_by_last_update(list):
         .. testcode::
 
             from bhive.discussions import Query, Replies_by_last_update
-            q = Query(limit=10, start_parent_author="hiveio", start_permlink="firstpost")
+            q = Query(limit=10, start_parent_author="bhive.app", start_permlink="firstpost")
             for h in Replies_by_last_update(q):
                 print(h)
 

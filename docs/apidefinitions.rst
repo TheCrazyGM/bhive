@@ -50,7 +50,7 @@ get_account_history
 .. code-block:: python
 
     from bhive.account import Account
-    acc = Account("hiveio")
+    acc = Account("bhive.app")
     for h in acc.get_account_history(1,0):
         print(h)
 
@@ -267,7 +267,7 @@ get_discussions_by_comments
 .. code-block:: python
 
     from bhive.discussions import Query, Discussions_by_comments
-    q = Query(limit=10, start_author="hiveio", start_permlink="firstpost")
+    q = Query(limit=10, start_author="bhive.app", start_permlink="firstpost")
     for h in Discussions_by_comments(q):
         print(h)
 
@@ -563,7 +563,7 @@ get_replies_by_last_update
 .. code-block:: python
 
     from bhive.discussions import Query, Replies_by_last_update
-    q = Query(limit=10, start_author="hiveio", start_permlink="firstpost")
+    q = Query(limit=10, start_author="bhive.app", start_permlink="firstpost")
     for h in Replies_by_last_update(q):
         print(h)
 

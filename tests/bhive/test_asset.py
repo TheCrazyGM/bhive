@@ -23,7 +23,7 @@ class Testcases(unittest.TestCase):
             nobroadcast=True,
             num_retries=10
         )
-        cls.hiveio = Hive(
+        cls.bhive.app = Hive(
             node="https://api.hive.blog",
             nobroadcast=True,
             num_retries=10
@@ -32,7 +32,7 @@ class Testcases(unittest.TestCase):
 
     @parameterized.expand([
         ("normal"),
-        ("hiveio"),
+        ("bhive.app"),
     ])
     def test_assert(self, node_param):
         if node_param == "normal":

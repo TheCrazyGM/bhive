@@ -314,7 +314,7 @@ class Hive(object):
         except:
             reserve_ratio = {'id': 0, 'average_block_size': None,
                              'current_reserve_ratio': None,
-                             'max_virtual_bandwidth': None}            
+                             'max_virtual_bandwidth': None}
         return reserve_ratio
 
     def get_feed_history(self, use_stored_data=True):
@@ -539,7 +539,7 @@ class Hive(object):
                 current ratio is returned (default). (can also be a datetime object)
         """
         if self.offline and time_stamp is None:
-            time_stamp =datetime.utcnow()
+            time_stamp = datetime.utcnow()
 
         if time_stamp is not None:
             if isinstance(time_stamp, (datetime, date)):
@@ -922,7 +922,7 @@ class Hive(object):
                 You may want to use your own txbuffer
         """
         if self.offline:
-                return {}
+            return {}
         if "append_to" in kwargs and kwargs["append_to"]:
 
             # Append to the append_to and return
@@ -1744,24 +1744,24 @@ class Hive(object):
         account = Account(author, steem_instance=self)
         # deal with the category and tags
         if isinstance(tags, str):
-            tags = list(set([_f for _f in (re.split("[\W_]", tags)) if _f]))
+            tags = list(set([_f for _f in (re.split("[W_]", tags)) if _f]))
 
         category = None
         tags = tags or json_metadata.get('tags', [])
 
         if parse_body:
             def get_urls(mdstring):
-                return list(set(re.findall('http[s]*://[^\s"><\)\(]+', mdstring)))
+                return list(set(re.findall('http[s]*://[^s"><\)\(]+', mdstring)))
 
             def get_users(mdstring):
                 users = []
-                for u in re.findall('(^|[^a-zA-Z0-9_!#$%&*@＠\/]|(^|[^a-zA-Z0-9_+~.-\/#]))[@＠]([a-z][-\.a-z\d]+[a-z\d])', mdstring):
+                for u in re.findall('(^|[^a-zA-Z0-9_!#$%&*@＠\/]|(^|[^a-zA-Z0-9_+~.-\/#]))[@＠]([a-z][-.a-z\d]+[a-z\d])', mdstring):
                     users.append(list(u)[-1])
                 return users
 
             def get_hashtags(mdstring):
                 hashtags = []
-                for t in re.findall('(^|\s)(#[-a-z\d]+)', mdstring):
+                for t in re.findall('(^|s)(#[-a-z\d]+)', mdstring):
                     hashtags.append(list(t)[-1])
                 return hashtags
 

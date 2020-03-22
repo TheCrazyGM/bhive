@@ -23,7 +23,7 @@ class Testcases(unittest.TestCase):
             nobroadcast=True,
             num_retries=10
         )
-        cls.hiveio = Hive(
+        cls.bhive.app = Hive(
             node="https://api.hive.blog",
             nobroadcast=True,
             use_condenser=False,
