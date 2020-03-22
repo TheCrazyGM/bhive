@@ -98,13 +98,13 @@ def assets_from_string(text):
     Splits the string into two assets with the separator being on of the
     following: ``:``, ``/``, or ``-``.
     """
-    return re.split(r"[-:/]", text)
+    return re.split(r"[\-:/]", text)
 
 
 def sanitize_permlink(permlink):
     permlink = permlink.strip()
-    permlink = re.sub("_|s|.", "-", permlink)
-    permlink = re.sub("[^w-]", "", permlink)
+    permlink = re.sub("_|\s|.", "-", permlink)
+    permlink = re.sub("[^\w-]", "", permlink)
     permlink = re.sub("[^a-zA-Z0-9-]", "", permlink)
     permlink = permlink.lower()
     return permlink
@@ -154,15 +154,15 @@ def resolve_authorperm(identifier):
 
     """
     # without any http(s)
-    match = re.match("@?([w-.]*)/([w-]*)", identifier)
+    match = re.match("@?([\w\-\.]*)/([\w\-]*)", identifier)	
     if hasattr(match, "group"):
         return match.group(1), match.group(2)
     # dtube url
-    match = re.match("([w-.]+[^#?s]+)/#!/v/?([w-.]*)/([w-]*)", identifier)
+    match = re.match("([\w-\.]+[^#?\s]+)/#!/v/?([\w-\.]*)/([w\-]*)", identifier)
     if hasattr(match, "group"):
         return match.group(2), match.group(3)
     # url
-    match = re.match("([w-.]+[^#?s]+)/@?([w-.]*)/([w-]*)", identifier)
+    match = re.match("([\w\-\.]+[^#?\s]+)/@?([\w\-\.]*)/([\w\-]*)", identifier)
     if not hasattr(match, "group"):
         raise ValueError("Invalid identifier")
     return match.group(2), match.group(3)
